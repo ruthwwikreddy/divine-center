@@ -4,6 +4,32 @@
   var DC = window.DivineCenter;
   if (!DC) return;
 
+  var SHARE_ICON =
+    '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">' +
+    '<circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>' +
+    '<path d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98"/></svg>';
+
+  function bindShareButton(btn, shareData, label) {
+    if (!btn) return;
+    label = label || "Share";
+    btn.addEventListener("click", function () {
+      if (navigator.share) {
+        navigator.share(shareData).catch(function () {});
+        return;
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(shareData.url || location.href).then(function () {
+          btn.setAttribute("aria-label", "Link copied");
+          btn.classList.add("is-copied");
+          setTimeout(function () {
+            btn.setAttribute("aria-label", label);
+            btn.classList.remove("is-copied");
+          }, 1600);
+        }).catch(function () {});
+      }
+    });
+  }
+
   var slug = new URLSearchParams(location.search).get("p") || "";
   var detail = DC.getPanditDetail(slug);
   var root = document.getElementById("pandit-detail-root");
@@ -63,32 +89,58 @@
 
   function renderServices(services) {
     if (!services || !services.length) return "";
+    function renderServiceCard(svc) {
+      var puja = svc.pujaSlug ? DC.getPuja(svc.pujaSlug) : null;
+      var href = svc.pujaSlug ? "puja?p=" + encodeURIComponent(svc.pujaSlug) : "pujas";
+      var title = puja && puja.title ? puja.title : svc.name;
+      var desc =
+        puja && puja.desc
+          ? puja.desc
+          : "Personalized Vedic ritual guidance and ceremony support from this pandit.";
+      var mode = puja && puja.type ? puja.type : modeLabel(detail.mode);
+      var duration = puja && puja.duration ? puja.duration : "Flexible duration";
+      var media = puja
+        ? DC.imgPujaPhoto(puja, "puja-card__img", 320, 220, "lazy")
+        : '<div class="puja-card__img pandit-services__fallback-media" aria-hidden="true"></div>';
+      return (
+        '<a href="' +
+        href +
+        '" class="puja-card pandit-service-card">' +
+        '<div class="puja-card__media-wrap">' +
+        media +
+        '<span class="puja-card__badge">' +
+        esc(mode) +
+        "</span></div>" +
+        '<div class="puja-card__body">' +
+        '<h3 class="puja-card__title">' +
+        esc(title) +
+        "</h3>" +
+        '<p class="puja-card__desc">' +
+        esc(desc) +
+        "</p>" +
+        '<div class="puja-card__meta">' +
+        "<span>" +
+        esc(duration) +
+        "</span>" +
+        "<span>" +
+        esc(mode) +
+        "</span></div>" +
+        '<span class="puja-card__more">View details <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></span>' +
+        "</div></a>"
+      );
+    }
     return (
       '<section class="detail-section pandit-services" aria-labelledby="pandit-services-title">' +
       '<div class="detail-section__head">' +
       '<span class="detail-section__icon" aria-hidden="true">' +
       '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-3.5L6 21l1.5-7.5L2 9h7z"/></svg>' +
       "</span>" +
-      '<div><h2 id="pandit-services-title" class="detail-section__title">Services Offered</h2>' +
+      '<div class="detail-section__head-copy"><h2 id="pandit-services-title" class="detail-section__title">Services Offered</h2>' +
       '<p class="detail-section__lede">' +
       services.length +
       " ceremonies available to book with this pandit</p></div></div>" +
       '<div class="pandit-services__grid">' +
-      services
-        .map(function (svc) {
-          var href = svc.pujaSlug ? "puja?p=" + encodeURIComponent(svc.pujaSlug) : "pujas";
-          return (
-            '<a href="' +
-            href +
-            '" class="pandit-services__item">' +
-            '<span class="pandit-services__name">' +
-            esc(svc.name) +
-            "</span>" +
-            '<span class="pandit-services__cta">View details <span aria-hidden="true">→</span></span>' +
-            "</a>"
-          );
-        })
-        .join("") +
+      services.map(renderServiceCard).join("") +
       "</div></section>"
     );
   }
@@ -100,7 +152,7 @@
       '<span class="detail-section__icon" aria-hidden="true">' +
       '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-4.5 7-11a7 7 0 10-14 0c0 6.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>' +
       "</span>" +
-      '<div><h2 id="pandit-location-title" class="detail-section__title">Service Area & Location</h2>' +
+      '<div class="detail-section__head-copy"><h2 id="pandit-location-title" class="detail-section__title">Service Area & Location</h2>' +
       '<p class="detail-section__lede">Home visits and in-person rituals around ' +
       esc(detail.location) +
       "</p></div></div>" +
@@ -112,13 +164,47 @@
       '" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>' +
       "</div>" +
       '<div class="pandit-location__footer">' +
+      '<div class="pandit-location__address-wrap">' +
+      '<span class="pandit-location__label">Primary service area</span>' +
       '<p class="pandit-location__address"><strong>' +
       esc(detail.location) +
-      "</strong></p>" +
+      "</strong></p></div>" +
       '<a href="' +
       esc(detail.mapLinkUrl) +
-      '" class="pandit-location__link" target="_blank" rel="noopener noreferrer">Open in Google Maps <span aria-hidden="true">↗</span></a>' +
+      '" class="btn btn--outline btn--sm pandit-location__maps-btn" target="_blank" rel="noopener noreferrer">Open in Google Maps <span aria-hidden="true">↗</span></a>' +
       "</div></section>"
+    );
+  }
+
+  function renderTrustItem(text) {
+    return (
+      '<li class="pandit-trust__item">' +
+      '<span class="pandit-trust__check" aria-hidden="true">' +
+      '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>' +
+      "</span>" +
+      '<span class="pandit-trust__text">' +
+      esc(text) +
+      "</span></li>"
+    );
+  }
+
+  function renderTrustSection() {
+    return (
+      '<section class="detail-section pandit-trust" aria-labelledby="pandit-trust-title">' +
+      '<div class="detail-section__head">' +
+      '<span class="detail-section__icon" aria-hidden="true">' +
+      '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 9-8 10-4.5-1-8-5-8-10V6l8-4z"/></svg>' +
+      "</span>" +
+      '<div class="detail-section__head-copy">' +
+      '<h2 id="pandit-trust-title" class="detail-section__title">Booking assurance</h2>' +
+      '<p class="detail-section__lede">Professional support from booking to ritual completion</p>' +
+      "</div></div>" +
+      '<ul class="pandit-trust__grid">' +
+      renderTrustItem("Verified pandit identity and profile checks") +
+      renderTrustItem("On-time ceremony coordination and reminder support") +
+      renderTrustItem("Guidance on ritual preparation and samagri essentials") +
+      renderTrustItem("Support team available for booking or service questions") +
+      "</ul></section>"
     );
   }
 
@@ -135,6 +221,7 @@
       return '<span class="pandit-detail__tag">' + esc(l) + "</span>";
     })
     .join("");
+  var serviceCount = Array.isArray(detail.services) ? detail.services.length : 0;
 
   root.innerHTML =
     '<article class="puja-detail-page pandit-detail-page">' +
@@ -177,34 +264,48 @@
     "<span><strong>" +
     detail.langs.length +
     "</strong> languages</span></li>" +
+    '<li class="detail-highlights__item detail-highlights__item--wide">' +
+    '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3l2.2 6.8L21 12l-6.8 2.2L12 21l-2.2-6.8L3 12l6.8-2.2L12 3z"/></svg>' +
+    "<span><strong>" +
+    serviceCount +
+    "</strong> services offered</span></li>" +
     "</ul>" +
-    '<div class="pandit-detail__tags">' +
-    langTags +
+    '<div class="pandit-detail__chip-groups">' +
+    (langTags ? '<div class="pandit-detail__tags" aria-label="Languages">' + langTags + "</div>" : "") +
+    (badges ? '<div class="puja-detail__badges pandit-detail__service-badges">' + badges + "</div>" : "") +
     "</div>" +
-    (badges ? '<div class="puja-detail__badges">' + badges + "</div>" : "") +
-    '<div class="puja-detail-top__actions detail-hero__actions">' +
+    '<div class="pandit-detail-top__actions detail-hero__actions">' +
     '<a href="contact?subject=' +
-    encodeURIComponent("Book pandit: " + nameDisplay) +
-    '" class="btn btn--accent">Book Panditji</a>' +
-    '<a href="pandits" class="btn btn--outline">Browse Pandits</a>' +
+    encodeURIComponent("Custom quote: " + nameDisplay) +
+    '" class="btn btn--accent btn--lg">Get Custom Quote</a>' +
+    '<button type="button" class="btn btn--outline btn--icon pandit-share-btn" aria-label="Share pandit profile">' +
+    SHARE_ICON +
+    "</button>" +
     "</div>" +
     "</div></header>" +
     '<div class="detail-body">' +
     (detail.bio
-      ? '<section class="detail-section puja-prose__block"><div class="detail-section__head">' +
+      ? '<section class="detail-section pandit-about puja-prose__block"><div class="detail-section__head">' +
         '<span class="detail-section__icon" aria-hidden="true">' +
         '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>' +
         "</span>" +
-        '<div><h2 class="detail-section__title">About</h2>' +
+        '<div class="detail-section__head-copy"><h2 class="detail-section__title">About</h2>' +
         '<p class="detail-section__lede">Experience, tradition, and devotion</p></div></div>' +
         '<div class="detail-section__content">' +
         renderBio(detail.bio) +
         "</div></section>"
       : "") +
+    renderTrustSection() +
     renderServices(detail.services) +
     renderLocation() +
     "</div></article>";
 
   var stickyName = document.getElementById("pandit-name");
   if (stickyName) stickyName.textContent = nameDisplay;
+
+  bindShareButton(root.querySelector(".pandit-share-btn"), {
+    title: nameDisplay + " | Divine Center",
+    text: detail.role || "Verified Vedic priest on Divine Center",
+    url: location.href,
+  }, "Share pandit profile");
 })();

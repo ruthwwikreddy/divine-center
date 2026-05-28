@@ -7,13 +7,12 @@
   var listEl = document.getElementById("pandits-list");
   var emptyEl = document.getElementById("pandits-empty");
   var countEl = document.getElementById("pandits-count");
+  var finderStatEl = document.getElementById("pandits-finder-stat");
   var resetBtn = document.getElementById("pandits-reset-filters");
   var form = document.getElementById("pandits-filter");
-  var nameInput = document.getElementById("filter-name");
   var serviceSelect = document.getElementById("filter-service");
   var citySelect = document.getElementById("filter-city");
   var modeSelect = document.getElementById("filter-mode");
-  var navMenu = document.getElementById("nav-menu");
   var listLinkPage = "pandits";
 
   function populateSelects() {
@@ -42,10 +41,6 @@
   }
 
   function matches(p, filters) {
-    if (filters.name) {
-      var n = filters.name.toLowerCase();
-      if (p.name.toLowerCase().indexOf(n) === -1 && p.role.toLowerCase().indexOf(n) === -1) return false;
-    }
     if (filters.city && p.city !== filters.city) return false;
     if (!matchesMode(p, filters.mode)) return false;
     if (filters.service) {
@@ -60,7 +55,6 @@
 
   function render() {
     var filters = {
-      name: (nameInput && nameInput.value.trim()) || "",
       service: (serviceSelect && serviceSelect.value) || "",
       city: (citySelect && citySelect.value) || "",
       mode: (modeSelect && modeSelect.value) || "",
@@ -82,19 +76,22 @@
       var n = results.length;
       var total = DC.PANDITS.length;
       if (n === 0) {
-        countEl.textContent = "No matches · " + total + " Acharya" + (total === 1 ? "" : "s") + " total";
+        countEl.textContent = "No matches";
       } else if (n === total) {
-        countEl.textContent = n + " Acharya" + (n === 1 ? "" : "s") + " · showing all";
+        countEl.textContent = n + " Acharya" + (n === 1 ? "" : "s");
       } else {
-        countEl.textContent = n + " match" + (n === 1 ? "" : "es") + " · " + total + " total";
+        countEl.textContent = n + " of " + total + " shown";
       }
+    }
+    if (finderStatEl) {
+      var totalCount = DC.PANDITS.length;
+      finderStatEl.textContent = totalCount + " verified";
     }
   }
 
   populateSelects();
 
   function clearFilters() {
-    if (nameInput) nameInput.value = "";
     if (serviceSelect) serviceSelect.value = "";
     if (citySelect) citySelect.value = "";
     if (modeSelect) modeSelect.value = "";
@@ -110,19 +107,10 @@
       e.preventDefault();
       render();
     });
-    [nameInput, serviceSelect, citySelect, modeSelect].forEach(function (el) {
+    [serviceSelect, citySelect, modeSelect].forEach(function (el) {
       if (el) el.addEventListener("change", render);
     });
-    if (nameInput) {
-      nameInput.addEventListener("input", render);
-    }
-  }
-
-  var params = new URLSearchParams(location.search);
-  if (params.get("q") && nameInput) {
-    nameInput.value = params.get("q");
   }
 
   render();
-
 })();

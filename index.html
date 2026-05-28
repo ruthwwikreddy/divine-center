@@ -108,20 +108,6 @@
                 </form>
                 <p class="form-hint home-hero-hint" role="status" aria-live="polite"></p>
               </div>
-              <ul class="hero--b__stats" aria-label="Highlights">
-                <li>
-                  <span class="hero--b__stat-icon" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg></span>
-                  Verified Acharyas
-                </li>
-                <li>
-                  <span class="hero--b__stat-icon" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2.5"/></svg></span>
-                  On-time rituals
-                </li>
-                <li>
-                  <span class="hero--b__stat-icon hero--b__stat-icon--rupee" aria-hidden="true">₹</span>
-                  No hidden charges
-                </li>
-              </ul>
               <div class="hero--b__actions">
                 <a href="pujas" class="btn btn--accent" data-i18n="heroExplore">Explore Pujas</a>
                 <a href="pandits" class="btn btn--outline btn--on-dark" data-i18n="heroMeet">Meet Pandits</a>
@@ -156,24 +142,6 @@
               <p class="value-bar__desc">No Hidden Charges, Ever</p>
             </li>
           </ul>
-        </div>
-      </section>
-
-      <!-- PUJA ICONS (circular) -->
-      <section class="puja-icons" id="services" aria-labelledby="puja-icons-title">
-        <div class="wrap">
-          <div class="section-head">
-            <div class="section-head__titles">
-              <p class="eyebrow eyebrow--decor">
-                <span class="eyebrow__flourish" aria-hidden="true"></span>
-                TRENDING
-                <span class="eyebrow__flourish" aria-hidden="true"></span>
-              </p>
-              <h2 id="puja-icons-title" class="section-title">Puja Services</h2>
-            </div>
-            <a href="pujas" class="btn btn--outline">Explore All →</a>
-          </div>
-          <div class="puja-icons__grid" id="puja-icons-grid"></div>
         </div>
       </section>
 
@@ -269,11 +237,7 @@
               <span class="eyebrow__flourish" aria-hidden="true"></span>
             </p>
             <h2 id="home-testimonials-title" class="section-title">Reviews &amp; testimonials</h2>
-            <p class="home-section__lede home-section__lede--center">Families across India trust Divine Center for authentic rituals, punctual muhurats, and transparent pricing.</p>
-            <p class="home-testimonials__score" aria-label="Average rating 4.9 out of 5">
-              <span class="home-testimonials__score-value">4.9</span>
-              <span class="home-testimonials__score-label">average from verified bookings</span>
-            </p>
+            <p class="home-section__lede home-section__lede--center">Families across India trust Divine Center for authentic rituals, punctual muhurats, and thoughtful coordination from booking to completion.</p>
           </div>
           <div class="home-testimonials__grid" id="home-testimonials-grid"></div>
           <div class="home-section__actions">
@@ -326,22 +290,26 @@
         </div>
       </section>
 
-      <!-- FEATURED STORIES -->
+      <!-- CLIENT STORIES & SOCIAL POSTS -->
       <section class="home-stories" id="stories" aria-labelledby="home-stories-title">
         <div class="wrap">
           <div class="section-head">
             <div class="section-head__titles">
               <p class="eyebrow eyebrow--decor">
                 <span class="eyebrow__flourish" aria-hidden="true"></span>
-                Wisdom &amp; guides
+                Stories in motion
                 <span class="eyebrow__flourish" aria-hidden="true"></span>
               </p>
-              <h2 id="home-stories-title" class="section-title">Featured stories</h2>
-              <p class="home-section__lede">Puja guides, festival observances, and spiritual wisdom from our editorial team.</p>
+              <h2 id="home-stories-title" class="section-title">Client stories & social highlights</h2>
+              <p class="home-section__lede">Tap the sound icon on any reel to listen — the strip pauses and plays each story through.</p>
             </div>
-            <a href="blogs" class="btn btn--outline">View all articles →</a>
+            <a href="contact" class="btn btn--outline">Share your story →</a>
           </div>
-          <div class="home-stories__grid" id="home-stories-grid"></div>
+          <div class="stories-reels" data-stories-reels aria-label="Client stories video highlights">
+            <div class="stories-reels__viewport">
+              <div class="stories-reels__track"></div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -349,7 +317,11 @@
       <section class="blog" id="blog" aria-labelledby="blog-title">
         <div class="wrap">
           <div class="section-head section-head--center">
-            <p class="eyebrow eyebrow--decor"><span class="eyebrow__flourish"></span> The Wisdom Stream <span class="eyebrow__flourish"></span></p>
+            <p class="eyebrow eyebrow--decor">
+              <span class="eyebrow__flourish" aria-hidden="true"></span>
+              The Wisdom Stream
+              <span class="eyebrow__flourish" aria-hidden="true"></span>
+            </p>
             <h2 id="blog-title" class="section-title">Latest from the blog</h2>
           </div>
           <div class="blog__grid" id="blog-grid"></div>
@@ -419,6 +391,7 @@
     <script src="site-data.js"></script>
     <script src="layout.js"></script>
     <script src="desktop-i18n.js"></script>
+    <script src="stories-reels.js"></script>
     <script src="main.js"></script>
   </body>
 </html>

@@ -168,11 +168,8 @@
       (badges ? '<div class="puja-booking-card__tags">' + badges + "</div>" : "") +
       '<div class="puja-booking-card__actions">' +
       '<a href="contact?subject=' +
-      encodeURIComponent("Book: " + detail.title) +
-      '" class="btn btn--accent btn--block">Book Panditji</a>' +
-      '<a href="contact?subject=' +
       encodeURIComponent("Custom quote: " + detail.title) +
-      '" class="btn btn--outline btn--block">Custom Quote</a>' +
+      '" class="btn btn--accent btn--block">Get Custom Quotation</a>' +
       "</div>" +
       '<p class="puja-booking-card__fine">Verified pandits · Transparent pricing</p>' +
       "</aside>"
@@ -283,12 +280,11 @@
     "</p>" +
     '<div class="puja-hero__actions puja-hero__actions--mobile">' +
     '<a href="contact?subject=' +
-    bookSubject +
-    '" class="btn btn--accent">Book Panditji</a>' +
-    '<a href="contact?subject=' +
     quoteSubject +
-    '" class="btn btn--outline">Get a Custom Quote</a>' +
-    "</div>" +
+    '" class="btn btn--accent">Get Custom Quotation</a>' +
+    '<button type="button" class="btn btn--outline btn--icon puja-share-btn" aria-label="Share puja">' +
+    '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98"/></svg>' +
+    "</button></div>" +
     "</div></header>" +
     '<div class="puja-detail-layout">' +
     '<div class="puja-detail-main">' +
@@ -304,9 +300,7 @@
     "<p>Get a personalized ceremony planned by our experts</p>" +
     "</div>" +
     '<a href="contact" class="btn btn--accent">Chat With Experts</a>' +
-    "</aside></div>" +
-    renderBookingCard(true) +
-    "</div></article>";
+    "</aside></div></div></article>";
 
   var bar = document.getElementById("puja-bar");
   if (bar) {
@@ -314,9 +308,33 @@
     var bookBtn = document.getElementById("book-btn");
     if (priceEl) priceEl.textContent = detail.price;
     if (bookBtn) {
-      bookBtn.href = "contact?subject=" + bookSubject;
+      bookBtn.href = "contact?subject=" + quoteSubject;
+      bookBtn.textContent = "Get Custom Quote";
     }
     bar.hidden = false;
+
+  var heroShareBtn = root.querySelector(".puja-share-btn");
+  if (heroShareBtn) {
+    heroShareBtn.addEventListener("click", function () {
+      var shareData = {
+        title: detail.title + " | Divine Center",
+        text: detail.subtitle || detail.intro,
+        url: location.href,
+      };
+      if (navigator.share) {
+        navigator.share(shareData).catch(function () {});
+        return;
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(location.href).then(function () {
+          heroShareBtn.setAttribute("aria-label", "Link copied");
+          setTimeout(function () {
+            heroShareBtn.setAttribute("aria-label", "Share puja");
+          }, 1600);
+        }).catch(function () {});
+      }
+    });
+  }
     var subheaderTitle = document.querySelector(".m-subheader__title");
     if (subheaderTitle) {
       subheaderTitle.textContent = detail.title.replace(/\s+(Pooja|Ceremony)$/i, "");

@@ -4,6 +4,32 @@
   var DC = window.DivineCenter;
   if (!DC) return;
 
+  var SHARE_ICON =
+    '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">' +
+    '<circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>' +
+    '<path d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98"/></svg>';
+
+  function bindShareButton(btn, shareData, label) {
+    if (!btn) return;
+    label = label || "Share";
+    btn.addEventListener("click", function () {
+      if (navigator.share) {
+        navigator.share(shareData).catch(function () {});
+        return;
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(shareData.url || location.href).then(function () {
+          btn.setAttribute("aria-label", "Link copied");
+          btn.classList.add("is-copied");
+          setTimeout(function () {
+            btn.setAttribute("aria-label", label);
+            btn.classList.remove("is-copied");
+          }, 1600);
+        }).catch(function () {});
+      }
+    });
+  }
+
   var slug = new URLSearchParams(location.search).get("p") || "griha-pravesh";
   var detail = DC.getPujaDetail(slug);
   var p = DC.getPuja(slug);
@@ -120,7 +146,6 @@
 
   function renderBookingCard(compact) {
     var cls = compact ? "puja-booking-card puja-booking-card--sticky" : "puja-booking-card";
-    var priceLabel = p.slug === "consultation" ? "per session" : "starting from";
     var badges = "";
     if (detail.onlineAvailable) {
       badges += '<span class="puja-hero__tag">Online</span>';
@@ -139,11 +164,6 @@
       "<h2 class=\"puja-booking-card__name\">" +
       esc(detail.title) +
       "</h2>" +
-      '<p class="puja-booking-card__price">' +
-      esc(detail.price) +
-      ' <span class="puja-booking-card__price-note">' +
-      priceLabel +
-      "</span></p>" +
       '<ul class="puja-booking-card__meta">' +
       "<li><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M12 7v5l3 2.5\"/></svg> " +
       esc(detail.durationLabel) +
@@ -160,18 +180,14 @@
       (badges ? '<div class="puja-booking-card__tags">' + badges + "</div>" : "") +
       '<div class="puja-booking-card__actions">' +
       '<a href="contact?subject=' +
-      encodeURIComponent("Book: " + detail.title) +
-      '" class="btn btn--accent btn--block">Book Panditji</a>' +
-      '<a href="contact?subject=' +
       encodeURIComponent("Custom quote: " + detail.title) +
-      '" class="btn btn--outline btn--block">Custom Quote</a>' +
+      '" class="btn btn--accent btn--block">Get Custom Quotation</a>' +
       "</div>" +
-      '<p class="puja-booking-card__fine">Verified pandits · Transparent pricing</p>' +
+      '<p class="puja-booking-card__fine">Verified pandits · Personalized planning</p>' +
       "</aside>"
     );
   }
 
-  var priceLabel = p.slug === "consultation" ? "per session" : "starting from";
   var heroTags = "";
   if (detail.onlineAvailable) {
     heroTags += '<span class="puja-hero__tag">Online Available</span>';
@@ -219,8 +235,11 @@
     whyHtml += "</section>";
   }
 
-  var bookSubject = encodeURIComponent("Book: " + detail.title);
   var quoteSubject = encodeURIComponent("Custom quote: " + detail.title);
+  var bookingNote = (detail.bookingNote || "").replace(
+    "Book directly with fixed pricing, or get a personalized quote for custom needs (e.g. samagri, venue).",
+    ""
+  ).trim();
 
   root.innerHTML =
     '<article class="puja-detail-page">' +
@@ -240,15 +259,6 @@
     "<p class=\"puja-hero__subtitle\">" +
     esc(detail.subtitle) +
     "</p>" +
-    '<div class="puja-hero__price-row">' +
-    '<div class="puja-hero__price">' +
-    "<span class=\"puja-hero__price-amount\">" +
-    esc(detail.price) +
-    "</span>" +
-    '<span class="puja-hero__price-label">' +
-    priceLabel +
-    "</span>" +
-    "</div>" +
     '<dl class="puja-hero__facts">' +
     "<div class=\"puja-hero__fact\"><dt>Duration</dt><dd>" +
     esc(detail.durationLabel) +
@@ -260,21 +270,18 @@
     esc(detail.type) +
     "</dd></div>" +
     "</dl>" +
-    "</div>" +
     (heroTags ? '<div class="puja-hero__tags">' + heroTags + "</div>" : "") +
     "<p class=\"puja-hero__intro\">" +
     esc(detail.intro) +
     "</p>" +
-    '<p class="puja-hero__note">' +
-    esc(detail.bookingNote) +
-    "</p>" +
-    '<div class="puja-hero__actions puja-hero__actions--mobile">' +
-    '<a href="contact?subject=' +
-    bookSubject +
-    '" class="btn btn--accent">Book Panditji</a>' +
+    (bookingNote ? '<p class="puja-hero__note">' + esc(bookingNote) + "</p>" : "") +
+    '<div class="puja-hero__actions">' +
     '<a href="contact?subject=' +
     quoteSubject +
-    '" class="btn btn--outline">Get a Custom Quote</a>' +
+    '" class="btn btn--accent">Get Custom Quotation</a>' +
+    '<button class="btn btn--outline btn--icon puja-share-btn" type="button" aria-label="Share puja">' +
+    SHARE_ICON +
+    "</button>" +
     "</div>" +
     "</div></header>" +
     '<div class="puja-detail-layout">' +
@@ -291,17 +298,22 @@
     "<p>Get a personalized ceremony planned by our experts</p>" +
     "</div>" +
     '<a href="contact" class="btn btn--accent">Chat With Experts</a>' +
-    "</aside></div>" +
-    renderBookingCard(true) +
-    "</div></article>";
+    "</aside></div></div></article>";
+
+  bindShareButton(root.querySelector(".puja-share-btn"), {
+    title: detail.title + " | Divine Center",
+    text: detail.subtitle || detail.intro,
+    url: location.href,
+  }, "Share puja");
 
   var bar = document.getElementById("puja-bar");
   if (bar) {
     var priceEl = document.getElementById("puja-price");
     var bookBtn = document.getElementById("book-btn");
-    if (priceEl) priceEl.textContent = detail.price;
+    if (priceEl) priceEl.textContent = "";
     if (bookBtn) {
-      bookBtn.href = "contact?subject=" + bookSubject;
+      bookBtn.href = "contact?subject=" + quoteSubject;
+      bookBtn.textContent = "Custom Quotation";
     }
     bar.hidden = false;
     var subheaderTitle = document.querySelector(".m-subheader__title");

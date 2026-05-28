@@ -13,75 +13,100 @@
   </head>
   <body class="m-app m-app--pandits" data-page="pandits">
     <header class="m-subheader">
-      <a href="index" class="m-subheader__back" aria-label="Back">‹</a>
-      <h1 class="m-subheader__title">Pandits</h1>
-      <button type="button" class="m-subheader__icon" aria-label="Search">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3-3"/></svg>
+      <button type="button" class="m-header__menu m-subheader__menu" id="m-menu-btn" aria-label="Open menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M3 6h18M3 12h18M3 18h18" />
+        </svg>
       </button>
+      <h1 class="m-subheader__title">Pandits</h1>
+      <span class="m-subheader__spacer" aria-hidden="true"></span>
     </header>
 
     <main class="m-main m-main--pandits">
-      <section class="m-pandits-filter-wrap" aria-label="Search and filter pandits">
-        <form class="pandits-filter pandits-filter--mobile" id="pandits-filter" role="search">
-          <div class="pandits-filter__cell">
-            <div class="pandits-filter__field">
-              <span class="pandits-filter__icon" aria-hidden="true">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3-3"/></svg>
-              </span>
-              <input type="search" name="name" id="filter-name" placeholder="Search pandit, ritual, city" autocomplete="off" />
-            </div>
+      <section class="m-pandits-finder" aria-labelledby="m-pandits-finder-title">
+        <header class="m-pandits-finder__head">
+          <p class="m-pandits-finder__eyebrow">
+            <span class="m-pandits-finder__eyebrow-mark" aria-hidden="true"></span>
+            Directory
+          </p>
+          <div class="m-pandits-finder__title-row">
+            <h2 id="m-pandits-finder-title" class="m-pandits-finder__title">Find your Acharya</h2>
+            <p class="m-pandits-finder__stat" id="pandits-finder-stat" aria-live="polite">— verified</p>
           </div>
-          <div class="m-chips" id="pandit-filter-chips">
-            <button type="button" class="m-chip is-active">Language</button>
-            <button type="button" class="m-chip">Experience</button>
-            <button type="button" class="m-chip">Ritual type</button>
-            <button type="button" class="m-chip">Price</button>
-            <button type="button" class="m-chip">Availability</button>
-          </div>
+          <p class="m-pandits-finder__lede">Narrow by ritual, city, and ceremony format — every profile is verified.</p>
+        </header>
 
-          <div class="pandits-filter__grid">
-            <div class="pandits-filter__cell">
-              <label class="pandits-filter__label" for="filter-service">Ritual</label>
-              <div class="pandits-filter__field">
-                <select name="service" id="filter-service">
-                  <option value="">All rituals</option>
-                </select>
-              </div>
-            </div>
-            <div class="pandits-filter__cell">
-              <label class="pandits-filter__label" for="filter-city">City</label>
-              <div class="pandits-filter__field">
-                <select name="city" id="filter-city">
-                  <option value="">Any city</option>
-                </select>
-              </div>
-            </div>
-            <div class="pandits-filter__cell">
-              <label class="pandits-filter__label" for="filter-mode">Mode</label>
-              <div class="pandits-filter__field">
-                <select name="mode" id="filter-mode">
-                  <option value="">Online / At place</option>
-                  <option value="Online">Online</option>
-                  <option value="place">At your place</option>
-                  <option value="Both">Both</option>
-                </select>
-              </div>
-            </div>
-            <button type="submit" class="btn btn--accent pandits-filter__submit">Apply Filters</button>
+        <form class="m-pandits-filter-card" id="pandits-filter" aria-label="Filter pandits">
+          <div class="m-pandits-filter-stack">
+            <label class="m-pandits-filter-row">
+              <span class="m-pandits-filter-row__icon" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 2l2.4 7.2H22l-6 4.6 2.3 7.2L12 16.4 5.7 21l2.3-7.2-6-4.6h7.6L12 2z"/></svg>
+              </span>
+              <span class="m-pandits-filter-row__copy">
+                <span class="m-pandits-filter-row__label">Ritual</span>
+                <span class="m-pandits-filter-row__field">
+                  <select name="service" id="filter-service" aria-label="Filter by ritual">
+                    <option value="">All rituals</option>
+                  </select>
+                </span>
+              </span>
+            </label>
+            <label class="m-pandits-filter-row">
+              <span class="m-pandits-filter-row__icon" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 21s7-4.5 7-11a7 7 0 10-14 0c0 6.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+              </span>
+              <span class="m-pandits-filter-row__copy">
+                <span class="m-pandits-filter-row__label">City</span>
+                <span class="m-pandits-filter-row__field">
+                  <select name="city" id="filter-city" aria-label="Filter by city">
+                    <option value="">Any city</option>
+                  </select>
+                </span>
+              </span>
+            </label>
+            <label class="m-pandits-filter-row">
+              <span class="m-pandits-filter-row__icon" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+              </span>
+              <span class="m-pandits-filter-row__copy">
+                <span class="m-pandits-filter-row__label">Format</span>
+                <span class="m-pandits-filter-row__field">
+                  <select name="mode" id="filter-mode" aria-label="Online or at your place">
+                    <option value="">Any format</option>
+                    <option value="Online">Online</option>
+                    <option value="place">At your place</option>
+                    <option value="Both">Both</option>
+                  </select>
+                </span>
+              </span>
+            </label>
+          </div>
+          <div class="m-pandits-filter-card__actions">
+            <button type="submit" class="btn btn--accent m-pandits-filter-card__apply">Show acharyas</button>
+            <button type="button" class="m-pandits-filter-card__clear" id="pandits-reset-filters">Clear all filters</button>
           </div>
         </form>
+
+        <ul class="m-pandits-trust" aria-label="Why book with us">
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M12 2l7 4v6c0 5-3.5 9-7 10-4.5-1-8-5-8-10V6l7-4z"/></svg> Verified profiles</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2.5"/></svg> On-time rituals</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M4 12h16M4 7h16M4 17h10"/></svg> Clear details</li>
+        </ul>
       </section>
 
-      <section class="m-pujas-sort" id="pandit-sort" aria-label="Sort pandits">
+      <section class="m-pujas-sort m-pujas-sort--pandits" id="pandit-sort" aria-label="Sort pandits">
         <button class="m-pujas-sort__btn is-active" type="button">Top rated</button>
         <button class="m-pujas-sort__btn" type="button">Experience</button>
-        <button class="m-pujas-sort__btn" type="button">Price</button>
+        <button class="m-pujas-sort__btn" type="button">Soonest</button>
       </section>
 
       <section class="m-pandits-list-wrap" aria-labelledby="m-pandits-list-title">
-        <h2 id="m-pandits-list-title" class="visually-hidden">Pandit results</h2>
+        <div class="m-pandits-list__head">
+          <h2 id="m-pandits-list-title" class="m-pandits-list__title">Pandit listings</h2>
+          <p class="m-pandits-list__count" id="pandits-count">—</p>
+        </div>
         <div class="pandits-directory__grid pandits-directory__grid--cards" id="pandits-list"></div>
-        <p class="m-empty" id="pandits-empty" hidden>No pandits match your search.</p>
+        <p class="m-empty" id="pandits-empty" hidden>No pandits match these filters. Try clearing a filter or choose a different city.</p>
       </section>
     </main>
 
@@ -90,14 +115,6 @@
     <script src="pandits.js"></script>
     <script>
       (function () {
-        document.querySelectorAll("#pandit-filter-chips .m-chip").forEach(function (chip) {
-          chip.addEventListener("click", function () {
-            document.querySelectorAll("#pandit-filter-chips .m-chip").forEach(function (c) {
-              c.classList.remove("is-active");
-            });
-            chip.classList.add("is-active");
-          });
-        });
         document.querySelectorAll("#pandit-sort .m-pujas-sort__btn").forEach(function (btn) {
           btn.addEventListener("click", function () {
             document.querySelectorAll("#pandit-sort .m-pujas-sort__btn").forEach(function (b) {

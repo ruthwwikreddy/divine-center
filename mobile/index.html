@@ -13,14 +13,16 @@
     <link rel="stylesheet" href="mobile.css" />
   </head>
   <body class="m-app" data-page="home">
-    <header class="m-header" id="top">
-      <a href="index" class="brand" aria-label="Divine Center home">
-        <img class="brand__icon" src="assets/logo/image.png" alt="Divine Center logo" width="34" height="34" />
-        <span class="brand__copy">
-          <span class="brand__name">Divine Center</span>
-        </span>
+    <header class="m-header m-header--home" id="top">
+      <button type="button" class="m-header__menu" id="m-menu-btn" aria-label="Open menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M3 6h18M3 12h18M3 18h18" />
+        </svg>
+      </button>
+      <a href="index" class="brand brand--compact brand--mark" aria-label="Divine Center home">
+        <img class="brand__icon" src="assets/logo/image.png" alt="" width="44" height="44" />
       </a>
-      <button type="button" class="m-chip" aria-label="Select location">Bengaluru ▾</button>
+      <button type="button" class="m-chip m-header__loc" aria-label="Select location">Bengaluru ▾</button>
       <a href="account" class="m-header__bell" aria-label="Profile">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9">
           <circle cx="12" cy="8" r="3.5" />
@@ -38,7 +40,7 @@
         <div class="m-hero--b__content">
           <p class="m-hero--b__eyebrow" data-i18n="heroEyebrow">Premium Spiritual Services</p>
           <h1 id="m-hero-title" class="m-hero--b__title" data-i18n="heroTitle">Bring sacred rituals home with trusted Acharyas.</h1>
-          <p class="hero__text" data-i18n="heroText">Book verified pandits, fixed transparent pricing, and complete ritual guidance from start to finish.</p>
+          <p class="hero__text" data-i18n="heroText">Book verified pandits and get complete ritual guidance from booking through ceremony.</p>
           <div class="m-hero--b__actions">
             <a href="pujas" class="btn btn--accent" data-i18n="heroExplore">Book a Puja</a>
             <a href="pandits" class="btn btn--outline m-hero--b__btn-outline" data-i18n="heroMeet">Find Pandit</a>

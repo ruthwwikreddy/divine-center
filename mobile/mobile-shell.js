@@ -16,7 +16,9 @@
   var I18N = {
     en: {
       home: "Home",
+      pujas: "Pujas",
       bookings: "Bookings",
+      pandits: "Pandits",
       book: "Book",
       wallet: "Wallet",
       profile: "Profile",
@@ -39,7 +41,7 @@
       settings: "Settings",
       heroEyebrow: "Premium Spiritual Services",
       heroTitle: "Bring sacred rituals home with trusted Acharyas.",
-      heroText: "Book verified pandits, fixed transparent pricing, and complete ritual guidance from start to finish.",
+      heroText: "Book verified pandits and get complete ritual guidance from booking through ceremony.",
       heroExplore: "Book a Puja",
       heroMeet: "Find Pandit",
       quickBook: "Book Puja",
@@ -53,7 +55,9 @@
     },
     te: {
       home: "హోమ్",
+      pujas: "పూజలు",
       bookings: "బుకింగ్స్",
+      pandits: "పండితులు",
       book: "బుక్",
       wallet: "వాలెట్",
       profile: "ప్రొఫైల్",
@@ -90,7 +94,9 @@
     },
     hi: {
       home: "होम",
+      pujas: "पूजा",
       bookings: "बुकिंग",
+      pandits: "पंडित",
       book: "बुक",
       wallet: "वॉलेट",
       profile: "प्रोफ़ाइल",
@@ -127,7 +133,9 @@
     },
     ml: {
       home: "ഹോം",
+      pujas: "പൂജകൾ",
       bookings: "ബുക്കിംഗുകൾ",
+      pandits: "പണ്ഡിതർ",
       book: "ബുക്ക്",
       wallet: "വാലറ്റ്",
       profile: "പ്രൊഫൈൽ",
@@ -164,7 +172,9 @@
     },
     ta: {
       home: "முகப்பு",
+      pujas: "பூஜைகள்",
       bookings: "பதிவுகள்",
+      pandits: "பண்டிதர்கள்",
       book: "புக்",
       wallet: "வாலெட்",
       profile: "சுயவிவரம்",
@@ -201,7 +211,9 @@
     },
     mr: {
       home: "मुख्यपृष्ठ",
+      pujas: "पूजा",
       bookings: "बुकिंग्स",
+      pandits: "पंडित",
       book: "बुक",
       wallet: "वॉलेट",
       profile: "प्रोफाइल",
@@ -277,14 +289,20 @@
   }
 
   var BRAND_SVG =
-    '<img class="brand__icon" src="assets/logo/image.png" alt="Divine Center logo" width="36" height="36" />';
+    '<img class="brand__icon" src="assets/logo/image.png" alt="Divine Center" width="44" height="44" />';
 
   /** Tab icon paths (stroke) except center lotus rendered in FAB */
   var TAB_ICON_PATHS = {
+    pujas:
+      '<path d="M12 3c1.2 2.4 3.6 4 6 4.5-3.6 1.2-6 4.2-6 8.5 0-4.3-2.4-7.3-6-8.5 2.4-.5 4.8-2.1 6-4.5z"/>' +
+      '<path d="M8 18h8M10 21h4"/>',
     home: '<path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1h-5v-7H9v7H4a1 1 0 01-1-1V9.5z"/>',
     bookings:
       '<rect x="3" y="4" width="18" height="18" rx="2"/>' +
       '<path d="M8 2v4M16 2v4M3 10h18M9 14h3M9 18h9"/>',
+    pandits:
+      '<path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/>' +
+      '<path d="M22 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/>',
     book: '<circle cx="12" cy="10" r="2.5"/><path d="M12 3c1.8 4 5 6 8 7-5 2-8 6-8 11 0-5-3-9-8-11 3-1 6.2-3 8-7z"/><path d="M12 12v9"/>',
     wallet: '<rect x="2" y="6" width="20" height="14" rx="2"/><path d="M16 14h3"/>',
     profile: '<circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>',
@@ -297,7 +315,9 @@
     var auth = CFG.auth || {};
     var navKeyMap = {
       home: "home",
+      pujas: "pujas",
       bookings: "bookings",
+      pandits: "pandits",
       wallet: "wallet",
       account: "profile",
     };
@@ -372,9 +392,7 @@
     '<div class="m-drawer__backdrop" id="m-drawer-backdrop"></div>' +
     '<aside class="m-drawer__panel" role="dialog" aria-label="Menu">' +
     '<div class="m-drawer__head">' +
-    '<a href="index" class="brand">' +
-    BRAND_SVG +
-    '<span class="brand__copy"><span class="brand__name">Divine Center</span></span></a>' +
+    '<a href="index" class="brand brand--mark">' + BRAND_SVG + "</a>" +
     '<button type="button" class="m-drawer__close" id="m-drawer-close" aria-label="Close menu">×</button>' +
     "</div>" +
     '<nav class="m-drawer__nav" id="m-drawer-nav"></nav></aside></div>';
@@ -396,8 +414,11 @@
   }
 
   function effectiveTabId(pageSlug) {
-    if (!pageSlug) return "home";
-    return activeMap[pageSlug] || pageSlug;
+    if (!pageSlug) return "book";
+    if (Object.prototype.hasOwnProperty.call(activeMap, pageSlug)) {
+      return activeMap[pageSlug];
+    }
+    return pageSlug;
   }
 
   function shouldShowTabbar() {
@@ -431,7 +452,8 @@
     }
 
     document.querySelectorAll(".m-tab").forEach(function (tab) {
-      var on = tab.getAttribute("data-tab") === tabHighlight;
+      var on = !!tabHighlight && tab.getAttribute("data-tab") === tabHighlight;
+      tab.classList.toggle("m-tab--active", on);
       if (on) tab.setAttribute("aria-current", "page");
       else tab.removeAttribute("aria-current");
     });

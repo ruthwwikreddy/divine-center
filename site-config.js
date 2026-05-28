@@ -12,12 +12,17 @@ window.DivineCenterConfig = {
     addressShort: "Injapur, Telangana 500070",
     hours: "10:00 AM – 7:00 PM IST (Mon – Sat)",
   },
+  social: {
+    facebook: "https://www.facebook.com/divinecenter.in",
+    instagram: "https://www.instagram.com/divinecenter_official/",
+    youtube: "https://www.youtube.com/@divinecenter_official",
+    whatsapp: "https://wa.me/919154900375",
+  },
   nav: [
     { id: "home", label: "Home", href: "index" },
     { id: "pandits", label: "Pandits", href: "pandits" },
     { id: "pujas", label: "Pujas", href: "pujas" },
     { id: "blogs", label: "Blogs", href: "blogs" },
-    { id: "about", label: "About Us", href: "about" },
     { id: "contact", label: "Contact Us", href: "contact" },
   ],
   auth: {

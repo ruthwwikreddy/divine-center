@@ -121,17 +121,114 @@
   }
 
   var reviewsSeed = [
-    { who: "Suma Reddy", kind: "Top", text: "Very calm guidance. The ritual was punctual and clearly explained to our family.", rating: 5 },
-    { who: "Anil Sharma", kind: "Recent", text: "Professional and devotional. Samagri list and steps were shared in advance.", rating: 5 },
-    { who: "Lakshmi Devi", kind: "Top", text: "Authentic mantras and patient support for elders at home.", rating: 5 },
-    { who: "Vikram Rao", kind: "Recent", text: "Reached on time and completed everything with discipline and warmth.", rating: 4 },
+    { who: "Suma Reddy", kind: "Top", text: "Very calm guidance. The ritual was punctual and clearly explained to our family.", rating: 5, when: "3 days ago", puja: "Satyanarayan Puja" },
+    { who: "Anil Sharma", kind: "Recent", text: "Professional and devotional. Samagri list and steps were shared in advance.", rating: 5, when: "1 week ago", puja: "Griha Pravesh" },
+    { who: "Lakshmi Devi", kind: "Top", text: "Authentic mantras and patient support for elders at home.", rating: 5, when: "2 weeks ago", puja: "Namakaran" },
+    { who: "Vikram Rao", kind: "Recent", text: "Reached on time and completed everything with discipline and warmth.", rating: 4, when: "3 weeks ago", puja: "Ganesh Puja" },
   ];
 
+  function reviewInitials(name) {
+    return String(name || "")
+      .split(" ")
+      .map(function (w) { return w.charAt(0); })
+      .join("")
+      .slice(0, 2)
+      .toUpperCase();
+  }
+
+  function renderStarRow(rating, max) {
+    var maxStars = max || 5;
+    var n = Math.max(0, Math.min(maxStars, Number(rating) || 0));
+    var html =
+      '<div class="pandit-review-card__stars" role="img" aria-label="' +
+      n +
+      " out of " +
+      maxStars +
+      ' stars">';
+    for (var i = 1; i <= maxStars; i++) {
+      html += '<span class="pandit-review-card__star' + (i <= n ? " is-on" : "") + '" aria-hidden="true">★</span>';
+    }
+    return html + "</div>";
+  }
+
+  function reviewsSummaryHtml() {
+    var total = reviewsSeed.length;
+    var avg =
+      reviewsSeed.reduce(function (sum, r) { return sum + (r.rating || 0); }, 0) / Math.max(total, 1);
+    return (
+      '<div class="pandit-reviews__summary">' +
+      '<div class="pandit-reviews__score" aria-hidden="true">' +
+      '<strong>' +
+      avg.toFixed(1) +
+      "</strong>" +
+      renderStarRow(Math.round(avg)) +
+      "</div>" +
+      '<p class="pandit-reviews__count">' +
+      total +
+      " verified reviews from families</p>" +
+      "</div>"
+    );
+  }
+
   var stats = deriveStats();
+  var expYears = parseExperienceYears(detail.exp || detail.experienceLabel);
+
+  function panditHeroHtml() {
+    var panditImg = { name: detail.name, photo: detail.photo, slug: detail.slug };
+    return (
+      '<header class="pandit-profile__hero">' +
+      '<div class="pandit-profile__visual">' +
+      '<div class="pandit-profile__cover">' +
+      DC.imgPandit(panditImg, "pandit-profile__cover-img", 720, 420, "eager") +
+      "</div>" +
+      '<div class="pandit-profile__toolbar">' +
+      '<a href="pandits.html" class="pandit-profile__nav-btn pandit-profile__back" aria-label="Back">‹</a>' +
+      '<button type="button" class="pandit-profile__nav-btn pandit-profile__share" aria-label="Share">⤴</button>' +
+      "</div>" +
+      "</div>" +
+      '<div class="pandit-profile__sheet">' +
+      '<div class="pandit-profile__identity">' +
+      '<div class="pandit-profile__avatar">' +
+      DC.imgPandit(panditImg, "pandit-profile__avatar-img", 140, 140, "eager") +
+      "</div>" +
+      '<div class="pandit-profile__intro">' +
+      '<span class="pandit-profile__verified">Verified Acharya</span>' +
+      '<h1 class="pandit-profile__name">' +
+      esc(nameDisplay) +
+      "</h1>" +
+      '<p class="pandit-profile__role">' +
+      esc(detail.role || "Vedic Acharya") +
+      "</p>" +
+      '<p class="pandit-profile__mode">' +
+      esc(modeLabel(detail.mode || detail.serviceMode || "Both")) +
+      "</p>" +
+      "</div>" +
+      "</div>" +
+      '<div class="pandit-profile__metrics" aria-label="Pandit highlights">' +
+      '<div class="pandit-profile__metric"><strong>' +
+      stats.rating +
+      '</strong><span class="pandit-profile__metric-label">Rating</span></div>' +
+      '<div class="pandit-profile__metric"><strong>' +
+      stats.completed +
+      '+</strong><span class="pandit-profile__metric-label">Pujas done</span></div>' +
+      '<div class="pandit-profile__metric"><strong>' +
+      expYears +
+      '+</strong><span class="pandit-profile__metric-label">Years exp.</span></div>' +
+      "</div>" +
+      '<ul class="pandit-profile__trust">' +
+      "<li>Verified by Divine Center</li>" +
+      "<li>On-time rituals</li>" +
+      "<li>Language matched</li>" +
+      "</ul>" +
+      "</div>" +
+      "</header>"
+    );
+  }
+
   var bookBtn = document.getElementById("book-btn");
   var chatBtn = document.getElementById("chat-btn");
   if (bookBtn) {
-    bookBtn.href = "contact?subject=" + encodeURIComponent("Book pandit: " + nameDisplay);
+    bookBtn.href = "contact?subject=" + encodeURIComponent("Custom quote: " + nameDisplay);
   }
   if (chatBtn) {
     chatBtn.href = "tel:+919100563686";
@@ -143,44 +240,7 @@
 
   root.innerHTML =
     '<article class="pandit-profile">' +
-    '<header class="pandit-profile__hero">' +
-    '<div class="pandit-profile__cover">' +
-    DC.imgPandit(
-      { name: detail.name, photo: detail.photo, slug: detail.slug },
-      "pandit-profile__cover-img",
-      720,
-      360,
-      "eager"
-    ) +
-    "</div>" +
-    '<a href="pandits" class="m-subheader__back pandit-profile__back" aria-label="Back">‹</a>' +
-    '<button type="button" class="m-subheader__icon pandit-profile__share" aria-label="Share">⤴</button>' +
-    '<div class="pandit-profile__avatar">' +
-    DC.imgPandit(
-      { name: detail.name, photo: detail.photo, slug: detail.slug },
-      "pandit-profile__avatar-img",
-      140,
-      140,
-      "eager"
-    ) +
-    "</div>" +
-    '<h1 class="pandit-profile__name">' +
-    esc(nameDisplay) +
-    "</h1>" +
-    '<p class="pandit-profile__meta"><span class="puja-detail__badge">Verified</span> · ' +
-    esc(detail.role || "Vedic Acharya") +
-    "</p>" +
-    '<div class="pandit-profile__stats">' +
-    '<span>⭐ ' + stats.rating + "</span>" +
-    "<span>•</span>" +
-    "<span>" + stats.completed + " completed pujas</span>" +
-    "</div>" +
-    '<div class="pandit-profile__quicktrust">' +
-    '<span>Verified by Divine Center</span>' +
-    "<span>On-time rituals</span>" +
-    "<span>Language matched</span>" +
-    "</div>" +
-    "</header>" +
+    panditHeroHtml() +
 
     "<section class=\"detail-section detail-section--quickfacts\">" +
     "<h2 class=\"detail-section__title\">At a glance</h2>" +
@@ -215,10 +275,19 @@
     '<div class="pandit-commitments"><span>✓ Transparent pricing before confirmation</span><span>✓ Ritual checklist shared in advance</span></div>' +
     "</section>" +
 
-    '<section class="detail-section">' +
-    '<div class="section-head"><h2 class="detail-section__title">Reviews</h2>' +
-    '<div class="m-pujas-sort" id="review-filter"><button class="m-pujas-sort__btn is-active" data-review-filter="recent" type="button">Recent</button><button class="m-pujas-sort__btn" data-review-filter="top" type="button">Top</button></div></div>' +
-    '<div id="pandit-reviews"></div>' +
+    '<section class="detail-section detail-section--reviews" aria-label="Reviews">' +
+    '<div class="pandit-reviews__head">' +
+    '<div class="pandit-reviews__intro">' +
+    '<h2 class="detail-section__title">Reviews</h2>' +
+    '<p class="pandit-reviews__lede">What families say after booking</p>' +
+    "</div>" +
+    '<div class="pandit-reviews__filter" id="review-filter" role="tablist" aria-label="Filter reviews">' +
+    '<button class="pandit-reviews__filter-btn is-active" type="button" role="tab" aria-selected="true" data-review-filter="recent">Recent</button>' +
+    '<button class="pandit-reviews__filter-btn" type="button" role="tab" aria-selected="false" data-review-filter="top">Top rated</button>' +
+    "</div>" +
+    "</div>" +
+    reviewsSummaryHtml() +
+    '<div class="pandit-reviews__list" id="pandit-reviews"></div>' +
     "</section>" +
     "</article>";
 
@@ -227,28 +296,42 @@
     if (!container) return;
     var items = reviewsSeed
       .filter(function (r) { return mode === "top" ? r.kind === "Top" : r.kind === "Recent"; })
-      .slice(0, 3);
-    container.innerHTML = items.map(function (r) {
-      var initials = r.who
-        .split(" ")
-        .map(function (w) { return w.charAt(0); })
-        .join("")
-        .slice(0, 2)
-        .toUpperCase();
-      return (
-        '<article class="pandit-review-card">' +
-        '<div class="pandit-review-card__head">' +
-        '<span class="pandit-review-card__badge">Verified booking</span>' +
-        '<span class="pandit-review-card__stars">' + "★".repeat(r.rating) + "</span>" +
-        "</div>" +
-        '<p class="pandit-review-card__text">"' + esc(r.text) + '"</p>' +
-        '<div class="pandit-review-card__meta">' +
-        '<span class="pandit-review-card__avatar" aria-hidden="true">' + initials + "</span>" +
-        "<strong>" + esc(r.who) + "</strong>" +
-        "</div>" +
-        "</article>"
-      );
-    }).join("");
+      .sort(function (a, b) {
+        if (mode === "top") return (b.rating || 0) - (a.rating || 0);
+        return 0;
+      })
+      .slice(0, 4);
+    if (!items.length) {
+      container.innerHTML = '<p class="pandit-reviews__empty">No reviews in this view yet.</p>';
+      return;
+    }
+    container.innerHTML = items
+      .map(function (r) {
+        var meta = [r.puja, r.when].filter(Boolean).join(" · ");
+        return (
+          '<article class="pandit-review-card">' +
+          '<header class="pandit-review-card__top">' +
+          '<span class="pandit-review-card__avatar" aria-hidden="true">' +
+          reviewInitials(r.who) +
+          "</span>" +
+          '<div class="pandit-review-card__identity">' +
+          "<strong>" +
+          esc(r.who) +
+          "</strong>" +
+          (meta ? '<span class="pandit-review-card__context">' + esc(meta) + "</span>" : "") +
+          "</div>" +
+          renderStarRow(r.rating) +
+          "</header>" +
+          '<blockquote class="pandit-review-card__quote">' +
+          esc(r.text) +
+          "</blockquote>" +
+          '<footer class="pandit-review-card__foot">' +
+          '<span class="pandit-review-card__badge">Verified booking</span>' +
+          "</footer>" +
+          "</article>"
+        );
+      })
+      .join("");
   }
 
   renderReviews("recent");
@@ -283,8 +366,12 @@
   if (reviewFilter) {
     reviewFilter.querySelectorAll("[data-review-filter]").forEach(function (btn) {
       btn.addEventListener("click", function () {
-        reviewFilter.querySelectorAll("[data-review-filter]").forEach(function (b) { b.classList.remove("is-active"); });
+        reviewFilter.querySelectorAll("[data-review-filter]").forEach(function (b) {
+          b.classList.remove("is-active");
+          b.setAttribute("aria-selected", "false");
+        });
         btn.classList.add("is-active");
+        btn.setAttribute("aria-selected", "true");
         renderReviews(btn.getAttribute("data-review-filter"));
       });
     });

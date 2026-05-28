@@ -3,17 +3,13 @@
 
   var DC = window.DivineCenter;
   var panditsTrack = document.getElementById("pandits-track");
-  var pujaGrid = document.getElementById("puja-icons-grid");
   var galleryGrid = document.getElementById("home-gallery-grid");
   var testimonialsGrid = document.getElementById("home-testimonials-grid");
-  var storiesGrid = document.getElementById("home-stories-grid");
   var blogGrid = document.getElementById("blog-grid");
   var navMenu = document.getElementById("nav-menu");
 
-  if (pujaGrid) pujaGrid.innerHTML = DC.renderPujaIcons();
   if (galleryGrid) galleryGrid.innerHTML = DC.renderHomeGallery();
   if (testimonialsGrid) testimonialsGrid.innerHTML = DC.renderHomeTestimonials();
-  if (storiesGrid) storiesGrid.innerHTML = DC.renderHomeStories();
   if (panditsTrack) {
     panditsTrack.innerHTML = DC.renderHomePandits();
     var countEl = document.querySelector("[data-pandit-count]");
@@ -58,10 +54,10 @@
         e.preventDefault();
         var q = searchInput.value.trim();
         if (q) {
-          location.href = "pujas?q=" + encodeURIComponent(q);
+          location.href = "pujas.html?q=" + encodeURIComponent(q);
           return;
         }
-        location.href = "pujas";
+        location.href = "pujas.html";
       });
     });
   }

@@ -5,14 +5,14 @@ window.DivineCenter = (function () {
   "use strict";
 
   var PUJA_ICONS = [
-    { puja: "Griha Pravesh", slug: "griha-pravesh", src: "assets/icons/griha.png", labelHtml: "Griha Pravesh" },
-    { puja: "Satyanarayana Pooja", slug: "satyanarayana", src: "assets/icons/satya.png", labelHtml: "Satyanarayana<br />Pooja" },
-    { puja: "Varalakshmi Vratam", slug: "varalakshmi", src: "assets/icons/Varalakshmi.png", labelHtml: "Varalakshmi<br />Vratam" },
-    { puja: "Rudrabhishekam", slug: "rudrabhishekam", src: "assets/icons/Rudrabhishekam.png", labelHtml: "Rudrabhishekam<br />Pooja" },
-    { puja: "Hanuman Puja", slug: "hanuman", src: "assets/icons/hanuman.png", labelHtml: "Hanuman Puja" },
-    { puja: "Annaprashan", slug: "annaprashan", src: "assets/icons/Annaprashan.png", labelHtml: "Annaprashan<br />Ceremony" },
-    { puja: "Aksharabhyasam", slug: "aksharabhyasam", src: "assets/icons/Aksharabhyasam.png", labelHtml: "Aksharabhyasam" },
-    { puja: "Consultation", slug: "consultation", src: "assets/icons/Consultation.png", labelHtml: "Consultation<br />Service" },
+    { puja: "Griha Pravesh", slug: "griha-pravesh", src: "assets/icons/griha-pravesh.svg", labelHtml: "Griha Pravesh" },
+    { puja: "Satyanarayana Pooja", slug: "satyanarayana", src: "assets/icons/satyanarayana.svg", labelHtml: "Satyanarayana<br />Pooja" },
+    { puja: "Varalakshmi Vratam", slug: "varalakshmi", src: "assets/icons/varalakshmi.svg", labelHtml: "Varalakshmi<br />Vratam" },
+    { puja: "Rudrabhishekam", slug: "rudrabhishekam", src: "assets/icons/rudrabhishekam.svg", labelHtml: "Rudrabhishekam<br />Pooja" },
+    { puja: "Hanuman Puja", slug: "hanuman", src: "assets/icons/hanuman.svg", labelHtml: "Hanuman Puja" },
+    { puja: "Annaprashan", slug: "annaprashan", src: "assets/icons/annaprashan.svg", labelHtml: "Annaprashan<br />Ceremony" },
+    { puja: "Aksharabhyasam", slug: "aksharabhyasam", src: "assets/icons/aksharabhyasam.svg", labelHtml: "Aksharabhyasam" },
+    { puja: "Consultation", slug: "consultation", src: "assets/icons/consultation.svg", labelHtml: "Consultation<br />Service" },
   ];
 
   var PUJAS = [
@@ -595,12 +595,42 @@ window.DivineCenter = (function () {
   });
 
   var HOME_GALLERY = [
-    { slug: "griha-pravesh", title: "Griha Pravesh", caption: "Sacred housewarming" },
-    { slug: "varalakshmi", title: "Varalakshmi Vratam", caption: "Prosperity & grace" },
-    { slug: "rudrabhishekam", title: "Rudrabhishekam", caption: "Shiva abhishekam" },
-    { slug: "kalyanam", title: "Kalyanam", caption: "Vedic wedding rites" },
-    { slug: "navagraha-shanti", title: "Navagraha Shanti", caption: "Planetary harmony" },
-    { slug: "hanuman", title: "Hanuman Puja", caption: "Strength & devotion" },
+    {
+      slug: "griha-pravesh",
+      title: "Griha Pravesh",
+      caption: "Sacred housewarming",
+      photo: "assets/images/pujas/griha-pravesh.jpg",
+    },
+    {
+      slug: "varalakshmi",
+      title: "Varalakshmi Vratam",
+      caption: "Prosperity & grace",
+      photo: "assets/images/pujas/varalakshmi.jpg",
+    },
+    {
+      slug: "rudrabhishekam",
+      title: "Rudrabhishekam",
+      caption: "Shiva abhishekam",
+      photo: "assets/images/pujas/rudrabhishekam.jpg",
+    },
+    {
+      slug: "kalyanam",
+      title: "Kalyanam",
+      caption: "Vedic wedding rites",
+      photo: "assets/images/pujas/kalyanam.jpg",
+    },
+    {
+      slug: "navagraha-shanti",
+      title: "Navagraha Shanti",
+      caption: "Planetary harmony",
+      photo: "assets/images/pujas/navagraha-shanti.jpg",
+    },
+    {
+      slug: "hanuman",
+      title: "Hanuman Puja",
+      caption: "Strength & devotion",
+      photo: "assets/images/pujas/hanuman.jpg",
+    },
   ];
 
   var TESTIMONIALS = [
@@ -678,15 +708,53 @@ window.DivineCenter = (function () {
     return /assets\/icons\//.test(src || "");
   }
 
+  var PUJA_PHOTO_DIR = "assets/images/pujas/";
+  var PUJA_PHOTO_PNG = {
+    "griha-pravesh": "griha.png",
+    satyanarayana: "satya.png",
+    varalakshmi: "varalakhmi.png",
+    rudrabhishekam: "rudhra.png",
+    hanuman: "hanuman.png",
+    annaprashan: "anna.png",
+    aksharabhyasam: "akhara.png",
+    consultation: "consultation.png",
+    "kedareshwara-vratam": "kedar.png",
+    "kala-sarpa-dosha": "kala.png",
+    "vastu-shanti": "vastu.png",
+    "mangala-dosha": "mangala.png",
+    kalyanam: "kalyanam.png",
+    "shani-shanti": "sheni.png",
+    "mahalakshmi-homam": "mahalakhmi homa.png",
+    "rahu-ketu-shanti": "rahu ketu.png",
+    "navagraha-shanti": "navagragha.png",
+    "ati-rudra-homam": "athi rudra homan.png",
+  };
+
+  function pujaPhotoFileUrl(filename) {
+    return PUJA_PHOTO_DIR + encodeURIComponent(filename || "");
+  }
+
   function pujaIconPath(p) {
-    if (p.img) return p.img;
+    if (!p || !p.slug) return "assets/logo/image.png";
     return "assets/icons/" + p.slug + ".svg";
   }
 
   function pujaPhotoPath(p) {
-    if (p.photo) return p.photo;
-    return "assets/images/pujas/" + p.slug + ".jpg";
+    if (p && p.photo) return p.photo;
+    if (p && p.slug && PUJA_PHOTO_PNG[p.slug]) {
+      return pujaPhotoFileUrl(PUJA_PHOTO_PNG[p.slug]);
+    }
+    return pujaIconPath(p);
   }
+
+  PUJAS.forEach(function (puja) {
+    puja.img = pujaPhotoPath(puja);
+  });
+  PUJA_ICONS.forEach(function (item) {
+    if (PUJA_PHOTO_PNG[item.slug]) {
+      item.src = pujaPhotoFileUrl(PUJA_PHOTO_PNG[item.slug]);
+    }
+  });
 
   function pujaUrl(slug, forMobile) {
     return "puja?p=" + slug;
@@ -696,7 +764,8 @@ window.DivineCenter = (function () {
     var photo = pujaPhotoPath(p);
     var iconFallback = pujaIconPath(p);
     var c = "media-img" + (className ? " " + className : "");
-    var wrapClass = "puja-media";
+    var wrapClass =
+      "puja-media" + (isPujaIconSrc(photo) ? " is-icon" : "");
     var onerror =
       ' onerror="' +
       PUJA_IMG_ONERROR +
@@ -1281,7 +1350,7 @@ window.DivineCenter = (function () {
       '<section class="puja-pandits" aria-labelledby="puja-pandits-title">' +
       '<div class="puja-pandits__head">' +
       '<h2 id="puja-pandits-title" class="puja-pandits__title">Top Recommended Pandits</h2>' +
-      '<a href="pandits" class="btn btn--outline btn--sm">View More</a>' +
+      '<a href="pandits" class="btn btn--outline btn--sm puja-pandits__more">View More</a>' +
       "</div>" +
       '<div class="' +
       trackClass +
@@ -1348,9 +1417,6 @@ window.DivineCenter = (function () {
       p.desc +
       "</p>" +
       '<div class="puja-card__meta">' +
-      "<span class=\"puja-card__price\">" +
-      p.price +
-      "</span>" +
       "<span>" +
       p.duration +
       "</span></div>" +
@@ -1528,7 +1594,8 @@ window.DivineCenter = (function () {
     forMobile = !!forMobile;
     return HOME_GALLERY.map(function (item, index) {
       var puja = getPuja(item.slug) || { slug: item.slug, title: item.title };
-      var photo = pujaPhotoPath(puja);
+      var photo = item.photo || pujaPhotoPath(puja);
+      var fallback = pujaPhotoPath(puja);
       var featured = index === 0 ? " home-gallery__item--featured" : "";
       return (
         '<a href="' +
@@ -1540,7 +1607,13 @@ window.DivineCenter = (function () {
         photo +
         '" alt="' +
         item.title +
-        '" width="480" height="360" loading="lazy" decoding="async" />' +
+        '" width="480" height="360" loading="lazy" decoding="async"' +
+        (photo !== fallback
+          ? ' data-fallback="' +
+            fallback +
+            '" onerror="var f=this.getAttribute(\'data-fallback\');if(f&&this.src!==f)this.src=f;"'
+          : "") +
+        " />" +
         '<span class="home-gallery__shade" aria-hidden="true"></span>' +
         '<span class="home-gallery__copy">' +
         '<span class="home-gallery__title">' +

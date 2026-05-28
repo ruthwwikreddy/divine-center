@@ -5,14 +5,14 @@ window.DivineCenter = (function () {
   "use strict";
 
   var PUJA_ICONS = [
-    { puja: "Griha Pravesh", slug: "griha-pravesh", src: "assets/icons/griha.png", labelHtml: "Griha Pravesh" },
-    { puja: "Satyanarayana Pooja", slug: "satyanarayana", src: "assets/icons/satya.png", labelHtml: "Satyanarayana<br />Pooja" },
-    { puja: "Varalakshmi Vratam", slug: "varalakshmi", src: "assets/icons/Varalakshmi.png", labelHtml: "Varalakshmi<br />Vratam" },
-    { puja: "Rudrabhishekam", slug: "rudrabhishekam", src: "assets/icons/Rudrabhishekam.png", labelHtml: "Rudrabhishekam<br />Pooja" },
-    { puja: "Hanuman Puja", slug: "hanuman", src: "assets/icons/hanuman.png", labelHtml: "Hanuman Puja" },
-    { puja: "Annaprashan", slug: "annaprashan", src: "assets/icons/Annaprashan.png", labelHtml: "Annaprashan<br />Ceremony" },
-    { puja: "Aksharabhyasam", slug: "aksharabhyasam", src: "assets/icons/Aksharabhyasam.png", labelHtml: "Aksharabhyasam" },
-    { puja: "Consultation", slug: "consultation", src: "assets/icons/Consultation.png", labelHtml: "Consultation<br />Service" },
+    { puja: "Griha Pravesh", slug: "griha-pravesh", src: "assets/icons/griha-pravesh.svg", labelHtml: "Griha Pravesh" },
+    { puja: "Satyanarayana Pooja", slug: "satyanarayana", src: "assets/icons/satyanarayana.svg", labelHtml: "Satyanarayana<br />Pooja" },
+    { puja: "Varalakshmi Vratam", slug: "varalakshmi", src: "assets/icons/varalakshmi.svg", labelHtml: "Varalakshmi<br />Vratam" },
+    { puja: "Rudrabhishekam", slug: "rudrabhishekam", src: "assets/icons/rudrabhishekam.svg", labelHtml: "Rudrabhishekam<br />Pooja" },
+    { puja: "Hanuman Puja", slug: "hanuman", src: "assets/icons/hanuman.svg", labelHtml: "Hanuman Puja" },
+    { puja: "Annaprashan", slug: "annaprashan", src: "assets/icons/annaprashan.svg", labelHtml: "Annaprashan<br />Ceremony" },
+    { puja: "Aksharabhyasam", slug: "aksharabhyasam", src: "assets/icons/aksharabhyasam.svg", labelHtml: "Aksharabhyasam" },
+    { puja: "Consultation", slug: "consultation", src: "assets/icons/consultation.svg", labelHtml: "Consultation<br />Service" },
   ];
 
   var PUJAS = [
@@ -678,15 +678,53 @@ window.DivineCenter = (function () {
     return /assets\/icons\//.test(src || "");
   }
 
+  var PUJA_PHOTO_DIR = "assets/images/pujas/";
+  var PUJA_PHOTO_PNG = {
+    "griha-pravesh": "griha.png",
+    satyanarayana: "satya.png",
+    varalakshmi: "varalakhmi.png",
+    rudrabhishekam: "rudhra.png",
+    hanuman: "hanuman.png",
+    annaprashan: "anna.png",
+    aksharabhyasam: "akhara.png",
+    consultation: "consultation.png",
+    "kedareshwara-vratam": "kedar.png",
+    "kala-sarpa-dosha": "kala.png",
+    "vastu-shanti": "vastu.png",
+    "mangala-dosha": "mangala.png",
+    kalyanam: "kalyanam.png",
+    "shani-shanti": "sheni.png",
+    "mahalakshmi-homam": "mahalakhmi homa.png",
+    "rahu-ketu-shanti": "rahu ketu.png",
+    "navagraha-shanti": "navagragha.png",
+    "ati-rudra-homam": "athi rudra homan.png",
+  };
+
+  function pujaPhotoFileUrl(filename) {
+    return PUJA_PHOTO_DIR + encodeURIComponent(filename || "");
+  }
+
   function pujaIconPath(p) {
-    if (p.img) return p.img;
+    if (!p || !p.slug) return "assets/logo/image.png";
     return "assets/icons/" + p.slug + ".svg";
   }
 
   function pujaPhotoPath(p) {
-    if (p.photo) return p.photo;
-    return "assets/images/pujas/" + p.slug + ".jpg";
+    if (p && p.photo) return p.photo;
+    if (p && p.slug && PUJA_PHOTO_PNG[p.slug]) {
+      return pujaPhotoFileUrl(PUJA_PHOTO_PNG[p.slug]);
+    }
+    return pujaIconPath(p);
   }
+
+  PUJAS.forEach(function (puja) {
+    puja.img = pujaPhotoPath(puja);
+  });
+  PUJA_ICONS.forEach(function (item) {
+    if (PUJA_PHOTO_PNG[item.slug]) {
+      item.src = pujaPhotoFileUrl(PUJA_PHOTO_PNG[item.slug]);
+    }
+  });
 
   function pujaUrl(slug, forMobile) {
     return "puja?p=" + slug;
@@ -696,7 +734,8 @@ window.DivineCenter = (function () {
     var photo = pujaPhotoPath(p);
     var iconFallback = pujaIconPath(p);
     var c = "media-img" + (className ? " " + className : "");
-    var wrapClass = "puja-media";
+    var wrapClass =
+      "puja-media" + (isPujaIconSrc(photo) ? " is-icon" : "");
     var onerror =
       ' onerror="' +
       PUJA_IMG_ONERROR +
@@ -1702,7 +1741,11 @@ window.DivineCenter = (function () {
     renderPanditListings: renderPanditListings,
     renderPanditListingCard: renderPanditListingCard,
     getPanditCities: getPanditCities,
+    pujaIconPath: pujaIconPath,
+    pujaPhotoPath: pujaPhotoPath,
+    imgPujaPhoto: imgPujaPhoto,
     renderPujaServices: renderPujaServices,
+    renderPujaServiceCard: renderPujaServiceCard,
     renderPujaListingCard: renderPujaListingCard,
     renderPujaListings: renderPujaListings,
     renderBlogs: renderBlogs,
