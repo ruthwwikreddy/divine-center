@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Register as a verified pandit on Divine Center — reach devotees and grow your priest services." />
+    <title>Register as Pandit — Divine Center</title>
+    <script src="site-config.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="page-auth page-auth--pandit" data-page="auth" data-auth-page="register" data-auth-role="pandit">
+    <a class="skip-link" href="#auth-box">Skip to form</a>
+
+    <main class="auth-layout" id="auth-main">
+      <aside class="auth-hero auth-hero--pandit" aria-label="For Acharyas">
+        <div class="auth-hero__media" aria-hidden="true">
+          <img src="assets/images/matching-pandit-cta.png" alt="" width="400" height="400" loading="eager" decoding="async" />
+        </div>
+        <div class="auth-hero__shade" aria-hidden="true"></div>
+        <div class="auth-hero__inner">
+          <a href="index" class="auth-hero__brand">
+            <img class="brand__icon" src="assets/logo/image.png" alt="Divine Center logo" width="36" height="36" />
+            <span>Divine Center</span>
+          </a>
+          <p class="auth-hero__eyebrow">For Acharyas</p>
+          <p id="auth-aside-title" class="auth-hero__headline">Grow your priest services</p>
+          <p id="auth-aside-sub" class="auth-hero__text"></p>
+          <ul id="auth-aside-perks" class="auth-hero__perks"></ul>
+        </div>
+      </aside>
+
+      <section class="auth-main" aria-labelledby="auth-page-title">
+        <div class="auth-main__center">
+          <a href="index" class="auth-back">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            Back to website
+          </a>
+
+          <div class="auth-box auth-box--wide" id="auth-box">
+            <div class="auth-tabs" role="tablist" aria-label="Account type">
+              <button type="button" class="auth-tabs__btn" data-auth-tab="customer" role="tab" aria-selected="false">Devotee</button>
+              <button type="button" class="auth-tabs__btn is-active" data-auth-tab="pandit" role="tab" aria-selected="true">Pandit</button>
+            </div>
+
+            <h1 id="auth-page-title" class="auth-box__title">Apply as a pandit</h1>
+            <p class="auth-box__lead">We review every profile before it goes live on Divine Center.</p>
+
+            <form class="auth-form" data-auth-form novalidate>
+              <div class="auth-form__grid">
+                <label class="auth-field"><span class="auth-field__label">Full name</span><input type="text" name="fullName" required autocomplete="name" /></label>
+                <label class="auth-field"><span class="auth-field__label">Email</span><input type="email" name="email" required autocomplete="email" /></label>
+                <label class="auth-field"><span class="auth-field__label">Mobile</span><input type="tel" name="phone" required autocomplete="tel" /></label>
+                <label class="auth-field"><span class="auth-field__label">Primary city</span><input type="text" name="city" required /></label>
+                <label class="auth-field"><span class="auth-field__label">Experience (years)</span><input type="number" name="experience" required min="1" max="60" /></label>
+                <label class="auth-field"><span class="auth-field__label">Languages</span><input type="text" name="languages" required placeholder="Telugu, Sanskrit…" /></label>
+                <label class="auth-field auth-field--full"><span class="auth-field__label">Puja specializations</span><input type="text" name="specializations" required placeholder="Griha Pravesh, Vivah…" /></label>
+                <label class="auth-field"><span class="auth-field__label">Password</span><input type="password" name="password" required minlength="8" autocomplete="new-password" /></label>
+                <label class="auth-field"><span class="auth-field__label">Confirm password</span><input type="password" name="confirmPassword" required minlength="8" autocomplete="new-password" /></label>
+              </div>
+              <label class="auth-check auth-check--block">
+                <input type="checkbox" name="verify" required />
+                I confirm my details are accurate and agree to verification per Divine Center policy.
+              </label>
+              <button type="submit" class="btn btn--accent btn--block auth-form__submit">Submit application</button>
+              <p class="auth-form__hint form-hint" role="status"></p>
+            </form>
+
+            <div id="auth-success" class="auth-success" hidden>
+              <div class="auth-success__ring" aria-hidden="true"></div>
+              <p class="auth-success__title">Application received</p>
+              <p class="auth-success__text">We’ll reach out within 2–3 business days.</p>
+              <a class="auth-external auth-external--inline" data-auth-live="register" href="#">Continue on divinecenter.in</a>
+            </div>
+
+            <div class="auth-box__alt">
+              <p class="auth-divider"><span>or</span></p>
+              <a class="auth-external" data-auth-live="register" href="#" rel="noopener noreferrer">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+                Register on divinecenter.in
+              </a>
+            </div>
+
+            <p class="auth-box__foot">Already registered? <a href="login?role=pandit">Pandit login</a></p>
+          </div>
+
+          <ul class="auth-trust" aria-label="Trust indicators">
+            <li>Background verified</li>
+            <li>Fair bookings</li>
+            <li>Dedicated support</li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <script src="auth-content.js"></script>
+    <script src="auth.js"></script>
+    <script src="layout.js"></script>
+    <script src="desktop-i18n.js"></script>
+  </body>
+</html>

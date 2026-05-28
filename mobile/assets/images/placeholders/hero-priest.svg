@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="860" viewBox="0 0 720 860">
+  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f5e6d8"/><stop offset="100%" stop-color="#fdf8f2"/></linearGradient></defs>
+  <rect width="720" height="860" fill="url(#g)"/>
+  <circle cx="520" cy="280" r="120" fill="#d36b2b" opacity="0.15"/>
+  <ellipse cx="360" cy="620" rx="200" ry="80" fill="#4a1c14" opacity="0.08"/>
+  <text x="360" y="440" text-anchor="middle" font-family="Georgia,serif" font-size="28" fill="#4a1c14">Hero — Puja Still Life</text>
+  <text x="360" y="480" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#d36b2b">Replace: hero-priest.jpg</text>
+</svg>

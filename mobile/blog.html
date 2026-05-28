@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#fdf8f2" />
+    <title>Blog — Divine Center</title>
+    <script src="site-config.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="mobile.css" />
+  </head>
+  <body class="m-app" data-page="blogs" data-tabbar="off">
+    <header class="m-subheader">
+      <a href="javascript:history.back()" class="m-subheader__back" aria-label="Back">‹</a>
+      <h1 class="m-subheader__title">Blogs</h1>
+      <span class="m-subheader__spacer" aria-hidden="true"></span>
+    </header>
+    <div class="m-reading-progress" id="reading-progress" aria-label="Reading progress">0%</div>
+    <main class="m-page m-page--article" id="blog-article"></main>
+    <section class="m-related">
+      <h2>Related Articles</h2>
+      <div class="m-related__scroll" id="related-blogs"></div>
+    </section>
+    <footer class="m-reader-actions">
+      <button type="button" class="btn btn--outline" id="reader-share">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v7a2 2 0 002 2h12a2 2 0 002-2v-7M16 6l-4-4-4 4M12 2v14"/></svg>
+        Share
+      </button>
+      <button type="button" class="btn btn--accent" id="reader-save">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
+        Save
+      </button>
+    </footer>
+    <script src="blog-details-data.js"></script>
+    <script src="site-data.js"></script>
+    <script src="mobile-shell.js"></script>
+    <script>
+      (function () {
+        var DC = window.DivineCenter;
+        var slug =
+          new URLSearchParams(location.search).get("b") ||
+          "varalakshmi-vratam-significance-rituals-muhurat";
+        var b = DC.getBlog(slug);
+        var main = document.getElementById("blog-article");
+        if (!b) {
+          main.innerHTML = '<p class="m-empty">Article not found.</p>';
+          return;
+        }
+        document.title = b.title + " — Divine Center";
+        var intro = (b.body || [])
+          .map(function (para) {
+            return "<p>" + para + "</p>";
+          })
+          .join("");
+        var sections = DC.renderBlogArticleSections(b.sections);
+        main.innerHTML =
+          DC.img(b.img, "", "m-article-hero", 400, 240, "eager") +
+          '<section class="m-article-head">' +
+          "<h2 class=\"m-article-title\">" +
+          b.title +
+          "</h2>" +
+          '<p class="m-article-meta">By Divine Center Editorial · ' +
+          b.date +
+          " · " +
+          b.readTime +
+          "</p></section>" +
+          '<div class="m-article-body">' +
+          intro +
+          sections +
+          "</div>";
+        document.getElementById("related-blogs").innerHTML = DC.BLOGS.filter(function (x) {
+          return x.slug !== b.slug;
+        })
+          .slice(0, 3)
+          .map(function (x) {
+            return (
+              '<a href="blog?b=' +
+              x.slug +
+              '" class="m-related-card">' +
+              window.DivineCenter.img(x.img, "", "", 120, 90) +
+              "<span>" +
+              x.title.substring(0, 40) +
+              "…</span></a>"
+            );
+          })
+          .join("");
+
+        var progressEl = document.getElementById("reading-progress");
+        var articleBody = document.querySelector(".m-article-body");
+        function updateProgress() {
+          if (!articleBody || !progressEl) return;
+          var top = articleBody.offsetTop;
+          var total = Math.max(1, articleBody.scrollHeight - window.innerHeight + 120);
+          var read = Math.min(Math.max(0, window.scrollY - top + 120), total);
+          var pct = Math.round((read / total) * 100);
+          progressEl.textContent = Math.min(100, Math.max(0, pct)) + "%";
+        }
+        window.addEventListener("scroll", updateProgress, { passive: true });
+        updateProgress();
+
+        var shareBtn = document.getElementById("reader-share");
+        var saveBtn = document.getElementById("reader-save");
+        if (shareBtn) {
+          shareBtn.addEventListener("click", function () {
+            var url = location.href;
+            if (navigator.share) {
+              navigator.share({ title: b.title, url: url }).catch(function () {});
+            } else {
+              navigator.clipboard && navigator.clipboard.writeText(url);
+              alert("Article link copied.");
+            }
+          });
+        }
+        if (saveBtn) {
+          saveBtn.addEventListener("click", function () {
+            var key = "dc_saved_blogs";
+            var saved = [];
+            try {
+              saved = JSON.parse(localStorage.getItem(key) || "[]");
+            } catch (e) {}
+            if (saved.indexOf(b.slug) === -1) saved.push(b.slug);
+            localStorage.setItem(key, JSON.stringify(saved));
+            saveBtn.classList.add("is-saved");
+            saveBtn.textContent = "Saved";
+          });
+        }
+      })();
+    </script>
+  </body>
+</html>

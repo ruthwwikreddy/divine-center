@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#fdf8f2" />
+    <title>My Account — Divine Center</title>
+    <script src="site-config.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="mobile.css" />
+  </head>
+  <body class="m-app" data-page="account">
+    <header class="m-subheader">
+      <a href="index" class="m-subheader__back" aria-label="Back">‹</a>
+      <h1 class="m-subheader__title" data-i18n="profile">Profile</h1>
+      <button type="button" class="m-subheader__icon" aria-label="Settings">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </header>
+    <main class="m-page m-account-page" id="account-main">
+      <div class="m-account-guest" id="account-guest">
+        <div class="m-account-guest__icon" aria-hidden="true">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        </div>
+        <h2>Welcome to Divine Center</h2>
+        <p>Sign in to manage bookings, saved addresses, wallet and personalized rituals.</p>
+        <a href="login" class="btn btn--accent m-account-guest__btn">Sign in</a>
+        <a href="register" class="btn btn--outline m-account-guest__btn">Create account</a>
+        <p class="m-account-guest__pandit">Are you a pandit? <a href="register-pandit">Register here</a> · <a href="login?role=pandit">Login</a></p>
+      </div>
+
+      <section class="m-account-group">
+        <h3 class="m-section-label" data-i18n="settings">Settings</h3>
+        <div class="m-account-prefs">
+          <p class="m-account-prefs__label" data-i18n="appLanguage">App language</p>
+          <div class="m-language-setting">
+            <select id="account-language-select" aria-label="App language">
+              <option value="en">English</option>
+              <option value="te">Telugu</option>
+              <option value="hi">Hindi</option>
+              <option value="ml">Malayalam</option>
+              <option value="ta">Tamil</option>
+              <option value="mr">Marathi</option>
+            </select>
+            <button type="button" class="btn btn--outline" id="account-language-save" data-i18n="save">Save</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="account-user-area" hidden>
+        <section class="m-account-profile" id="account-user">
+          <div class="m-profile__avatar" id="account-avatar">DC</div>
+          <div>
+            <h2 id="account-name">Devotee</h2>
+            <p id="account-email"></p>
+            <p id="account-phone" class="m-profile__role"></p>
+          </div>
+        </section>
+
+        <section class="m-account-group">
+          <h3 class="m-section-label">Account</h3>
+          <nav class="m-menu-list" id="account-menu">
+            <a href="#"><span>Personal Info</span><em>›</em></a>
+            <a href="#"><span>Saved Addresses</span><em>›</em></a>
+            <a href="wallet"><span>Wallet</span><em>›</em></a>
+            <a href="bookings"><span>Bookings</span><em>›</em></a>
+            <a href="#"><span>Notifications</span><em>›</em></a>
+          </nav>
+        </section>
+
+        <section class="m-account-group">
+          <h3 class="m-section-label">Spiritual Preferences</h3>
+          <div class="m-account-prefs">
+            <p class="m-account-prefs__label">Preferred languages</p>
+            <div class="m-chips m-chips--wrap">
+              <span class="m-chip is-active">Telugu</span>
+              <span class="m-chip">Hindi</span>
+              <span class="m-chip">English</span>
+            </div>
+            <p class="m-account-prefs__label">Preferred rituals</p>
+            <div class="m-chips m-chips--wrap">
+              <span class="m-chip">Griha Pravesh</span>
+              <span class="m-chip">Satyanarayana</span>
+              <span class="m-chip">Varalakshmi Vratam</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="m-account-group">
+          <h3 class="m-section-label">Help &amp; Support</h3>
+          <nav class="m-menu-list m-menu-list--support">
+            <a href="contact"><span>Contact Support</span><em>›</em></a>
+            <a href="about"><span>FAQs & Policies</span><em>›</em></a>
+            <a href="blogs"><span>Spiritual Guides</span><em>›</em></a>
+          </nav>
+        </section>
+
+        <button type="button" class="m-logout" id="account-logout">Logout</button>
+        <p class="m-account-version">Divine Center App v1.0.0</p>
+      </section>
+    </main>
+    <script src="auth.js"></script>
+    <script src="mobile-shell.js"></script>
+    <script>
+      (function () {
+        var session = window.DivineCenterAuth && window.DivineCenterAuth.getSession();
+        var guest = document.getElementById("account-guest");
+        var userArea = document.getElementById("account-user-area");
+        var logout = document.getElementById("account-logout");
+        var langSelect = document.getElementById("account-language-select");
+        var langSave = document.getElementById("account-language-save");
+        if (window.MobileShell && langSelect) {
+          langSelect.value = window.MobileShell.getLang ? window.MobileShell.getLang() : "en";
+        }
+        if (langSave && langSelect) {
+          langSave.addEventListener("click", function () {
+            if (window.MobileShell && window.MobileShell.setLang) {
+              window.MobileShell.setLang(langSelect.value);
+            }
+          });
+        }
+        if (!session) return;
+        guest.hidden = true;
+        userArea.hidden = false;
+        var name = session.name || "Devotee";
+        var initials = name
+          .split(" ")
+          .map(function (w) {
+            return w[0];
+          })
+          .join("")
+          .slice(0, 2)
+          .toUpperCase();
+        document.getElementById("account-avatar").textContent = initials;
+        document.getElementById("account-name").textContent = name;
+        document.getElementById("account-email").textContent = session.email || "";
+        document.getElementById("account-phone").textContent =
+          (session.role === "pandit" ? "Pandit account" : "Devotee account") +
+          (session.phone ? " · " + session.phone : "");
+        logout.addEventListener("click", function () {
+          window.DivineCenterAuth.clearSession();
+          location.reload();
+        });
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#fdf8f2" />
+    <title>My Bookings — Divine Center</title>
+    <script src="site-config.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="mobile.css" />
+  </head>
+  <body class="m-app" data-page="bookings">
+    <header class="m-subheader">
+      <button type="button" class="m-header__menu m-subheader__menu" id="m-menu-btn" aria-label="Open menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+      <h1 class="m-subheader__title">My Bookings</h1>
+      <span class="m-subheader__spacer" aria-hidden="true"></span>
+    </header>
+    <main class="m-page m-bookings-page">
+      <div class="m-bookings-tabs" role="tablist" aria-label="Booking status tabs">
+        <button class="m-bookings-tab is-active" data-tab="upcoming" role="tab" aria-selected="true">Upcoming</button>
+        <button class="m-bookings-tab" data-tab="past" role="tab" aria-selected="false">Past</button>
+        <button class="m-bookings-tab" data-tab="cancelled" role="tab" aria-selected="false">Cancelled</button>
+      </div>
+
+      <section id="bookings-list" class="m-bookings-list" aria-live="polite"></section>
+
+      <section id="bookings-empty" class="m-empty-card" hidden>
+        <span class="m-empty-card__icon" aria-hidden="true">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M8 2v4M16 2v4M3 10h18"/><path d="M8 14h4"/><path d="M8 18h8"/></svg>
+        </span>
+        <h2>No bookings in this tab</h2>
+        <p>Try another status or book a new puja to get started.</p>
+        <a href="pujas" class="btn btn--accent btn--block">Explore Puja Services</a>
+      </section>
+    </main>
+    <script src="mobile-shell.js"></script>
+    <script>
+      (function () {
+        var bookings = [
+          {
+            id: "BK1024",
+            tab: "upcoming",
+            puja: "Griha Pravesh Pooja",
+            pandit: "A. Narasimhacharyulu",
+            when: "Sun, 02 Jun · 7:30 AM",
+            status: "Confirmed",
+            location: "Madhapur, Hyderabad",
+            progress: 2,
+          },
+          {
+            id: "BK1021",
+            tab: "upcoming",
+            puja: "Satyanarayana Pooja",
+            pandit: "Sri Krishna Charyulu",
+            when: "Wed, 05 Jun · 6:00 PM",
+            status: "Pandit Assigned",
+            location: "Kukatpally, Hyderabad",
+            progress: 1,
+          },
+          {
+            id: "BK1008",
+            tab: "past",
+            puja: "Varalakshmi Vratam",
+            pandit: "Krishna Kanth",
+            when: "Mon, 13 May · 8:00 AM",
+            status: "Completed",
+            location: "Vanasthalipuram, Hyderabad",
+            progress: 3,
+          },
+          {
+            id: "BK0995",
+            tab: "cancelled",
+            puja: "Hanuman Puja",
+            pandit: "E. Balakrishna",
+            when: "Fri, 03 May · 7:00 AM",
+            status: "Cancelled",
+            location: "BN Reddy, Hyderabad",
+            progress: 0,
+          }
+        ];
+
+        var list = document.getElementById("bookings-list");
+        var empty = document.getElementById("bookings-empty");
+        var activeTab = "upcoming";
+
+        function badgeClass(status) {
+          if (status === "Completed") return "is-completed";
+          if (status === "Cancelled") return "is-cancelled";
+          if (status === "Confirmed") return "is-confirmed";
+          return "is-assigned";
+        }
+
+        function timeline(progress) {
+          var labels = ["Booked", "Assigned", "Confirmed", "Done"];
+          return (
+            '<div class="m-booking-timeline">' +
+            labels.map(function (label, idx) {
+              return '<span class="m-booking-timeline__step ' + (idx <= progress ? "is-on" : "") + '">' + label + "</span>";
+            }).join("") +
+            "</div>"
+          );
+        }
+
+        function actionButtons(tab) {
+          if (tab === "past") {
+            return '<div class="m-booking-actions"><a class="btn btn--outline" href="contact">Support</a><a class="btn btn--accent" href="book">Rebook</a></div>';
+          }
+          if (tab === "cancelled") {
+            return '<div class="m-booking-actions"><a class="btn btn--outline" href="contact">Contact support</a><a class="btn btn--accent" href="book">Rebook</a></div>';
+          }
+          return '<div class="m-booking-actions"><a class="btn btn--outline" href="book">Reschedule</a><a class="btn btn--outline" href="contact">Contact support</a><a class="btn btn--accent" href="book">Rebook</a></div>';
+        }
+
+        function render() {
+          var rows = bookings.filter(function (b) { return b.tab === activeTab; });
+          empty.hidden = rows.length > 0;
+          list.innerHTML = rows.map(function (b) {
+            return (
+              '<article class="m-booking-card">' +
+              '<div class="m-booking-card__head">' +
+              '<div><h2 class="m-booking-card__title">' + b.puja + '</h2><p class="m-booking-card__sub">Pandit: ' + b.pandit + "</p></div>" +
+              '<span class="m-booking-badge ' + badgeClass(b.status) + '">' + b.status + "</span>" +
+              "</div>" +
+              '<p class="m-booking-card__meta"><span aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M8 2v4M16 2v4M3 10h18"/></svg></span> ' + b.when + "</p>" +
+              '<p class="m-booking-card__meta"><span aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-4.5 7-11a7 7 0 10-14 0c0 6.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span> ' + b.location + "</p>" +
+              (activeTab === "upcoming" ? timeline(b.progress) : "") +
+              actionButtons(b.tab) +
+              "</article>"
+            );
+          }).join("");
+        }
+
+        document.querySelectorAll(".m-bookings-tab").forEach(function (tabBtn) {
+          tabBtn.addEventListener("click", function () {
+            activeTab = tabBtn.getAttribute("data-tab");
+            document.querySelectorAll(".m-bookings-tab").forEach(function (b) {
+              b.classList.remove("is-active");
+              b.setAttribute("aria-selected", "false");
+            });
+            tabBtn.classList.add("is-active");
+            tabBtn.setAttribute("aria-selected", "true");
+            render();
+          });
+        });
+
+        render();
+      })();
+    </script>
+  </body>
+</html>

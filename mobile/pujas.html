@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#fdf8f2" />
+    <title>Puja Services — Divine Center</title>
+    <script src="site-config.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="mobile.css" />
+  </head>
+  <body class="m-app m-pujas-v2" data-page="pujas">
+    <header class="m-subheader">
+      <a href="index" class="m-subheader__back" aria-label="Back">‹</a>
+      <h1 class="m-subheader__title">Pujas</h1>
+      <button type="button" class="m-subheader__icon" aria-label="Search">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3-3"/></svg>
+      </button>
+    </header>
+    <main class="m-page">
+      <section class="m-pujas-hero">
+        <p class="m-pujas-hero__eyebrow">Verified Ritual Services</p>
+        <h2 class="m-pujas-hero__title">Book the right puja with confidence</h2>
+        <p class="m-pujas-hero__text">Transparent pricing, trained pandits, and guided booking in minutes.</p>
+      </section>
+      <div class="m-search m-search--page m-pujas-v2__search">
+        <span class="search-pill__icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3-3"/></svg></span>
+        <input type="search" id="puja-search" class="search-pill__field" placeholder="Search pujas, rituals, occasions" />
+      </div>
+      <div class="m-chips m-pujas-filters" id="puja-filters" role="tablist" aria-label="Puja filters">
+        <button class="m-chip" data-filter="occasion">Occasion</button>
+        <button class="m-chip" data-filter="price">Price</button>
+        <button class="m-chip" data-filter="duration">Duration</button>
+        <button class="m-chip" data-filter="home">Home Visit</button>
+        <button class="m-chip" data-filter="language">Language</button>
+      </div>
+      <div class="m-pujas-sort" id="puja-sort">
+        <button class="m-pujas-sort__btn is-active" data-sort="popular">Popular</button>
+        <button class="m-pujas-sort__btn" data-sort="price">Price low-high</button>
+        <button class="m-pujas-sort__btn" data-sort="soonest">Soonest</button>
+      </div>
+      <div class="m-puja-grid-list" id="puja-list" aria-live="polite"></div>
+      <div class="m-empty m-empty--v2" id="puja-empty" hidden>
+        <p>No pujas found</p>
+        <span>Try another keyword or adjust filters.</span>
+      </div>
+    </main>
+    <script src="site-data.js"></script>
+    <script src="mobile-shell.js"></script>
+    <script>
+      (function () {
+        var DC = window.DivineCenter;
+        if (!DC) return;
+        var list = document.getElementById("puja-list");
+        var input = document.getElementById("puja-search");
+        var params = new URLSearchParams(location.search);
+        var initialQ = params.get("q");
+        if (initialQ) input.value = initialQ;
+        var pujas = Array.isArray(DC.PUJAS) ? DC.PUJAS.slice() : [];
+
+        function numericValue(raw) {
+          var n = parseInt(String(raw || "").replace(/\D/g, ""), 10);
+          return isNaN(n) ? Number.MAX_SAFE_INTEGER : n;
+        }
+
+        function durationHours(raw) {
+          var match = String(raw || "").match(/(\d+(\.\d+)?)/);
+          if (!match) return Number.MAX_SAFE_INTEGER;
+          return parseFloat(match[1]);
+        }
+
+        function renderLoading() {
+          list.innerHTML =
+            '<div class="m-loading-card"></div><div class="m-loading-card"></div><div class="m-loading-card"></div>';
+        }
+
+        function sortByMode(items, mode) {
+          var arr = items.slice();
+          if (mode === "price") {
+            arr.sort(function (a, b) {
+              return numericValue(a.price) - numericValue(b.price);
+            });
+          } else if (mode === "soonest") {
+            arr.sort(function (a, b) {
+              return durationHours(a.duration) - durationHours(b.duration);
+            });
+          }
+          return arr;
+        }
+
+        function render() {
+          var q = (input.value || "").trim().toLowerCase();
+          var activeSort = document.querySelector(".m-pujas-sort__btn.is-active");
+          var mode = activeSort ? activeSort.getAttribute("data-sort") : "popular";
+          var empty = document.getElementById("puja-empty");
+          var filtered = pujas.filter(function (p) {
+            var title = String(p.title || "").toLowerCase();
+            var desc = String(p.desc || p.description || "").toLowerCase();
+            var category = String(p.category || "").toLowerCase();
+            return !q || title.indexOf(q) !== -1 || desc.indexOf(q) !== -1 || category.indexOf(q) !== -1;
+          });
+          var sorted = sortByMode(filtered, mode);
+
+          function mobileGridCard(p) {
+            var title = p.title || "Puja Service";
+            var desc = p.desc || p.description || "";
+            var price = p.price || "";
+            var duration = p.duration || "";
+            var type = p.type || "Puja";
+            var slug = encodeURIComponent(p.slug || "");
+            var imgSrc = p.img || "assets/logo/image.png";
+            return (
+              '<a href="puja?p=' +
+              slug +
+              '" class="puja-service-card">' +
+              '<div class="puja-media">' +
+              '<img src="' +
+              imgSrc +
+              '" alt="' +
+              title +
+              '" loading="lazy" decoding="async" onerror="this.onerror=null;this.src=\'assets/logo/image.png\';" />' +
+              "</div>" +
+              '<div class="puja-service-card__body">' +
+              '<span class="puja-service-card__type">' +
+              type +
+              "</span>" +
+              "<h3>" +
+              title +
+              "</h3>" +
+              "<p>" +
+              desc +
+              "</p>" +
+              '<div class="puja-service-card__meta"><span>' +
+              price +
+              "</span><span>" +
+              duration +
+              "</span></div>" +
+              '<span class="puja-service-card__cta">View details →</span>' +
+              "</div></a>"
+            );
+          }
+
+          list.innerHTML = sorted
+            .map(function (p) {
+              return mobileGridCard(p);
+            })
+            .join("");
+          if (empty) empty.hidden = sorted.length > 0;
+        }
+        renderLoading();
+        render();
+        input.addEventListener("input", render);
+        document.querySelectorAll(".m-chip").forEach(function (chip) {
+          chip.addEventListener("click", function () {
+            document.querySelectorAll(".m-chip").forEach(function (c) {
+              c.classList.remove("is-active");
+            });
+            chip.classList.add("is-active");
+          });
+        });
+        document.querySelectorAll(".m-pujas-sort__btn").forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            document.querySelectorAll(".m-pujas-sort__btn").forEach(function (b) {
+              b.classList.remove("is-active");
+            });
+            btn.classList.add("is-active");
+            render();
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>

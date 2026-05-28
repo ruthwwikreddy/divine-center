@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#fdf8f2" />
+    <meta name="description" content="Book authentic Vedic puja services on Divine Center." />
+    <title>Puja Service — Divine Center</title>
+    <script src="site-config.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="mobile.css" />
+    <link rel="stylesheet" href="puja-detail-base.css" />
+    <link rel="stylesheet" href="puja-detail-mobile.css" />
+  </head>
+  <body class="m-app m-app--with-sticky" data-page="pujas" data-tabbar="off">
+    <main class="m-page m-page--detail puja-detail" id="puja-detail"></main>
+    <footer class="m-sticky-bar m-sticky-bar--puja" id="puja-bar" hidden>
+      <div>
+        <span class="m-sticky-bar__label">Starting from</span>
+        <strong class="m-sticky-bar__price" id="puja-price"></strong>
+        <span class="m-sticky-bar__meta" id="puja-sticky-meta">Verified pandit • Instant confirmation</span>
+      </div>
+      <a href="#" class="btn btn--accent" id="book-btn">Book Now</a>
+    </footer>
+    <script src="puja-details-data.js"></script>
+    <script src="pandit-details-data.js"></script>
+    <script src="site-data.js"></script>
+    <script src="puja.js"></script>
+    <script src="mobile-shell.js"></script>
+    <script>
+      (function () {
+        var root = document.getElementById("puja-detail");
+        if (!root) return;
+
+        function enhance() {
+          var article = root.querySelector(".puja-detail-page");
+          if (!article) return;
+          if (article.querySelector(".m-puja-overlay-nav")) return;
+
+          var heroVisual = article.querySelector(".puja-hero__visual");
+          if (heroVisual) {
+            heroVisual.insertAdjacentHTML(
+              "afterbegin",
+              '<div class="m-puja-overlay-nav"><a href="pujas" class="m-subheader__back" aria-label="Back">‹</a><button type="button" class="m-subheader__icon" aria-label="Share">⤴</button></div>'
+            );
+          }
+
+          function shareCurrentPage() {
+            var shareData = { title: document.title, url: location.href };
+            if (navigator.share) {
+              navigator.share(shareData).catch(function () {});
+              return;
+            }
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              navigator.clipboard.writeText(location.href).catch(function () {
+                window.prompt("Copy link", location.href);
+              });
+              return;
+            }
+            window.prompt("Copy link", location.href);
+          }
+
+          var heroBody = article.querySelector(".puja-hero__body");
+          if (heroBody) {
+            heroBody.insertAdjacentHTML(
+              "beforeend",
+              '<section class="puja-panel m-puja-prep" aria-label="Booking prep"><h2 class="puja-panel__title">Choose schedule</h2><div class="m-chips m-chips--schedule"><button class="m-chip is-active" type="button" data-day="Today">Today</button><button class="m-chip" type="button" data-day="Tomorrow">Tomorrow</button><button class="m-chip" type="button" data-day="Pick date">Pick date</button></div><p class="puja-panel__lede">Address: Home service area confirmed at checkout.</p></section>'
+            );
+            heroBody.insertAdjacentHTML(
+              "beforeend",
+              '<section class="m-puja-trustbar" aria-label="Trust highlights"><div class="m-puja-trustbar__item"><strong>Verified pandit</strong><span>background checked by Divine Center</span></div><div class="m-puja-trustbar__item"><strong>Transparent pricing</strong><span>no hidden charges at confirmation</span></div></section>'
+            );
+          }
+
+          article.querySelectorAll(".puja-article, .puja-panel").forEach(function (sec) {
+            if (sec.closest(".puja-hero__body")) return;
+            if (sec.querySelector("details")) return;
+            var title = sec.querySelector(".puja-article__title, .puja-panel__title");
+            if (!title) return;
+            var t = title.textContent;
+            var body = "";
+            Array.prototype.slice.call(sec.children).forEach(function (el) {
+              if (el === title) return;
+              body += el.outerHTML;
+            });
+            sec.innerHTML = '<details><summary>' + t + '</summary><div class="m-accordion-body">' + body + "</div></details>";
+          });
+          var firstAccordion = article.querySelector(".puja-article details, .puja-panel details");
+          if (firstAccordion) firstAccordion.setAttribute("open", "");
+
+          var faqPatterns = [
+            /^what\s+is/i,
+            /^spiritual\s+significance/i,
+            /^ritual\s+process/i,
+            /^when\s+is/i,
+            /^what\s+is\s+included/i,
+            /^why\s+choose/i
+          ];
+          var faqInserted = false;
+          article.querySelectorAll(".puja-article, .puja-panel").forEach(function (sec) {
+            var summary = sec.querySelector("summary");
+            if (!summary) return;
+            var txt = (summary.textContent || "").trim();
+            var isFaq = faqPatterns.some(function (re) { return re.test(txt); });
+            if (!isFaq) return;
+            sec.classList.add("m-faq-item");
+            if (!faqInserted) {
+              sec.insertAdjacentHTML("beforebegin", '<h2 class="m-faq-head">Frequently Asked Questions</h2>');
+              faqInserted = true;
+            }
+          });
+
+          article.querySelectorAll(".m-chips--schedule .m-chip").forEach(function (chip) {
+            chip.addEventListener("click", function () {
+              article.querySelectorAll(".m-chips--schedule .m-chip").forEach(function (c) {
+                c.classList.remove("is-active");
+              });
+              chip.classList.add("is-active");
+              var selected = chip.getAttribute("data-day") || "Today";
+              var note = article.querySelector(".m-puja-prep .puja-panel__lede");
+              if (note) {
+                note.textContent =
+                  selected === "Pick date"
+                    ? "Select your preferred date at checkout. We will confirm the exact muhurat."
+                    : selected + " slots available. Address is confirmed during checkout.";
+              }
+              var stickyMeta = document.getElementById("puja-sticky-meta");
+              if (stickyMeta) {
+                stickyMeta.textContent =
+                  selected === "Pick date"
+                    ? "Flexible date • Pandit confirms muhurat"
+                    : selected + " slots • Verified pandit on-time";
+              }
+            });
+          });
+
+          var shareBtn = article.querySelector(".m-puja-overlay-nav .m-subheader__icon");
+          if (shareBtn && !shareBtn.dataset.bound) {
+            shareBtn.dataset.bound = "1";
+            shareBtn.addEventListener("click", shareCurrentPage);
+          }
+        }
+
+        setTimeout(enhance, 50);
+        setTimeout(enhance, 250);
+      })();
+    </script>
+  </body>
+</html>

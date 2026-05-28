@@ -1,0 +1,308 @@
+/* Puja detail page (mobile) — shared markup from puja.js */
+.m-page--detail.puja-detail {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0 0 6.25rem;
+}
+
+.m-page--detail .puja-detail-page {
+  gap: 1.5rem;
+  padding: 0 var(--pad);
+}
+
+.m-page--detail .puja-hero {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  margin-top: 0.25rem;
+}
+
+.m-page--detail .puja-hero__visual {
+  margin: 0 calc(-1 * var(--pad));
+  position: relative;
+  border-radius: 0 0 20px 20px;
+  overflow: hidden;
+  box-shadow: 0 18px 32px rgba(74, 28, 20, 0.2);
+}
+
+.m-page--detail .puja-hero__media {
+  border-radius: 0;
+  aspect-ratio: 16 / 8.4;
+  box-shadow: none;
+}
+
+.m-page--detail .puja-hero__media .puja-media,
+.m-page--detail .puja-hero__media .puja-media img,
+.m-page--detail .puja-hero__img {
+  width: 100%;
+  height: 100%;
+}
+
+.m-page--detail .puja-hero__media .puja-media img,
+.m-page--detail .puja-hero__img {
+  object-fit: cover;
+  transform: scale(1.08);
+  transform-origin: center;
+}
+
+.m-page--detail .puja-hero__media .puja-media.is-fallback img,
+.m-page--detail .puja-hero__media .puja-media.is-icon img {
+  object-fit: contain;
+  transform: none;
+}
+
+.m-page--detail .puja-hero__visual::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0.04) 0%, rgba(0, 0, 0, 0.4) 100%),
+    radial-gradient(circle at 70% 20%, rgba(255, 173, 96, 0.18), transparent 45%);
+  pointer-events: none;
+}
+
+.m-page--detail .puja-hero__category {
+  top: 0.95rem;
+  left: var(--pad);
+  z-index: 2;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.26);
+  backdrop-filter: blur(4px);
+}
+
+.m-page--detail .puja-hero__body {
+  margin-top: -1.55rem;
+  background: linear-gradient(180deg, #fff 0%, #fffaf5 100%);
+  border: 1px solid rgba(74, 28, 20, 0.1);
+  border-radius: 16px;
+  padding: 1.1rem 0.95rem 1rem;
+  box-shadow: 0 14px 28px rgba(74, 28, 20, 0.11);
+  position: relative;
+  z-index: 3;
+}
+
+.m-page--detail .puja-hero__title {
+  font-size: 1.56rem;
+  line-height: 1.16;
+  letter-spacing: -0.01em;
+}
+
+.m-page--detail .puja-hero__subtitle {
+  font-size: 0.86rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.m-page--detail .puja-hero__price-row {
+  margin-top: 0.55rem;
+}
+
+.m-page--detail .puja-hero__facts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.42rem;
+  margin-top: 0.55rem;
+}
+
+.m-page--detail .puja-hero__fact {
+  background: #fff;
+  border: 1px solid rgba(74, 28, 20, 0.12);
+  border-radius: 11px;
+  padding: 0.45rem 0.45rem;
+  box-shadow: 0 4px 10px rgba(74, 28, 20, 0.05);
+}
+
+.m-page--detail .puja-hero__fact dt {
+  font-size: 0.58rem;
+  color: var(--text-muted);
+  margin-bottom: 0.1rem;
+}
+
+.m-page--detail .puja-hero__fact dd {
+  font-size: 0.7rem;
+  color: var(--mahogany);
+  font-weight: 700;
+}
+
+.m-page--detail .puja-hero__price-amount {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.m-page--detail .puja-hero__intro {
+  font-size: 0.87rem;
+  line-height: 1.65;
+  margin-top: 0.62rem;
+}
+
+.m-page--detail .puja-hero__tags {
+  margin-top: 0.55rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.m-page--detail .puja-hero__tag {
+  border-radius: 999px;
+  border: 1px solid rgba(30, 107, 74, 0.24);
+  background: rgba(30, 107, 74, 0.08);
+  color: #1e6b4a;
+  font-size: 0.62rem;
+  font-weight: 700;
+  padding: 0.22rem 0.52rem;
+}
+
+.m-page--detail .puja-hero__note {
+  margin-top: 0.5rem;
+  border-radius: 10px;
+  border: 1px solid rgba(74, 28, 20, 0.1);
+  background: #fff;
+  padding: 0.5rem 0.55rem;
+  font-size: 0.72rem;
+  line-height: 1.42;
+}
+
+.m-page--detail .puja-hero__actions--mobile {
+  display: none;
+}
+
+.m-page--detail .puja-hero__actions--mobile .btn {
+  width: 100%;
+  justify-content: center;
+}
+
+.m-page--detail .m-puja-prep {
+  margin-top: 0.65rem;
+}
+
+.m-page--detail .m-puja-prep .puja-panel__title {
+  font-size: 1rem;
+}
+
+.m-page--detail .m-puja-prep .puja-panel__lede {
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
+.m-page--detail .puja-booking-card--sticky {
+  display: none;
+}
+
+.m-page--detail .puja-detail-layout {
+  display: block;
+}
+
+.m-page--detail .puja-panel,
+.m-page--detail .puja-article {
+  padding: 1rem 1.1rem;
+  background: #fff;
+  border: 1px solid rgba(74, 28, 20, 0.1);
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(74, 28, 20, 0.06);
+}
+
+.m-page--detail .puja-samagri__grid {
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+}
+
+.m-page--detail .puja-samagri__col {
+  padding: 0.85rem;
+}
+
+.m-page--detail .puja-pandits {
+  margin-inline: calc(-1 * var(--pad));
+  border-radius: 0;
+  border-inline: none;
+  padding-inline: 0;
+}
+
+.m-page--detail .puja-pandits__head {
+  padding-inline: var(--pad);
+}
+
+.m-page--detail .puja-pandits__track.m-pandits__track {
+  margin: 0;
+  padding: 0 var(--pad) 0.35rem;
+}
+
+.m-page--detail .puja-custom-cta {
+  flex-direction: column;
+  text-align: center;
+  padding: 1rem;
+}
+
+.m-page--detail .puja-custom-cta .btn {
+  width: 100%;
+}
+
+.m-puja-overlay-nav {
+  position: absolute;
+  top: 0.7rem;
+  left: 0.7rem;
+  right: 0.7rem;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+}
+
+.m-puja-overlay-nav .m-subheader__back,
+.m-puja-overlay-nav .m-subheader__icon {
+  width: 2.15rem;
+  height: 2.15rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(74, 28, 20, 0.16);
+  display: grid;
+  place-items: center;
+  color: var(--mahogany);
+  box-shadow: 0 6px 14px rgba(74, 28, 20, 0.2);
+}
+
+.m-page--detail details summary {
+  list-style: none;
+  font-family: var(--font-serif);
+  font-size: 0.96rem;
+  color: var(--mahogany);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.m-page--detail details summary::-webkit-details-marker {
+  display: none;
+}
+
+.m-accordion-body {
+  margin-top: 0.65rem;
+  border-top: 1px solid rgba(74, 28, 20, 0.08);
+  padding-top: 0.6rem;
+}
+
+.m-faq-head {
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  color: var(--mahogany);
+  margin: 0.2rem 0 0.2rem;
+}
+
+.m-faq-item {
+  border-color: rgba(211, 107, 43, 0.22) !important;
+  background: linear-gradient(180deg, #fff 0%, #fff9f3 100%) !important;
+}
+
+.m-faq-item details summary::after {
+  content: "+";
+  font-family: var(--font-sans);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--orange);
+  line-height: 1;
+}
+
+.m-faq-item details[open] summary::after {
+  content: "−";
+}

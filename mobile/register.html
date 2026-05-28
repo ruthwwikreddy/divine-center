@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#4a1c14" />
+    <title>Register — Divine Center</title>
+    <script src="site-config.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="mobile.css" />
+  </head>
+  <body class="m-auth-app m-auth-register" data-page="auth" data-auth-page="register" data-auth-role="customer" data-tabbar="off">
+    <main class="m-auth-layout">
+      <header class="m-auth-hero">
+        <a href="login" class="m-auth-hero__back" aria-label="Back">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        </a>
+        <div class="m-auth-hero__brand">
+          <img class="brand__icon" src="assets/logo/image.png" alt="Divine Center logo" width="36" height="36" />
+          <span>Divine Center</span>
+        </div>
+        <span class="m-auth-hero__trust">Trusted by devotee families</span>
+      </header>
+
+      <div class="m-auth-sheet">
+        <div class="m-auth-tabs" role="tablist">
+          <button type="button" class="m-auth-tabs__btn is-active" data-auth-tab="customer" role="tab">Devotee</button>
+          <button type="button" class="m-auth-tabs__btn" data-auth-tab="pandit" role="tab">Pandit</button>
+        </div>
+
+        <h1 class="m-auth-sheet__title">Create devotee account</h1>
+        <p class="m-auth-sheet__lead">Join Divine Center to book verified pandits, save addresses, and manage every ritual with ease.</p>
+
+        <form class="m-auth-form" data-auth-form novalidate>
+          <label class="m-auth-field"><span class="m-auth-field__label">Full name</span><input type="text" name="fullName" required autocomplete="name" placeholder="Enter full name" /></label>
+          <label class="m-auth-field"><span class="m-auth-field__label">Email</span><input type="email" name="email" required autocomplete="email" placeholder="you@email.com" /></label>
+          <label class="m-auth-field"><span class="m-auth-field__label">Mobile</span><input type="tel" name="phone" required autocomplete="tel" placeholder="+91 9XXXXXXXXX" /></label>
+          <label class="m-auth-field"><span class="m-auth-field__label">City</span><input type="text" name="city" required placeholder="Your city" /></label>
+          <label class="m-auth-field"><span class="m-auth-field__label">Password</span><input type="password" name="password" required minlength="8" autocomplete="new-password" placeholder="Minimum 8 characters" /></label>
+          <label class="m-auth-field"><span class="m-auth-field__label">Confirm password</span><input type="password" name="confirmPassword" required minlength="8" placeholder="Re-enter password" /></label>
+          <label class="m-auth-check m-auth-check--block"><input type="checkbox" required /> I agree to the <a href="about">Terms</a> and <a href="about">Privacy Policy</a>.</label>
+          <button type="submit" class="btn btn--accent m-auth-submit">Create account</button>
+          <p class="m-auth-hint form-hint" role="status">Friendly tip: Use a mobile number you actively use for booking updates.</p>
+        </form>
+
+        <div id="auth-success" class="m-auth-success" hidden>
+          <div class="m-auth-success__icon" aria-hidden="true"></div>
+          <p class="m-auth-success__title">Account created</p>
+          <a href="pujas" class="btn btn--accent">Explore Pujas</a>
+        </div>
+
+        <p class="m-auth-foot">Already have an account? <a href="login">Sign in</a></p>
+      </div>
+    </main>
+
+    <script src="auth-content.js"></script>
+    <script src="auth.js"></script>
+    <script src="mobile-shell.js"></script>
+  </body>
+</html>

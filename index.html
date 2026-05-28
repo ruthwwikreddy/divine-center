@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Divine Center — Book verified Acharyas for Vedic rituals at home." />
+    <title>Divine Center — Connecting Faith, Delivering Grace</title>
+    <script src="site-config.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="page-home" data-page="home">
+    <a class="skip-link" href="#main" data-i18n="skipContent">Skip to content</a>
+
+    <!-- NAV -->
+    <div id="site-nav"></div>
+
+    <main id="main">
+      <!-- HOMEPAGE HERO — pick A or B, then delete the other -->
+      <div class="home-hero-stack">
+        <p class="home-hero-stack__intro">
+          Two hero designs below — choose one and remove the other block plus this note.
+        </p>
+
+        <!-- OPTION A: Editorial split (image + copy side by side) -->
+        <div class="home-hero-pick">
+          <span class="home-hero-pick__badge">Option A</span>
+          <span class="home-hero-pick__name">Editorial split</span>
+        </div>
+        <section class="hero hero--a" aria-labelledby="hero-title-a">
+          <div class="hero__petals" aria-hidden="true"></div>
+          <div class="wrap hero__grid hero--a__grid">
+            <div class="hero__copy">
+              <p class="eyebrow eyebrow--gems" data-i18n="heroEyebrow">The Future of Faith is Here</p>
+              <h1 id="hero-title-a" class="hero__title" data-i18n="heroTitle">The Sanctity of the Temple, Delivered Home.</h1>
+              <p class="hero__text">
+                <span data-i18n="heroText">Connect with India's top 1% of verified Acharyas. Experience Vedic rituals with scriptural purity, punctual timing, and transparent pricing.</span>
+              </p>
+              <form class="search-pill home-hero-search" role="search">
+                <label class="visually-hidden" for="search-input-a">Search puja</label>
+                <span class="search-pill__icon" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7" /><path d="M20 20l-3-3" /></svg>
+                </span>
+                <input id="search-input-a" class="search-pill__field" type="search" placeholder="Search puja (e.g. Griha Pravesh)" autocomplete="off" />
+                <button type="submit" class="btn btn--accent search-pill__submit" data-i18n="heroSearchBtn">Search</button>
+              </form>
+              <p class="form-hint home-hero-hint" role="status" aria-live="polite"></p>
+              <ul class="hero--a__trust" aria-label="Highlights">
+                <li><strong>500+</strong> rituals completed</li>
+                <li><strong>Verified</strong> Acharyas</li>
+                <li><strong>₹</strong> transparent pricing</li>
+              </ul>
+            </div>
+            <figure class="hero__media hero--a__media">
+              <div class="hero__image-wrap hero--a__frame">
+                <img
+                  class="hero__image media-img"
+                  src="assets/images/hero-priest.jpg"
+                  alt="Sacred puja setup with diyas and offerings"
+                  width="720"
+                  height="860"
+                  loading="eager"
+                  decoding="async"
+                />
+              </div>
+              <figcaption class="hero--a__caption">Authentic Vedic rituals at your doorstep</figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <!-- OPTION B: Immersive sanctuary (full-bleed image + glass card) -->
+        <div class="home-hero-pick">
+          <span class="home-hero-pick__badge">Option B</span>
+          <span class="home-hero-pick__name">Immersive sanctuary</span>
+        </div>
+        <section class="hero hero--b" aria-labelledby="hero-title-b">
+          <div class="hero--b__bg" aria-hidden="true">
+            <img
+              class="hero--b__bg-img media-img"
+              src="assets/images/hero-priest.jpg"
+              alt=""
+              width="1920"
+              height="1080"
+              loading="eager"
+              decoding="async"
+            />
+            <div class="hero--b__overlay"></div>
+          </div>
+          <div class="wrap hero--b__inner">
+            <div class="hero--b__content">
+              <p class="hero--b__eyebrow" data-i18n="heroEyebrow">The Future of Faith is Here</p>
+              <h1 id="hero-title-b" class="hero--b__title" data-i18n="heroTitle">The Sanctity of the Temple, Delivered Home.</h1>
+              <p class="hero--b__text">
+                India's most trusted platform for booking verified Acharyas — scriptural purity, punctual service,
+                and honest pricing for every sacred occasion.
+              </p>
+              <div class="hero--b__card">
+                <p class="hero--b__card-label">Find your puja</p>
+                <form class="search-pill home-hero-search hero--b__search" role="search">
+                  <label class="visually-hidden" for="search-input-b">Search puja</label>
+                  <span class="search-pill__icon" aria-hidden="true">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7" /><path d="M20 20l-3-3" /></svg>
+                  </span>
+                  <input id="search-input-b" class="search-pill__field" type="search" placeholder="Griha Pravesh, Satyanarayana, Vivah…" autocomplete="off" />
+                  <button type="submit" class="btn btn--accent search-pill__submit" data-i18n="heroSearchBtn">Search</button>
+                </form>
+                <p class="form-hint home-hero-hint" role="status" aria-live="polite"></p>
+              </div>
+              <ul class="hero--b__stats" aria-label="Highlights">
+                <li>
+                  <span class="hero--b__stat-icon" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg></span>
+                  Verified Acharyas
+                </li>
+                <li>
+                  <span class="hero--b__stat-icon" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2.5"/></svg></span>
+                  On-time rituals
+                </li>
+                <li>
+                  <span class="hero--b__stat-icon hero--b__stat-icon--rupee" aria-hidden="true">₹</span>
+                  No hidden charges
+                </li>
+              </ul>
+              <div class="hero--b__actions">
+                <a href="pujas" class="btn btn--accent" data-i18n="heroExplore">Explore Pujas</a>
+                <a href="pandits" class="btn btn--outline btn--on-dark" data-i18n="heroMeet">Meet Pandits</a>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- VALUE BAR -->
+      <section class="value-bar" aria-label="Our promises">
+        <div class="wrap">
+          <ul class="value-bar__card">
+            <li class="value-bar__item">
+              <span class="value-bar__icon" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l7 4v6c0 5-3.5 9-7 10C8.5 21 5 17 5 12V6l7-4z"/><path d="M9 12l2 2 4-4"/></svg></span>
+              <h2 class="value-bar__title">Verified Acharyas</h2>
+              <p class="value-bar__desc">Trusted &amp; Background Checked</p>
+            </li>
+            <li class="value-bar__item">
+              <span class="value-bar__icon" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2.5"/></svg></span>
+              <h2 class="value-bar__title">Punctual &amp; Reliable</h2>
+              <p class="value-bar__desc">On-time Rituals, Every Time</p>
+            </li>
+            <li class="value-bar__item">
+              <span class="value-bar__icon" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/><path d="M8 7h8M8 11h5"/></svg></span>
+              <h2 class="value-bar__title">100% Scriptural Purity</h2>
+              <p class="value-bar__desc">Rituals as per Vedic Shastras</p>
+            </li>
+            <li class="value-bar__item">
+              <span class="value-bar__icon value-bar__icon--rupee" aria-hidden="true">₹</span>
+              <h2 class="value-bar__title">Transparent Pricing</h2>
+              <p class="value-bar__desc">No Hidden Charges, Ever</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- PUJA ICONS (circular) -->
+      <section class="puja-icons" id="services" aria-labelledby="puja-icons-title">
+        <div class="wrap">
+          <div class="section-head">
+            <div class="section-head__titles">
+              <p class="eyebrow eyebrow--decor">
+                <span class="eyebrow__flourish" aria-hidden="true"></span>
+                TRENDING
+                <span class="eyebrow__flourish" aria-hidden="true"></span>
+              </p>
+              <h2 id="puja-icons-title" class="section-title">Puja Services</h2>
+            </div>
+            <a href="pujas" class="btn btn--outline">Explore All →</a>
+          </div>
+          <div class="puja-icons__grid" id="puja-icons-grid"></div>
+        </div>
+      </section>
+
+      <!-- RITUAL GALLERY -->
+      <section class="home-gallery" id="gallery" aria-labelledby="home-gallery-title">
+        <div class="wrap">
+          <div class="section-head">
+            <div class="section-head__titles">
+              <p class="eyebrow eyebrow--decor">
+                <span class="eyebrow__flourish" aria-hidden="true"></span>
+                Sacred moments
+                <span class="eyebrow__flourish" aria-hidden="true"></span>
+              </p>
+              <h2 id="home-gallery-title" class="section-title">Rituals in real homes</h2>
+              <p class="home-section__lede">A glimpse of the ceremonies families book through Divine Center — each performed by verified Acharyas.</p>
+            </div>
+            <a href="pujas" class="btn btn--outline">View all services →</a>
+          </div>
+          <div class="home-gallery__grid" id="home-gallery-grid"></div>
+        </div>
+      </section>
+
+      <!-- TOP PANDITS -->
+      <section class="pandits pandits--landing" id="pandits" aria-labelledby="pandits-title">
+        <div class="pandits__bg" aria-hidden="true"></div>
+        <div class="wrap pandits__wrap">
+          <header class="pandits__intro">
+            <div class="pandits__intro-copy">
+              <p class="eyebrow eyebrow--decor pandits__eyebrow">
+                <span class="eyebrow__flourish" aria-hidden="true"></span>
+                Verified Acharyas
+                <span class="eyebrow__flourish" aria-hidden="true"></span>
+              </p>
+              <h2 id="pandits-title" class="section-title pandits__title">Meet the priests families trust</h2>
+              <p class="pandits__lede">
+                Hand-picked from India’s top ritualists — each profile is vetted for lineage, punctuality, scriptural
+                rigor, and transparent pricing before they ever reach your home or screen.
+              </p>
+            </div>
+            <div class="pandits__intro-actions">
+              <a href="pandits" class="btn btn--accent btn--lg">Find your panditji</a>
+              <a href="pandits" class="btn btn--outline">Open full directory</a>
+            </div>
+          </header>
+
+          <ul class="pandits__stats" aria-label="Trust on Divine Center">
+            <li class="pandits__stat">
+              <span class="pandits__stat-icon" aria-hidden="true"
+                ><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 2l7 4v6c0 5-3.5 9-7 10C8.5 21 5 17 5 12V6l7-4z"/><path d="M9 12l2 2 4-4"/></svg
+              ></span>
+              <div>
+                <strong class="pandits__stat-value"><span data-pandit-count>7+</span></strong>
+                <span class="pandits__stat-label">Verified Acharyas live</span>
+              </div>
+            </li>
+            <li class="pandits__stat">
+              <span class="pandits__stat-icon" aria-hidden="true"
+                ><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/><path d="M8 8h8M8 12h6"/></svg
+              ></span>
+              <div>
+                <strong class="pandits__stat-value">Vedic</strong>
+                <span class="pandits__stat-label">Shastra-aligned rituals</span>
+              </div>
+            </li>
+            <li class="pandits__stat">
+              <span class="pandits__stat-icon" aria-hidden="true"
+                ><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2.5"/></svg
+              ></span>
+              <div>
+                <strong class="pandits__stat-value">On-time</strong>
+                <span class="pandits__stat-label">Muhurat &amp; arrivals</span>
+              </div>
+            </li>
+          </ul>
+
+          <div class="pandits__carousel-shell">
+            <button type="button" class="carousel-btn carousel-btn--prev" id="pandits-prev" aria-label="Previous pandits">‹</button>
+            <div class="pandits__track pandits__track--landing" id="pandits-track" tabindex="0" aria-label="Featured pandits">
+              <!-- cards from site-data.js -->
+            </div>
+            <button type="button" class="carousel-btn carousel-btn--next" id="pandits-next" aria-label="Next pandits">›</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- TESTIMONIALS -->
+      <section class="home-testimonials" id="reviews" aria-labelledby="home-testimonials-title">
+        <div class="wrap">
+          <div class="section-head section-head--center home-testimonials__head">
+            <p class="eyebrow eyebrow--decor">
+              <span class="eyebrow__flourish" aria-hidden="true"></span>
+              Devotee voices
+              <span class="eyebrow__flourish" aria-hidden="true"></span>
+            </p>
+            <h2 id="home-testimonials-title" class="section-title">Reviews &amp; testimonials</h2>
+            <p class="home-section__lede home-section__lede--center">Families across India trust Divine Center for authentic rituals, punctual muhurats, and transparent pricing.</p>
+            <p class="home-testimonials__score" aria-label="Average rating 4.9 out of 5">
+              <span class="home-testimonials__score-value">4.9</span>
+              <span class="home-testimonials__score-label">average from verified bookings</span>
+            </p>
+          </div>
+          <div class="home-testimonials__grid" id="home-testimonials-grid"></div>
+          <div class="home-section__actions">
+            <a href="pandits" class="btn btn--accent">Book your ritual →</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- MATCHING + CTA -->
+      <section class="matching" id="about" aria-labelledby="matching-title">
+        <div class="wrap matching__grid">
+          <div class="matching__left">
+            <div class="matching__mandala" aria-hidden="true"></div>
+            <p class="eyebrow">The Science of Spiritual Matching</p>
+            <h2 id="matching-title" class="section-title">Find the Right Pandit for Your Sacred Journey</h2>
+            <p class="matching__text">
+              We match you with Acharyas based on tradition, language, location, and the specific rituals your family
+              needs — so every ceremony honors your roots.
+            </p>
+          </div>
+          <div class="matching__steps">
+            <article class="step-card">
+              <span class="step-card__num">Step 1</span>
+              <h3 class="step-card__title">Your Roots</h3>
+              <p class="step-card__text">Tell us your sampradaya, language, and occasion.</p>
+            </article>
+            <article class="step-card">
+              <span class="step-card__num">Step 2</span>
+              <h3 class="step-card__title">The Logic</h3>
+              <p class="step-card__text">Our system pairs you with verified, rated Acharyas.</p>
+            </article>
+            <a href="pandits" class="btn btn--accent btn--lg matching__cta">Find My Panditji</a>
+          </div>
+          <aside class="matching__priest-card">
+            <div class="matching__priest-photo" aria-hidden="true">
+              <img
+                class="media-img"
+                src="assets/images/matching-pandit-cta.png"
+                alt="Smiling pandit inviting registration on Divine Center"
+                width="120"
+                height="120"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <h3 class="matching__priest-title">Grow Your Priest Services</h3>
+            <p class="matching__priest-text">Reach devotees nationwide. List rituals, manage bookings, get paid securely.</p>
+            <a href="register-pandit" class="btn btn--accent" id="btn-register">Register as Pandit →</a>
+          </aside>
+        </div>
+      </section>
+
+      <!-- FEATURED STORIES -->
+      <section class="home-stories" id="stories" aria-labelledby="home-stories-title">
+        <div class="wrap">
+          <div class="section-head">
+            <div class="section-head__titles">
+              <p class="eyebrow eyebrow--decor">
+                <span class="eyebrow__flourish" aria-hidden="true"></span>
+                Wisdom &amp; guides
+                <span class="eyebrow__flourish" aria-hidden="true"></span>
+              </p>
+              <h2 id="home-stories-title" class="section-title">Featured stories</h2>
+              <p class="home-section__lede">Puja guides, festival observances, and spiritual wisdom from our editorial team.</p>
+            </div>
+            <a href="blogs" class="btn btn--outline">View all articles →</a>
+          </div>
+          <div class="home-stories__grid" id="home-stories-grid"></div>
+        </div>
+      </section>
+
+      <!-- BLOG -->
+      <section class="blog" id="blog" aria-labelledby="blog-title">
+        <div class="wrap">
+          <div class="section-head section-head--center">
+            <p class="eyebrow eyebrow--decor"><span class="eyebrow__flourish"></span> The Wisdom Stream <span class="eyebrow__flourish"></span></p>
+            <h2 id="blog-title" class="section-title">Latest from the blog</h2>
+          </div>
+          <div class="blog__grid" id="blog-grid"></div>
+          <div class="blog__actions">
+            <a href="blogs" class="btn btn--accent">Explore All Articles →</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTACT -->
+      <section class="contact" id="contact" aria-labelledby="contact-title">
+        <div class="wrap contact__grid">
+          <div class="contact__illustration">
+            <img
+              class="media-img contact__illustration-img"
+              src="assets/images/contact-illustration.png"
+              alt=""
+              width="240"
+              height="227"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+          <div class="contact__form-wrap">
+            <h2 id="contact-title" class="section-title">Contact &amp; Support</h2>
+            <p class="contact__lead">We're here to help with bookings, rituals, and pandit partnerships.</p>
+            <form class="contact-form" id="contact-form" data-contact-form data-hint="contact-hint" novalidate>
+              <div class="contact-form__row">
+                <label class="field"><span class="field__label">Name</span><input type="text" name="name" required placeholder="Your name" /></label>
+                <label class="field"><span class="field__label">Email</span><input type="email" name="email" required placeholder="you@email.com" /></label>
+              </div>
+              <label class="field">
+                <span class="field__label">Subject</span>
+                <select name="subject" required>
+                  <option value="">Select a topic</option>
+                  <option>Book a Puja</option>
+                  <option>Find a Pandit</option>
+                  <option>Pandit Registration</option>
+                  <option>General Inquiry</option>
+                </select>
+              </label>
+              <label class="field"><span class="field__label">Message</span><textarea name="message" rows="4" required placeholder="How can we help?"></textarea></label>
+              <button type="submit" class="btn btn--accent btn--lg contact-form__submit">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+                Send Message
+              </button>
+              <p class="form-hint" id="contact-hint" role="status"></p>
+            </form>
+          </div>
+          <div class="contact__quick">
+            <h3 class="contact__quick-title">Quick Contact</h3>
+            <ul class="contact__quick-list">
+              <li><span class="contact__quick-icon" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M22 6l-10 7L2 6"/></svg></span><div><strong>Email</strong><a data-contact-email href="mailto:support@divinecenter.in">support@divinecenter.in</a></div></li>
+              <li><span class="contact__quick-icon" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6A19.8 19.8 0 012.1 4.2 2 2 0 014.1 2h3a2 2 0 012 1.7c.1.9.3 1.8.6 2.6a2 2 0 01-.4 2.1L8 9.8a16 16 0 006.2 6.2l1.4-1.3a2 2 0 012.1-.4c.8.3 1.7.5 2.6.6A2 2 0 0122 16.9z"/></svg></span><div><strong>Phone</strong><a data-contact-phone href="tel:+919154900375">+91 91549 00375</a></div></li>
+              <li><span class="contact__quick-icon" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-4.5 7-11a7 7 0 10-14 0c0 6.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span><div><strong>Office</strong><span>Varanasi, Uttar Pradesh, India</span></div></li>
+              <li><span class="contact__quick-icon" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2.5"/></svg></span><div><strong>Support Hours</strong><span>10:00 AM – 7:00 PM IST</span></div></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <div id="site-footer"></div>
+
+    <script src="blog-details-data.js"></script>
+    <script src="site-data.js"></script>
+    <script src="layout.js"></script>
+    <script src="desktop-i18n.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>

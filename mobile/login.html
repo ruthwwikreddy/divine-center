@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#4a1c14" />
+    <title>Login — Divine Center</title>
+    <script src="site-config.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="mobile.css" />
+  </head>
+  <body class="m-auth-app" data-page="auth" data-auth-page="login" data-auth-role="customer" data-tabbar="off">
+    <main class="m-auth-layout">
+      <header class="m-auth-hero">
+        <a href="index" class="m-auth-hero__back" aria-label="Back">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        </a>
+        <div class="m-auth-hero__brand">
+          <img class="brand__icon" src="assets/logo/image.png" alt="Divine Center logo" width="36" height="36" />
+          <span>Divine Center</span>
+        </div>
+        <span class="m-auth-hero__trust">Verified Ritual Network</span>
+      </header>
+
+      <div class="m-auth-sheet">
+        <div class="m-auth-tabs" role="tablist">
+          <button type="button" class="m-auth-tabs__btn is-active" data-auth-tab="customer" role="tab">Devotee</button>
+          <button type="button" class="m-auth-tabs__btn" data-auth-tab="pandit" role="tab">Pandit</button>
+        </div>
+
+        <h1 class="m-auth-sheet__title">Sign in</h1>
+        <p id="m-auth-sub" class="m-auth-sheet__lead">Book verified Acharyas with trust and transparency.</p>
+
+        <form class="m-auth-form" data-auth-form novalidate>
+          <label class="m-auth-field">
+            <span class="m-auth-field__label">Email or mobile</span>
+            <input type="text" name="email" required autocomplete="username" placeholder="you@email.com" />
+          </label>
+          <label class="m-auth-field">
+            <span class="m-auth-field__label">Password</span>
+            <input type="password" name="password" required autocomplete="current-password" minlength="8" placeholder="Password" />
+          </label>
+          <div class="m-auth-form__meta">
+            <label class="m-auth-check"><input type="checkbox" name="remember" /> Remember me</label>
+            <a class="m-auth-link" data-auth-live="login" href="#">Forgot password?</a>
+          </div>
+          <button type="submit" class="btn btn--accent m-auth-submit">Sign in</button>
+          <p class="m-auth-hint form-hint" role="status"></p>
+        </form>
+
+        <div id="auth-success" class="m-auth-success" hidden>
+          <div class="m-auth-success__icon" aria-hidden="true"></div>
+          <p class="m-auth-success__title">Signed in</p>
+          <a href="pujas" class="btn btn--accent">Book a Puja</a>
+          <a href="account" class="btn btn--outline">My Account</a>
+        </div>
+
+        <p class="m-auth-or"><span>or</span></p>
+        <a class="m-auth-external" data-auth-live="login" href="#" rel="noopener noreferrer">Continue on divinecenter.in</a>
+        <p class="m-auth-trust-note">Your credentials are secured. For live account access, continue on the official Divine Center website.</p>
+
+        <p class="m-auth-foot">New here? <a href="register">Create account</a> · <a href="register-pandit">Join as pandit</a></p>
+      </div>
+    </main>
+
+    <script src="auth-content.js"></script>
+    <script src="auth.js"></script>
+    <script src="mobile-shell.js"></script>
+    <script>
+      (function () {
+        var COPY = window.DivineCenterAuthContent;
+        var r = (window.DivineCenterAuth && window.DivineCenterAuth.role()) || "customer";
+        var sub = document.getElementById("m-auth-sub");
+        if (sub && COPY && COPY[r] && COPY[r].login) sub.textContent = COPY[r].login.subtitle;
+      })();
+    </script>
+  </body>
+</html>

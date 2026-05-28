@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#fdf8f2" />
+    <meta name="description" content="Divine Center — Book verified Acharyas for Vedic rituals at home." />
+    <title>Divine Center — Connecting Faith, Delivering Grace</title>
+    <script src="site-config.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="mobile.css" />
+  </head>
+  <body class="m-app" data-page="home">
+    <header class="m-header" id="top">
+      <a href="index" class="brand" aria-label="Divine Center home">
+        <img class="brand__icon" src="assets/logo/image.png" alt="Divine Center logo" width="34" height="34" />
+        <span class="brand__copy">
+          <span class="brand__name">Divine Center</span>
+        </span>
+      </a>
+      <button type="button" class="m-chip" aria-label="Select location">Bengaluru ▾</button>
+      <a href="account" class="m-header__bell" aria-label="Profile">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9">
+          <circle cx="12" cy="8" r="3.5" />
+          <path d="M4.5 20c1.8-3.4 4.5-5.1 7.5-5.1s5.7 1.7 7.5 5.1" />
+        </svg>
+      </a>
+    </header>
+
+    <main class="m-main">
+      <section class="m-hero m-hero--b" aria-labelledby="m-hero-title">
+        <div class="m-hero--b__bg" aria-hidden="true">
+          <img class="m-hero--b__bg-img" src="assets/images/hero-priest.jpg" alt="" width="720" height="860" loading="eager" decoding="async" />
+          <div class="m-hero--b__overlay"></div>
+        </div>
+        <div class="m-hero--b__content">
+          <p class="m-hero--b__eyebrow" data-i18n="heroEyebrow">Premium Spiritual Services</p>
+          <h1 id="m-hero-title" class="m-hero--b__title" data-i18n="heroTitle">Bring sacred rituals home with trusted Acharyas.</h1>
+          <p class="hero__text" data-i18n="heroText">Book verified pandits, fixed transparent pricing, and complete ritual guidance from start to finish.</p>
+          <div class="m-hero--b__actions">
+            <a href="pujas" class="btn btn--accent" data-i18n="heroExplore">Book a Puja</a>
+            <a href="pandits" class="btn btn--outline m-hero--b__btn-outline" data-i18n="heroMeet">Find Pandit</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="m-values" aria-label="Quick actions">
+        <ul class="m-values__track">
+          <li class="value-bar__item"><a href="pujas"><h2 class="value-bar__title" data-i18n="quickBook">Book Puja</h2><p class="value-bar__desc" data-i18n="quickBookDesc">Choose a ritual</p></a></li>
+          <li class="value-bar__item"><a href="pandits"><h2 class="value-bar__title" data-i18n="quickFindPandit">Find Pandit</h2><p class="value-bar__desc" data-i18n="quickFindPanditDesc">Top rated priests</p></a></li>
+          <li class="value-bar__item"><a href="bookings"><h2 class="value-bar__title" data-i18n="quickBookings">View Bookings</h2><p class="value-bar__desc" data-i18n="quickBookingsDesc">Track service status</p></a></li>
+          <li class="value-bar__item"><a href="wallet"><h2 class="value-bar__title" data-i18n="quickWallet">Wallet</h2><p class="value-bar__desc" data-i18n="quickWalletDesc">Offers & balance</p></a></li>
+        </ul>
+      </section>
+
+      <section class="m-pujas" id="services" aria-labelledby="home-pujas-title">
+        <div class="section-head">
+          <h2 id="home-pujas-title" class="section-title">Featured Pujas</h2>
+          <a href="pujas" class="link-arrow">View all →</a>
+        </div>
+        <div id="m-puja-grid"></div>
+      </section>
+
+      <section class="m-pandits" id="pandits" aria-labelledby="home-pandits-title">
+        <div class="section-head">
+          <h2 id="home-pandits-title" class="section-title">Top Pandits</h2>
+          <a href="pandits" class="link-arrow">View all →</a>
+        </div>
+        <div class="m-pandits__track" id="m-pandits-track"></div>
+      </section>
+
+      <section class="m-testimonials" id="reviews">
+        <div class="section-head">
+          <h2 class="section-title">Devotee Testimonials</h2>
+        </div>
+        <p class="m-testimonials__score"><strong>4.9</strong> average rating from verified bookings</p>
+        <div class="m-testimonials__scroll" id="m-home-testimonials"></div>
+        <ul class="m-values__track" aria-label="Trust badges">
+          <li class="value-bar__item"><h2 class="value-bar__title">Verified Acharyas</h2><p class="value-bar__desc">Background checked</p></li>
+          <li class="value-bar__item"><h2 class="value-bar__title">Transparent Pricing</h2><p class="value-bar__desc">No hidden charges</p></li>
+          <li class="value-bar__item"><h2 class="value-bar__title">On-time Service</h2><p class="value-bar__desc">Punctual rituals</p></li>
+        </ul>
+      </section>
+    </main>
+
+    <script src="blog-details-data.js"></script>
+    <script src="site-data.js"></script>
+    <script src="mobile-shell.js"></script>
+    <script src="mobile.js"></script>
+  </body>
+</html>

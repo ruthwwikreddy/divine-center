@@ -1,0 +1,70 @@
+/**
+ * Divine Center — mobile app config (standalone deploy)
+ */
+window.DivineCenterConfig = {
+  brand: "Divine Center",
+  tagline: "Connecting Faith, Delivering Grace",
+  contact: {
+    email: "support@divinecenter.in",
+    phone: "+919154900375",
+    phoneDisplay: "+91 91549 00375",
+    address: "Injapur, Abdullapurmet, Rangareddy District, Telangana 500070, India",
+    addressShort: "Injapur, Telangana 500070",
+    hours: "10:00 AM – 7:00 PM IST (Mon – Sat)",
+  },
+  nav: [
+    { id: "home", label: "Home", href: "index" },
+    { id: "bookings", label: "My Bookings", href: "bookings" },
+    { id: "pujas", label: "Book Puja", href: "pujas" },
+    { id: "wallet", label: "Wallet", href: "wallet" },
+    { id: "pandits", label: "Pandits", href: "pandits" },
+    { id: "blogs", label: "Blogs", href: "blogs" },
+    { id: "about", label: "About Us", href: "about" },
+    { id: "contact", label: "Contact Us", href: "contact" },
+    { id: "account", label: "Profile", href: "account" },
+  ],
+  mobileNav: [
+    { id: "home", label: "Home", href: "index" },
+    { id: "bookings", label: "My Bookings", href: "bookings" },
+    { id: "pujas", label: "Book Puja", href: "pujas" },
+    { id: "wallet", label: "Wallet", href: "wallet" },
+    { id: "pandits", label: "Pandits", href: "pandits" },
+    { id: "blogs", label: "Blogs", href: "blogs" },
+    { id: "about", label: "About Us", href: "about" },
+    { id: "contact", label: "Contact Us", href: "contact" },
+    { id: "account", label: "Profile", href: "account" },
+  ],
+  mobileTabs: [
+    { id: "home", label: "Home", href: "index" },
+    { id: "bookings", label: "Bookings", href: "bookings" },
+    { id: "book", label: "Book Puja", href: "pujas", center: true },
+    { id: "wallet", label: "Wallet", href: "wallet" },
+    { id: "profile", label: "Profile", href: "account" },
+  ],
+  mobileTabActiveMap: {
+    home: "home",
+    pandits: "home",
+    pujas: "book",
+    book: "book",
+    blogs: "home",
+    account: "profile",
+    about: "home",
+    contact: "home",
+    bookings: "bookings",
+    wallet: "wallet",
+  },
+  auth: {
+    login: "login",
+    registerCustomer: "register",
+    registerPandit: "register-pandit",
+    liveLogin: "https://divinecenter.in/login",
+    liveRegister: "https://divinecenter.in/register",
+    livePanditRegister: "https://divinecenter.in/register",
+  },
+  domains: {
+    desktopHost: "divine-center.ruthwikreddy.live",
+    mobileHost: "",
+  },
+  fontsMobile:
+    "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:wght@500;600;700&display=swap",
+};

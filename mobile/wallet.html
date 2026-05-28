@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#fdf8f2" />
+    <title>Wallet — Divine Center</title>
+    <script src="site-config.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="mobile.css" />
+  </head>
+  <body class="m-app" data-page="wallet">
+    <header class="m-subheader">
+      <button type="button" class="m-header__menu m-subheader__menu" id="m-menu-btn" aria-label="Open menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+      <h1 class="m-subheader__title">Wallet</h1>
+      <span class="m-subheader__spacer" aria-hidden="true"></span>
+    </header>
+    <main class="m-page m-wallet-page">
+      <section class="m-wallet-hero">
+        <p class="m-wallet-hero__label">Wallet Balance</p>
+        <h2 class="m-wallet-hero__amount" id="wallet-balance">₹4,860</h2>
+        <p class="m-wallet-hero__sub">Last updated just now · 100% secure transactions</p>
+        <div class="m-wallet-hero__ctas">
+          <button type="button" class="btn btn--accent" id="add-money-btn">Add money</button>
+          <button type="button" class="btn btn--outline" id="apply-coupon-btn">Apply coupon</button>
+        </div>
+      </section>
+
+      <section class="m-wallet-filters" role="tablist" aria-label="Transaction filters">
+        <button type="button" class="m-wallet-filter is-active" data-filter="all">All</button>
+        <button type="button" class="m-wallet-filter" data-filter="credit">Credits</button>
+        <button type="button" class="m-wallet-filter" data-filter="debit">Debits</button>
+        <button type="button" class="m-wallet-filter" data-filter="refund">Refunds</button>
+      </section>
+
+      <section class="m-wallet-transactions">
+        <div class="section-head">
+          <h2 class="section-title">Transaction History</h2>
+        </div>
+        <div id="wallet-list" class="m-wallet-list" aria-live="polite"></div>
+      </section>
+
+      <section class="m-wallet-rewards">
+        <h3 class="m-section-label">Coupons & Rewards</h3>
+        <article class="m-wallet-reward-card">
+          <p class="m-wallet-reward-card__title">DCWELCOME</p>
+          <p class="m-wallet-reward-card__text">Get ₹250 off on your next ritual booking above ₹2,500.</p>
+          <button type="button" class="btn btn--outline btn--block">Apply now</button>
+        </article>
+        <article class="m-wallet-reward-card">
+          <p class="m-wallet-reward-card__title">Loyalty reward</p>
+          <p class="m-wallet-reward-card__text">You have earned 180 devotional points. Redeem on future bookings.</p>
+        </article>
+        <p class="form-hint" id="wallet-action-hint" role="status"></p>
+      </section>
+    </main>
+    <script src="mobile-shell.js"></script>
+    <script>
+      (function () {
+        var transactions = [
+          { type: "credit", title: "Wallet Top-up", meta: "UPI · 28 May, 10:32 AM", amount: 2000 },
+          { type: "debit", title: "Griha Pravesh Booking", meta: "Booking ID BK1024 · 27 May", amount: -3200 },
+          { type: "refund", title: "Reschedule Refund", meta: "Satyanarayana Booking · 24 May", amount: 850 },
+          { type: "debit", title: "Platform Fee", meta: "Service charge · 24 May", amount: -149 },
+          { type: "credit", title: "Promo Cashback", meta: "DCWELCOME coupon · 21 May", amount: 300 }
+        ];
+
+        var list = document.getElementById("wallet-list");
+        var activeFilter = "all";
+
+        function amountText(v) {
+          var sign = v > 0 ? "+" : "";
+          return sign + "₹" + Math.abs(v).toLocaleString("en-IN");
+        }
+
+        function render() {
+          var rows = transactions.filter(function (t) {
+            return activeFilter === "all" ? true : t.type === activeFilter;
+          });
+          list.innerHTML = rows.map(function (t) {
+            return (
+              '<article class="m-wallet-item">' +
+              '<div><h4>' + t.title + '</h4><p>' + t.meta + '</p></div>' +
+              '<strong class="m-wallet-item__amount is-' + t.type + '">' + amountText(t.amount) + '</strong>' +
+              "</article>"
+            );
+          }).join("");
+        }
+
+        document.querySelectorAll(".m-wallet-filter").forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            activeFilter = btn.getAttribute("data-filter");
+            document.querySelectorAll(".m-wallet-filter").forEach(function (b) {
+              b.classList.remove("is-active");
+            });
+            btn.classList.add("is-active");
+            render();
+          });
+        });
+
+        var actionHint = document.getElementById("wallet-action-hint");
+        document.getElementById("add-money-btn").addEventListener("click", function () {
+          if (actionHint) actionHint.textContent = "Add money is currently enabled through secure UPI checkout during booking.";
+        });
+        document.getElementById("apply-coupon-btn").addEventListener("click", function () {
+          if (actionHint) actionHint.textContent = "Coupon code can be applied at checkout in the next step.";
+        });
+
+        render();
+      })();
+    </script>
+  </body>
+</html>

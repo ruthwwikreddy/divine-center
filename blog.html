@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Divine Center blog — Vedic wisdom and puja guides." />
+    <title>Article — Divine Center</title>
+    <script src="site-config.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="page-blog-article" data-page="blogs">
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <div id="site-nav" data-nav="overlay"></div>
+
+    <section class="blog-article-hero" id="blog-hero" aria-labelledby="blog-hero-title"></section>
+
+    <main id="main" class="wrap blog-article-layout">
+      <article class="blog-article-card" id="blog-article"></article>
+      <aside class="blog-sidebar" aria-label="Blog sidebar">
+        <div class="blog-sidebar__widget">
+          <h3 class="blog-sidebar__title">Browse by Topic</h3>
+          <ul class="blog-sidebar__topics" id="sidebar-topics"></ul>
+        </div>
+        <div class="blog-sidebar__widget">
+          <h3 class="blog-sidebar__title">Most Popular</h3>
+          <div class="blog-sidebar__posts" id="sidebar-popular"></div>
+        </div>
+        <div class="blog-sidebar__widget blog-sidebar__widget--cta">
+          <img src="assets/images/matching-pandit-cta.png" alt="" width="100" height="100" loading="lazy" />
+          <h3>Need a Custom Puja?</h3>
+          <p>Speak with our team to arrange a ritual tailored to your family's tradition.</p>
+          <a href="contact" class="btn btn--accent btn--block">Contact Us</a>
+        </div>
+        <div class="blog-sidebar__widget">
+          <h3 class="blog-sidebar__title">Recent Posts</h3>
+          <div class="blog-sidebar__posts" id="sidebar-recent"></div>
+        </div>
+      </aside>
+    </main>
+
+    <div id="site-footer" data-footer="rich" data-footer-highlight="blogs"></div>
+
+<script src="blog-details-data.js"></script>
+<script src="site-data.js"></script>
+    <script src="layout.js"></script>
+    <script src="desktop-i18n.js"></script>
+    <script src="blog.js"></script>
+  </body>
+</html>

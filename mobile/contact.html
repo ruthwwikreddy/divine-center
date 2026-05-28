@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#fdf8f2" />
+    <title>Contact — Divine Center</title>
+    <script src="site-config.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="mobile.css" />
+  </head>
+  <body class="m-app" data-page="contact">
+    <header class="m-subheader">
+      <button type="button" class="m-header__menu m-subheader__menu" id="m-menu-btn" aria-label="Open menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+      <h1 class="m-subheader__title">Help &amp; Contact</h1>
+      <span class="m-subheader__spacer" aria-hidden="true"></span>
+    </header>
+
+    <main class="m-page m-support-page">
+      <section class="m-support-actions" aria-label="Primary contact options">
+        <a class="m-support-action" id="support-call" href="tel:+919100563686">
+          <strong>Call</strong>
+          <span>Talk to support now</span>
+        </a>
+        <a class="m-support-action" id="support-whatsapp" href="https://wa.me/919100563686" target="_blank" rel="noopener noreferrer">
+          <strong>WhatsApp</strong>
+          <span>Fastest resolution path</span>
+        </a>
+        <a class="m-support-action" id="support-email" href="mailto:support@divinecenter.in">
+          <strong>Email</strong>
+          <span>Detailed assistance</span>
+        </a>
+      </section>
+
+      <section class="m-support-issues" aria-label="Issue categories">
+        <h2 class="section-title">What can we help with?</h2>
+        <div class="m-chips m-chips--wrap" id="support-issue-chips">
+          <button type="button" class="m-chip is-active" data-issue="Booking issue">Booking issue</button>
+          <button type="button" class="m-chip" data-issue="Payment/refund">Payment/refund</button>
+          <button type="button" class="m-chip" data-issue="Pandit support">Pandit support</button>
+          <button type="button" class="m-chip" data-issue="Account/login">Account/login</button>
+          <button type="button" class="m-chip" data-issue="Other">Other</button>
+        </div>
+      </section>
+
+      <section class="m-contact" id="contact">
+        <h2 class="section-title">Send Message</h2>
+        <form class="m-contact-form" id="m-contact-page-form" data-contact-form data-hint="m-contact-page-hint" novalidate>
+          <label class="field"><span class="field__label">Name</span><input type="text" name="name" required placeholder="Your name" /></label>
+          <label class="field"><span class="field__label">Mobile</span><input type="tel" name="phone" required placeholder="+91 9XXXXXXXXX" /></label>
+          <label class="field"><span class="field__label">Issue</span><input type="text" name="issue" id="support-issue-input" required value="Booking issue" /></label>
+          <label class="field"><span class="field__label">Message</span><textarea name="message" rows="4" required placeholder="Briefly explain the issue" minlength="8"></textarea></label>
+          <button type="submit" class="btn btn--accent btn--block">Send Message</button>
+          <p class="form-hint" id="m-contact-page-hint" role="status"></p>
+        </form>
+      </section>
+
+      <section class="m-support-faq" aria-labelledby="support-faq-title">
+        <h2 id="support-faq-title" class="section-title">FAQs</h2>
+        <details open>
+          <summary>How quickly will I get a response?</summary>
+          <p>Most queries receive a response within 15 to 30 minutes during support hours.</p>
+        </details>
+        <details>
+          <summary>How do I reschedule a booking?</summary>
+          <p>You can use the Bookings screen or contact support with your booking ID for immediate help.</p>
+        </details>
+        <details>
+          <summary>How do refunds work?</summary>
+          <p>Eligible refunds are processed to your original payment mode and reflected in wallet history.</p>
+        </details>
+      </section>
+
+      <section class="m-support-note" id="m-contact-info">
+        <p><strong>Support hours:</strong> 10:00 AM to 7:00 PM IST, all days.</p>
+        <p><strong>Response time:</strong> usually within 15-30 mins on call/WhatsApp.</p>
+      </section>
+    </main>
+
+    <script src="mobile-shell.js"></script>
+    <script>
+      (function () {
+        var c = window.DivineCenterConfig && window.DivineCenterConfig.contact;
+        var el = document.getElementById("m-contact-info");
+        if (c) {
+          var call = document.getElementById("support-call");
+          var wa = document.getElementById("support-whatsapp");
+          var email = document.getElementById("support-email");
+          if (call) call.href = "tel:" + c.phone;
+          if (wa) wa.href = "https://wa.me/" + String(c.phone || "").replace(/[^\d]/g, "");
+          if (email) email.href = "mailto:" + c.email;
+        }
+
+        var issueInput = document.getElementById("support-issue-input");
+        document.querySelectorAll("#support-issue-chips .m-chip").forEach(function (chip) {
+          chip.addEventListener("click", function () {
+            document.querySelectorAll("#support-issue-chips .m-chip").forEach(function (c) {
+              c.classList.remove("is-active");
+            });
+            chip.classList.add("is-active");
+            if (issueInput) issueInput.value = chip.getAttribute("data-issue") || "";
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>
