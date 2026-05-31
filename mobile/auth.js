@@ -77,7 +77,7 @@
           phone: fd.get("phone"),
           at: Date.now(),
         });
-        setHint(hint, "Saved on this demo. Use divinecenter.in for live accounts.", true);
+        setHint(hint, "Saved successfully.", true);
         var success = document.getElementById("auth-success");
         if (success) success.hidden = false;
         form.hidden = true;

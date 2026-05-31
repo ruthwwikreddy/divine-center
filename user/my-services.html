@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html data-demo-site="true" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="robots" content="noindex"/>
+  <meta name="theme-color" content="#fdf8f2"/>
+  <title>My Services — Divine Center</title>
+  <script src="../site-config.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../styles.css"/>
+  <link rel="stylesheet" href="../portal.css"/>
+  <link rel="stylesheet" href="../demo-mode.css"/>
+</head>
+<body class="page-portal page-portal--pandit " data-portal-layout="pandit" data-portal-active="my-services" data-dash-layout="pandit" data-dash-active="my-services">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div id="site-nav"></div>
+  <main id="main">
+    <div class="portal__shell">
+      <aside id="portal-sidebar"></aside>
+      <div class="portal-main">
+        <section class="dash-card portal-pandit-services-hub" aria-labelledby="pandit-services-title">
+          <header class="portal-pandit-services-hub__head">
+            <div class="portal-pandit-services-hub__intro">
+              <span class="portal-pandit-services-hub__icon" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l7 4v2H5V7l7-4z"/><path d="M5 9h14v11H5z"/></svg>
+              </span>
+              <div>
+                <h2 class="dash-card__title" id="pandit-services-title">Your services</h2>
+                <p class="dash-card__sub">Rituals devotees can book — pricing and mode</p>
+              </div>
+            </div>
+            <button type="button" class="dash-btn dash-btn--accent" data-add-service>Add service</button>
+          </header>
+          <ul class="portal-pandit-services-hub__stats" id="pandit-services-stats" aria-label="Services overview"></ul>
+          <p class="portal-pandit-services-hub__note" id="pandit-services-save-note" hidden role="status"></p>
+          <div class="portal-pandit-services-grid" id="pandit-services-list" role="list" aria-live="polite"></div>
+        </section>
+
+        <div class="portal-service-modal" id="pandit-service-modal" hidden>
+          <button type="button" class="portal-service-modal__backdrop" data-close-service-modal aria-label="Close dialog"></button>
+          <div class="portal-service-modal__panel" role="dialog" aria-modal="true" aria-labelledby="pandit-service-modal-title">
+            <header class="portal-service-modal__head">
+              <h2 class="portal-service-modal__title" id="pandit-service-modal-title">Edit service</h2>
+              <button type="button" class="portal-service-modal__close" data-close-service-modal aria-label="Close">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>
+              </button>
+            </header>
+            <form id="pandit-service-form" class="portal-service-modal__form" data-demo-allow="true" novalidate>
+              <label class="portal-service-modal__field">
+                <span>Ritual name</span>
+                <input type="text" name="name" required autocomplete="off" placeholder="e.g. Griha Pravesh"/>
+              </label>
+              <label class="portal-service-modal__field">
+                <span>Price (₹)</span>
+                <input type="number" name="price" min="0" step="100" required placeholder="5500"/>
+              </label>
+              <label class="portal-service-modal__field">
+                <span>Duration (hours)</span>
+                <input type="text" name="duration" inputmode="decimal" placeholder="3" aria-describedby="pandit-service-duration-hint"/>
+                <small id="pandit-service-duration-hint" class="portal-service-modal__hint">Approximate ritual length devotees will see</small>
+              </label>
+              <label class="portal-service-modal__field">
+                <span>Mode</span>
+                <select name="mode">
+                  <option value="offline">Offline only</option>
+                  <option value="online">Online only</option>
+                  <option value="both">Offline &amp; online</option>
+                </select>
+              </label>
+              <footer class="portal-service-modal__foot">
+                <button type="button" class="dash-btn dash-btn--outline" data-close-service-modal>Cancel</button>
+                <button type="submit" class="dash-btn dash-btn--accent">Save changes</button>
+              </footer>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+  <script src="../user/my-services.js"></script>
+  <script src="../demo-session.js"></script>
+  <script src="../portal-shell.js"></script>
+  <script src="../portal-polish.js"></script>
+  <script src="../layout.js"></script>
+  <script src="../demo-mode.js"></script>
+</body>
+</html>

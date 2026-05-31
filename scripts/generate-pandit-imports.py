@@ -58,7 +58,6 @@ LANGS = {
     "eruvinti-balakrishna": ["Telugu", "Sanskrit", "English"],
 }
 
-
 def clean_bio(text):
     if not text:
         return ""
@@ -72,21 +71,17 @@ def clean_bio(text):
         return ""
     return text
 
-
 BIO_OVERRIDE = {
     "ramashankar-kkurmeti": "Ramashankar kurmeti is a verified Vedic priest with 24 years of experience, serving families in BN Reddy and Telangana with authentic pujas, homams, and spiritual guidance.",
     "anantha-krishna-vangipuram": "Anantha Krishna Vangipuram is a dedicated temple priest offering Griha Pravesh, consultation, and traditional home rituals with devotion and punctual service.",
 }
 
-
 def exp_years(text):
     m = re.search(r"(\d+)\+?\s*years?", text or "", re.I)
     return f"{m.group(1)} years" if m else ""
 
-
 def js_str(s):
     return json.dumps(s or "", ensure_ascii=False)
-
 
 def main():
     with open(LIVE_JSON, encoding="utf-8") as f:
@@ -130,7 +125,6 @@ def main():
     with open(OUT, "w", encoding="utf-8") as f:
         f.write("\n".join(lines))
     print("Wrote", OUT)
-
 
 if __name__ == "__main__":
     main()

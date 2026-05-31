@@ -44,14 +44,12 @@ BOOKING = (
     "(e.g. samagri, venue)."
 )
 
-
 def fetch_rsc(slug):
     req = urllib.request.Request(
         f"https://divinecenter.in/pujas/{slug}",
         headers={"User-Agent": UA, "RSC": "1", "Next-Router-State-Tree": "%5B%22%22%5D"},
     )
     return urllib.request.urlopen(req, context=CTX, timeout=60).read().decode("utf-8", "replace")
-
 
 def extract_json_array(text, key):
     idx = text.find(f'"{key}":')
@@ -74,7 +72,6 @@ def extract_json_array(text, key):
                     return None
     return None
 
-
 def strip_html(html):
     if not html or not isinstance(html, str):
         return ""
@@ -82,7 +79,6 @@ def strip_html(html):
         return ""
     t = unescape(re.sub(r"<[^>]+>", " ", html))
     return re.sub(r"\s+", " ", t).strip()
-
 
 def parse_list_html(html):
     if not html or html.startswith("/_next/"):
@@ -100,7 +96,6 @@ def parse_list_html(html):
         if t.startswith("●"):
             out.append(t.lstrip("● ").strip())
     return out
-
 
 def parse_section(sec, ref_strings):
     content = sec.get("content", "")
@@ -133,7 +128,6 @@ def parse_section(sec, ref_strings):
         paras = [p for p in paras if p != intro]
     return {"title": title, "intro": intro, "paragraphs": paras[:5], "list": lst, "outro": outro}
 
-
 def build_ref_map(text):
     strings = []
     for m in re.finditer(r'"((?:\\.|[^"\\]){2,12000})"', text):
@@ -149,7 +143,6 @@ def build_ref_map(text):
         num, html = m.group(1), m.group(2)
         refs[f"${num}"] = html.replace("\\u0026", "&")
     return refs
-
 
 def parse_puja(local_slug):
     live_slug = LIVE_SLUG_MAP[local_slug]
@@ -260,10 +253,8 @@ def parse_puja(local_slug):
         "whyChooseClosing": why_close,
     }
 
-
 def js_str(s):
     return json.dumps(s, ensure_ascii=False)
-
 
 def emit_block(p):
     key = p["slug"]
@@ -287,7 +278,6 @@ def emit_block(p):
     lines.append("  },")
     return "\n".join(lines)
 
-
 def main():
     blocks = []
     for slug in LOCAL_SLUGS:
@@ -300,7 +290,6 @@ def main():
     with open(out_path, "w", encoding="utf-8") as f:
         f.write("\n".join(blocks))
     print("Wrote", out_path)
-
 
 if __name__ == "__main__":
     main()

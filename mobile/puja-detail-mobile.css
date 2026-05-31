@@ -14,22 +14,63 @@
 .m-page--detail .puja-hero {
   display: flex;
   flex-direction: column;
-  gap: 0.7rem;
-  margin-top: 0.25rem;
+  gap: 0.85rem;
+  margin-top: 0.15rem;
 }
 
+/* Puja hero visual — single framed image */
 .m-page--detail .puja-hero__visual {
-  margin: 0 calc(-1 * var(--pad));
   position: relative;
-  border-radius: 0 0 20px 20px;
+  border-radius: 22px;
   overflow: hidden;
-  box-shadow: 0 18px 32px rgba(74, 28, 20, 0.2);
+  background: #3d241c;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow:
+    0 20px 36px rgba(74, 28, 20, 0.18),
+    0 1px 0 rgba(255, 255, 255, 0.75) inset;
+}
+
+.m-page--detail .puja-hero__toolbar {
+  position: absolute;
+  top: max(0.55rem, env(safe-area-inset-top));
+  left: 0.65rem;
+  right: 0.65rem;
+  z-index: 4;
+  display: flex;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+.m-page--detail .puja-hero__nav-btn {
+  pointer-events: auto;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.95);
+  color: var(--mahogany);
+  display: grid;
+  place-items: center;
+  font-size: 1.35rem;
+  line-height: 1;
+  box-shadow: 0 8px 18px rgba(18, 12, 10, 0.24);
+  text-decoration: none;
+  padding: 0;
+}
+
+.m-page--detail .puja-hero__share svg {
+  display: block;
+}
+
+.m-page--detail .puja-hero__figure {
+  position: relative;
 }
 
 .m-page--detail .puja-hero__media {
-  border-radius: 0;
-  aspect-ratio: 16 / 8.4;
-  box-shadow: none;
+  aspect-ratio: 16 / 10;
+  max-height: 13.5rem;
+  overflow: hidden;
+  background: #f3ebe2;
 }
 
 .m-page--detail .puja-hero__media .puja-media,
@@ -42,38 +83,49 @@
 .m-page--detail .puja-hero__media .puja-media img,
 .m-page--detail .puja-hero__img {
   object-fit: cover;
-  transform: scale(1.08);
-  transform-origin: center;
+  object-position: center 30%;
+  transform: scale(1.05);
+  transform-origin: center top;
 }
 
 .m-page--detail .puja-hero__media .puja-media.is-fallback img,
 .m-page--detail .puja-hero__media .puja-media.is-icon img {
   object-fit: contain;
+  object-position: center;
   transform: none;
+  padding: 1.25rem;
 }
 
-.m-page--detail .puja-hero__visual::after {
-  content: "";
+.m-page--detail .puja-hero__shade {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(180deg, rgba(0, 0, 0, 0.04) 0%, rgba(0, 0, 0, 0.4) 100%),
-    radial-gradient(circle at 70% 20%, rgba(255, 173, 96, 0.18), transparent 45%);
+    linear-gradient(180deg, rgba(12, 8, 6, 0.15) 0%, rgba(12, 8, 6, 0.02) 35%, rgba(12, 8, 6, 0.75) 100%),
+    radial-gradient(circle at 88% 10%, rgba(255, 173, 96, 0.2), transparent 42%);
   pointer-events: none;
+  z-index: 1;
 }
 
 .m-page--detail .puja-hero__category {
-  top: 0.95rem;
-  left: var(--pad);
+  position: absolute;
+  left: 0.85rem;
+  bottom: 0.75rem;
   z-index: 2;
-  background: rgba(0, 0, 0, 0.55);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
   color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.26);
-  backdrop-filter: blur(4px);
+  background: rgba(33, 24, 18, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 999px;
+  padding: 0.22rem 0.55rem;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .m-page--detail .puja-hero__body {
-  margin-top: -1.55rem;
+  margin-top: 0;
   background: linear-gradient(180deg, #fff 0%, #fffaf5 100%);
   border: 1px solid rgba(74, 28, 20, 0.1);
   border-radius: 16px;
@@ -173,17 +225,132 @@
   justify-content: center;
 }
 
-.m-page--detail .m-puja-prep {
+/* Puja booking prep — schedule picker */
+.m-page--detail .puja-prep {
+  margin-top: 0.75rem;
+  padding: 0.9rem 0.85rem;
+  border-radius: 16px;
+  background: linear-gradient(180deg, #fff 0%, #fff9f3 100%);
+  border: 1px solid rgba(211, 107, 43, 0.18);
+  box-shadow: 0 8px 20px rgba(74, 28, 20, 0.06);
+}
+
+.puja-prep__head {
+  margin-bottom: 0.65rem;
+}
+
+.puja-prep__title {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  color: var(--mahogany);
+  line-height: 1.25;
+}
+
+.puja-prep__sub {
+  margin: 0.2rem 0 0;
+  font-size: 0.72rem;
+  line-height: 1.4;
+  color: var(--text-muted);
+}
+
+.puja-prep__days {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.42rem;
+}
+
+.puja-prep__day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.12rem;
+  min-height: 3.65rem;
+  padding: 0.45rem 0.35rem;
+  border-radius: 14px;
+  border: 1.5px solid rgba(74, 28, 20, 0.12);
+  background: #fff;
+  color: var(--mahogany);
+  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+}
+
+.puja-prep__day.is-active {
+  border-color: var(--orange);
+  background: linear-gradient(180deg, #fff6ee 0%, #fff 100%);
+  box-shadow: 0 6px 16px rgba(211, 107, 43, 0.18);
+}
+
+.puja-prep__day-label {
+  font-size: 0.74rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.puja-prep__day-hint {
+  font-size: 0.54rem;
+  line-height: 1.25;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.puja-prep__day.is-active .puja-prep__day-hint {
+  color: #a65a28;
+}
+
+.puja-prep__status {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.48rem;
   margin-top: 0.65rem;
+  padding: 0.58rem 0.65rem;
+  border-radius: 12px;
+  background: rgba(30, 107, 74, 0.08);
+  border: 1px solid rgba(30, 107, 74, 0.14);
 }
 
-.m-page--detail .m-puja-prep .puja-panel__title {
-  font-size: 1rem;
+.puja-prep__status-dot {
+  flex-shrink: 0;
+  width: 0.48rem;
+  height: 0.48rem;
+  margin-top: 0.32rem;
+  border-radius: 999px;
+  background: #1e6b4a;
+  box-shadow: 0 0 0 3px rgba(30, 107, 74, 0.18);
 }
 
-.m-page--detail .m-puja-prep .puja-panel__lede {
-  font-size: 0.78rem;
-  line-height: 1.5;
+.puja-prep__status p {
+  margin: 0;
+  font-size: 0.72rem;
+  line-height: 1.45;
+  color: var(--text);
+}
+
+.puja-prep__status strong {
+  color: var(--mahogany);
+}
+
+.puja-prep__address {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.45rem;
+  margin-top: 0.55rem;
+  padding-top: 0.55rem;
+  border-top: 1px solid rgba(74, 28, 20, 0.08);
+  font-size: 0.72rem;
+  line-height: 1.45;
+  color: var(--text-muted);
+}
+
+.puja-prep__address-icon {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 1.65rem;
+  height: 1.65rem;
+  border-radius: 999px;
+  background: rgba(211, 107, 43, 0.1);
+  color: var(--orange);
 }
 
 .m-page--detail .puja-booking-card--sticky {
@@ -191,7 +358,19 @@
 }
 
 .m-page--detail .puja-detail-layout {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.m-page--detail .puja-detail-aside {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.m-page--detail .puja-detail-aside .pandit-booking-card {
+  margin: 0;
 }
 
 .m-page--detail .puja-panel,
@@ -203,13 +382,145 @@
   box-shadow: 0 8px 20px rgba(74, 28, 20, 0.06);
 }
 
-.m-page--detail .puja-samagri__grid {
-  grid-template-columns: 1fr;
-  gap: 0.75rem;
+/* Puja samagri — single title, category accordions */
+.m-page--detail .puja-samagri {
+  padding: 1rem 0.95rem;
+  background: linear-gradient(180deg, #fff 0%, #fffaf5 100%);
+  border: 1px solid rgba(74, 28, 20, 0.1);
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(74, 28, 20, 0.06);
 }
 
-.m-page--detail .puja-samagri__col {
-  padding: 0.85rem;
+.puja-samagri__head {
+  margin-bottom: 0.7rem;
+}
+
+.puja-samagri__title {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 1.08rem;
+  color: var(--mahogany);
+  line-height: 1.25;
+}
+
+.puja-samagri__lede {
+  margin: 0.28rem 0 0;
+  font-size: 0.74rem;
+  line-height: 1.45;
+  color: var(--text-muted);
+}
+
+.puja-samagri__badge {
+  display: inline-flex;
+  margin-top: 0.45rem;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: #1e6b4a;
+  background: rgba(30, 107, 74, 0.1);
+  border: 1px solid rgba(30, 107, 74, 0.18);
+  border-radius: 999px;
+  padding: 0.2rem 0.5rem;
+}
+
+.puja-samagri__groups {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.puja-samagri__group {
+  border: 1px solid rgba(74, 28, 20, 0.1);
+  border-radius: 12px;
+  background: #fff;
+  overflow: hidden;
+}
+
+.puja-samagri__summary {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.62rem 0.7rem;
+  cursor: pointer;
+  font-family: var(--font-sans);
+}
+
+.puja-samagri__summary::-webkit-details-marker {
+  display: none;
+}
+
+.puja-samagri__summary::after {
+  content: "+";
+  flex-shrink: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 999px;
+  border: 1px solid rgba(211, 107, 43, 0.24);
+  background: #fff;
+  color: var(--orange);
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.45rem;
+  text-align: center;
+}
+
+.puja-samagri__group[open] .puja-samagri__summary::after {
+  content: "−";
+}
+
+.puja-samagri__group-title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--mahogany);
+}
+
+.puja-samagri__group-count {
+  flex: 1;
+  font-size: 0.62rem;
+  color: var(--text-muted);
+  padding-left: 0.35rem;
+}
+
+.puja-samagri__list {
+  list-style: none;
+  margin: 0;
+  padding: 0 0.7rem 0.65rem;
+  display: grid;
+  gap: 0.38rem;
+}
+
+.puja-samagri__list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.45rem;
+  font-size: 0.76rem;
+  line-height: 1.45;
+  color: var(--text);
+}
+
+.puja-samagri__check {
+  flex-shrink: 0;
+  width: 0.9rem;
+  height: 0.9rem;
+  margin-top: 0.15rem;
+  border-radius: 999px;
+  background: rgba(30, 107, 74, 0.14);
+  position: relative;
+}
+
+.puja-samagri__check::after {
+  content: "";
+  position: absolute;
+  left: 0.28rem;
+  top: 0.16rem;
+  width: 0.18rem;
+  height: 0.34rem;
+  border: solid #1e6b4a;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
 }
 
 .m-page--detail .puja-pandits {
@@ -238,29 +549,6 @@
   width: 100%;
 }
 
-.m-puja-overlay-nav {
-  position: absolute;
-  top: 0.7rem;
-  left: 0.7rem;
-  right: 0.7rem;
-  z-index: 2;
-  display: flex;
-  justify-content: space-between;
-}
-
-.m-puja-overlay-nav .m-subheader__back,
-.m-puja-overlay-nav .m-subheader__icon {
-  width: 2.15rem;
-  height: 2.15rem;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.96);
-  border: 1px solid rgba(74, 28, 20, 0.16);
-  display: grid;
-  place-items: center;
-  color: var(--mahogany);
-  box-shadow: 0 6px 14px rgba(74, 28, 20, 0.2);
-}
-
 .m-page--detail details summary {
   list-style: none;
   font-family: var(--font-serif);
@@ -282,27 +570,168 @@
   padding-top: 0.6rem;
 }
 
-.m-faq-head {
+/* Puja FAQ block */
+.m-page--detail .puja-faq {
+  padding: 1rem 0.95rem;
+  background: #fff;
+  border: 1px solid rgba(74, 28, 20, 0.1);
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(74, 28, 20, 0.06);
+}
+
+.puja-faq__head {
+  margin-bottom: 0.7rem;
+}
+
+.puja-faq__title {
+  margin: 0;
   font-family: var(--font-serif);
-  font-size: 1.2rem;
+  font-size: 1.22rem;
+  line-height: 1.25;
   color: var(--mahogany);
-  margin: 0.2rem 0 0.2rem;
+  letter-spacing: -0.01em;
 }
 
-.m-faq-item {
-  border-color: rgba(211, 107, 43, 0.22) !important;
-  background: linear-gradient(180deg, #fff 0%, #fff9f3 100%) !important;
+.puja-faq__sub {
+  margin: 0.22rem 0 0;
+  font-size: 0.74rem;
+  line-height: 1.45;
+  color: var(--text-muted);
 }
 
-.m-faq-item details summary::after {
+.puja-faq__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.puja-faq__item {
+  border: 1px solid rgba(74, 28, 20, 0.1);
+  border-radius: 14px;
+  background: linear-gradient(180deg, #fff 0%, #fffbf7 100%);
+  overflow: hidden;
+}
+
+.puja-faq__item[open] {
+  border-color: rgba(211, 107, 43, 0.28);
+  box-shadow: 0 6px 16px rgba(211, 107, 43, 0.1);
+}
+
+.puja-faq__summary {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.65rem;
+  min-height: 3.2rem;
+  padding: 0.65rem 0.75rem;
+  font-family: var(--font-serif);
+  font-size: 0.92rem;
+  font-weight: 600;
+  line-height: 1.32;
+  color: var(--mahogany);
+  cursor: pointer;
+}
+
+.puja-faq__summary::-webkit-details-marker {
+  display: none;
+}
+
+.puja-faq__summary::after {
   content: "+";
-  font-family: var(--font-sans);
-  font-size: 1.15rem;
-  font-weight: 700;
+  flex-shrink: 0;
+  width: 1.65rem;
+  height: 1.65rem;
+  border-radius: 999px;
+  border: 1px solid rgba(211, 107, 43, 0.24);
+  background: #fff;
   color: var(--orange);
-  line-height: 1;
+  font-family: var(--font-sans);
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1.55rem;
+  text-align: center;
 }
 
-.m-faq-item details[open] summary::after {
+.puja-faq__item[open] .puja-faq__summary::after {
   content: "−";
+}
+
+.puja-faq__body {
+  padding: 0 0.75rem 0.8rem;
+  border-top: 1px solid rgba(74, 28, 20, 0.08);
+}
+
+.puja-faq__body p {
+  margin: 0 0 0.55rem;
+  font-size: 0.84rem;
+  line-height: 1.68;
+  color: var(--text);
+}
+
+.puja-faq__body p:last-child {
+  margin-bottom: 0;
+}
+
+.puja-faq__lead,
+.puja-faq__lede {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.puja-faq__steps {
+  margin: 0.45rem 0 0.55rem;
+  padding-left: 1.25rem;
+}
+
+.puja-faq__steps li {
+  font-size: 0.82rem;
+  line-height: 1.55;
+  margin-bottom: 0.28rem;
+  color: var(--text);
+}
+
+.puja-faq__why-list {
+  list-style: none;
+  margin: 0.5rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.42rem;
+}
+
+.puja-faq__why-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.45rem;
+  font-size: 0.8rem;
+  line-height: 1.45;
+  color: var(--text);
+}
+
+.puja-faq__check {
+  flex-shrink: 0;
+  width: 0.95rem;
+  height: 0.95rem;
+  margin-top: 0.12rem;
+  border-radius: 999px;
+  background: rgba(30, 107, 74, 0.14);
+  position: relative;
+}
+
+.puja-faq__check::after {
+  content: "";
+  position: absolute;
+  left: 0.3rem;
+  top: 0.18rem;
+  width: 0.2rem;
+  height: 0.38rem;
+  border: solid #1e6b4a;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.puja-faq__closing {
+  margin-top: 0.55rem !important;
+  font-size: 0.8rem !important;
+  color: var(--mahogany) !important;
 }

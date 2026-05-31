@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html data-demo-site="true" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="robots" content="noindex"/>
+  <meta name="theme-color" content="#fdf8f2"/>
+  <title>Booking Status — Divine Center</title>
+  <script src="../site-config.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../styles.css"/>
+  <link rel="stylesheet" href="../portal.css"/>
+  <link rel="stylesheet" href="../demo-mode.css"/>
+</head>
+<body class="page-portal page-portal--customer dash-app--detail" data-portal-layout="customer" data-portal-active="bookings" data-dash-layout="customer" data-dash-active="bookings">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div id="site-nav"></div>
+  <main id="main">
+    <div class="portal__shell">
+      <aside id="portal-sidebar"></aside>
+      <div class="portal-main">
+        <a href="bookings" class="dash-back-link portal-back-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          Back to bookings
+        </a>
+
+        <div class="portal-booking-detail" id="booking-detail-root">
+          <div class="portal-booking-detail__layout">
+            <div class="portal-booking-detail__main">
+              <header class="dash-card portal-booking-detail__hero portal-booking-hero">
+                <div class="portal-booking-hero__banner">
+                  <div class="portal-booking-hero__mandala" aria-hidden="true"></div>
+                  <div class="portal-booking-hero__top">
+                    <div class="portal-booking-hero__status portal-booking-hero-status" id="booking-hero-status" role="status" aria-live="polite" data-booking-step="3" data-booking-steps="5">
+                      <div class="portal-booking-hero-status__ring-wrap" aria-hidden="true">
+                        <svg class="portal-booking-hero-status__ring" viewBox="0 0 44 44" focusable="false">
+                          <circle class="portal-booking-hero-status__ring-track" cx="22" cy="22" r="18"/>
+                          <circle class="portal-booking-hero-status__ring-fill" cx="22" cy="22" r="18" id="booking-status-ring"/>
+                        </svg>
+                        <span class="portal-booking-hero-status__ring-label" id="booking-status-step-num">3/5</span>
+                      </div>
+                      <div class="portal-booking-hero-status__body">
+                        <p class="portal-booking-hero-status__kicker">Current status</p>
+                        <div class="portal-booking-hero-status__headline">
+                          <span class="portal-booking-hero-status__pulse" aria-hidden="true"></span>
+                          <strong class="portal-booking-hero-status__badge portal-booking-hero-status__badge--pending" id="booking-status-badge">Pandit assigning</strong>
+                        </div>
+                        <p class="portal-booking-hero-status__detail" id="booking-hero-step">Step 3 of 5 · matching Acharya</p>
+                        <div class="portal-booking-hero-status__track" aria-hidden="true">
+                          <span class="portal-booking-hero-status__track-fill" id="booking-status-track" style="width: 60%"></span>
+                        </div>
+                        <ul class="portal-booking-hero-status__milestones" aria-label="Booking progress">
+                          <li class="is-done">Received</li>
+                          <li class="is-done">Verified</li>
+                          <li class="is-active">Assigning</li>
+                          <li>Scheduled</li>
+                          <li>Complete</li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="portal-booking-hero__date-tile" aria-label="Scheduled date">
+                      <span class="portal-booking-hero__month" id="booking-hero-month">Feb</span>
+                      <span class="portal-booking-hero__day" id="booking-hero-day">15</span>
+                      <time class="portal-booking-hero__slot" id="booking-scheduled-hero" datetime="2026-02-15">Feb 15, 2026</time>
+                    </div>
+                  </div>
+                  <div class="portal-booking-hero__main portal-booking-hero-main">
+                    <div class="portal-booking-hero-main__ritual">
+                      <span class="portal-booking-hero-main__icon" aria-hidden="true">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 3l2.2 6.8H21l-5.5 4 2.1 6.7L12 16.2 6.4 20.5l2.1-6.7L3 9.8h6.8L12 3z"/><circle cx="12" cy="12" r="9" stroke-opacity="0.2"/></svg>
+                      </span>
+                      <div class="portal-booking-hero-main__head">
+                        <span class="portal-booking-hero-main__tag" id="booking-puja-tag">Annaprashanna</span>
+                        <h2 class="portal-booking-hero-main__title" id="booking-puja">Annaprashanna</h2>
+                        <p class="portal-booking-hero-main__sub">Booked ritual · Divine Center</p>
+                      </div>
+                    </div>
+                    <div class="portal-booking-hero-main__meta">
+                      <div class="portal-booking-hero-main__id-card">
+                        <span class="portal-booking-hero-main__id-label">Booking reference</span>
+                        <div class="portal-booking-hero-main__id-row">
+                          <code id="booking-id">#DC-001</code>
+                          <button type="button" class="dash-copy-btn portal-booking-hero-main__copy" data-copy="#DC-001" aria-label="Copy booking ID">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                            <span class="portal-booking-hero-main__copy-text">Copy</span>
+                          </button>
+                        </div>
+                      </div>
+                      <div class="portal-booking-hero-main__placed">
+                        <span class="portal-booking-hero-main__placed-icon" aria-hidden="true">
+                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                        </span>
+                        <div>
+                          <span class="portal-booking-hero-main__placed-label">Order placed</span>
+                          <time id="booking-placed" datetime="2026-01-30T18:23">Jan 30, 2026 at 6:23 pm</time>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <ul class="portal-booking-hero__facts" aria-label="Booking summary">
+                    <li class="portal-booking-hero__fact">
+                      <span class="portal-booking-hero__fact-icon" aria-hidden="true">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+                      </span>
+                      <div>
+                        <span class="portal-booking-hero__fact-label">Ritual mode</span>
+                        <strong id="booking-mode">Offline · Morning</strong>
+                      </div>
+                    </li>
+                    <li class="portal-booking-hero__fact">
+                      <span class="portal-booking-hero__fact-icon" aria-hidden="true">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+                      </span>
+                      <div>
+                        <span class="portal-booking-hero__fact-label">Amount paid</span>
+                        <strong id="booking-amount-hero-banner">₹4,033</strong>
+                      </div>
+                    </li>
+                    <li class="portal-booking-hero__fact portal-booking-hero__fact--paid">
+                      <span class="portal-booking-hero__fact-icon" aria-hidden="true">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+                      </span>
+                      <div>
+                        <span class="portal-booking-hero__fact-label">Payment</span>
+                        <strong>Paid in full</strong>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+                <div class="portal-booking-hero__actions portal-booking-hero-actions">
+                  <div class="portal-booking-hero-actions__intro">
+                    <span class="portal-booking-hero-actions__intro-icon" aria-hidden="true">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+                    </span>
+                    <div>
+                      <h3 class="portal-booking-hero-actions__title">Manage this booking</h3>
+                      <p class="portal-booking-hero-actions__sub">Reschedule your ritual, cancel if plans change, or chat with support</p>
+                    </div>
+                  </div>
+                  <div class="portal-booking-hero-actions__layout">
+                    <div class="portal-booking-hero-actions__grid" role="group" aria-label="Booking actions">
+                      <button type="button" class="portal-booking-hero-actions__tile portal-booking-hero-actions__tile--reschedule" data-demo-action data-demo-message="Choose a new date and time slot.">
+                        <span class="portal-booking-hero-actions__tile-icon" aria-hidden="true">
+                          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                        </span>
+                        <span class="portal-booking-hero-actions__tile-body">
+                          <strong>Reschedule</strong>
+                          <span>New date &amp; time</span>
+                        </span>
+                        <span class="portal-booking-hero-actions__tile-chevron" aria-hidden="true">
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+                        </span>
+                      </button>
+                      <button type="button" class="portal-booking-hero-actions__tile portal-booking-hero-actions__tile--cancel" data-demo-action data-demo-message="Cancellation will trigger a refund review.">
+                        <span class="portal-booking-hero-actions__tile-icon" aria-hidden="true">
+                          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M15 9l-6 6M9 9l6 6"/></svg>
+                        </span>
+                        <span class="portal-booking-hero-actions__tile-body">
+                          <strong>Cancel booking</strong>
+                          <span>Refund review</span>
+                        </span>
+                        <span class="portal-booking-hero-actions__tile-chevron" aria-hidden="true">
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+                        </span>
+                      </button>
+                      <a href="support" class="portal-booking-hero-actions__tile portal-booking-hero-actions__tile--help" id="booking-hero-help-link">
+                        <span class="portal-booking-hero-actions__tile-icon" aria-hidden="true">
+                          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+                        </span>
+                        <span class="portal-booking-hero-actions__tile-body">
+                          <strong>Get help</strong>
+                          <span>Message support</span>
+                        </span>
+                        <span class="portal-booking-hero-actions__tile-chevron" aria-hidden="true">
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+                        </span>
+                      </a>
+                    </div>
+                    <a href="reviews" class="portal-booking-hero-actions__review">
+                      <span class="portal-booking-hero-actions__review-glow" aria-hidden="true"></span>
+                      <span class="portal-booking-hero-actions__review-icon" aria-hidden="true">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7L12 17.8 5.7 21.2 7 14.2 2 9.3l7-1z"/></svg>
+                      </span>
+                      <span class="portal-booking-hero-actions__review-body">
+                        <strong>Add review</strong>
+                        <span>Rate your pandit after the puja</span>
+                      </span>
+                      <span class="portal-booking-hero-actions__review-arrow" aria-hidden="true">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                      </span>
+                    </a>
+                  </div>
+                </div>
+              </header>
+
+              <section class="dash-card portal-booking-detail__progress" aria-labelledby="booking-progress-title">
+                <div class="dash-card__head">
+                  <div>
+                    <h2 class="dash-card__title" id="booking-progress-title">Order progress</h2>
+                    <p class="dash-card__sub">Track your ritual from booking to completion</p>
+                  </div>
+                </div>
+                <ol class="portal-booking-detail__stepper" id="booking-stepper" aria-label="Booking progress"></ol>
+                <div class="portal-booking-detail__scheduled-banner">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2.5"/></svg>
+                  Ritual date: <strong id="booking-scheduled">Feb 15, 2026</strong>
+                </div>
+              </section>
+
+              <section class="dash-card portal-booking-detail__pandit" id="booking-pandit-section" aria-labelledby="booking-pandit-title">
+                <div class="portal-booking-detail__pandit-inner">
+                  <div class="portal-booking-detail__pandit-avatar" aria-hidden="true">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+                  </div>
+                  <div>
+                    <h3 class="portal-booking-detail__pandit-title" id="booking-pandit-title">Matching your pandit</h3>
+                    <p class="portal-booking-detail__pandit-text">We are assigning a verified Acharya for your ritual. You will receive SMS and email once confirmed.</p>
+                    <p class="portal-booking-detail__pandit-meta">Typical match time: within 24 hours</p>
+                  </div>
+                </div>
+              </section>
+
+              <section class="dash-card portal-booking-detail__contact" aria-labelledby="booking-contact-title">
+                <div class="dash-card__head">
+                  <div>
+                    <h2 class="dash-card__title" id="booking-contact-title">Contact &amp; location</h2>
+                    <p class="dash-card__sub">Details shared with your assigned pandit</p>
+                  </div>
+                </div>
+                <div class="portal-booking-detail__contact-grid">
+                  <div class="portal-booking-detail__contact-item">
+                    <span class="portal-booking-detail__contact-icon" aria-hidden="true">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+                    </span>
+                    <div>
+                      <p class="portal-booking-detail__contact-label">Name</p>
+                      <p class="portal-booking-detail__contact-value" id="booking-customer-name">Rahul Sharma</p>
+                    </div>
+                  </div>
+                  <div class="portal-booking-detail__contact-item">
+                    <span class="portal-booking-detail__contact-icon" aria-hidden="true">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+                    </span>
+                    <div>
+                      <p class="portal-booking-detail__contact-label">Phone</p>
+                      <p class="portal-booking-detail__contact-value" id="booking-customer-phone">+91 98765 43210</p>
+                    </div>
+                  </div>
+                  <div class="portal-booking-detail__contact-item portal-booking-detail__contact-item--wide">
+                    <span class="portal-booking-detail__contact-icon" aria-hidden="true">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-4.5 7-11a7 7 0 10-14 0c0 6.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+                    </span>
+                    <div>
+                      <p class="portal-booking-detail__contact-label">Address</p>
+                      <p class="portal-booking-detail__contact-value" id="booking-customer-address">12, Temple Road, Banjara Hills, Hyderabad — 500034</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="portal-booking-detail__map dash-map" id="booking-map"></div>
+              </section>
+            </div>
+
+            <aside class="portal-booking-detail__aside">
+              <section class="dash-card portal-booking-detail__aside-card">
+                <div class="dash-card__head">
+                  <div>
+                    <h2 class="dash-card__title">Payment</h2>
+                    <p class="dash-card__sub">Invoice breakdown</p>
+                  </div>
+                  <span class="portal-booking-detail__paid-badge">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+                    Paid
+                  </span>
+                </div>
+                <div class="portal-booking-detail__payment" id="booking-payment"></div>
+                <p class="portal-booking-detail__amount-hero" id="booking-amount-hero">₹4,033</p>
+                <a href="payments" class="portal-booking-detail__aside-link">View all payments</a>
+              </section>
+
+              <section class="dash-card portal-booking-detail__aside-card">
+                <div class="dash-card__head portal-booking-detail__samagri-head">
+                  <div>
+                    <h2 class="dash-card__title">Puja samagri</h2>
+                    <p class="dash-card__sub">Items to arrange before the ritual</p>
+                  </div>
+                  <button type="button" class="dash-btn dash-btn--outline portal-booking-detail__samagri-export" id="booking-samagri-export" aria-label="Export samagri checklist">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
+                    Export list
+                  </button>
+                </div>
+                <div class="portal-booking-detail__samagri" id="booking-samagri"></div>
+                <p class="portal-booking-detail__samagri-note">Your pandit may adjust the list based on tradition and location.</p>
+              </section>
+
+              <section class="dash-card portal-booking-detail__help">
+                <h2 class="dash-card__title">Need assistance?</h2>
+                <p class="dash-card__sub">Reschedule, cancel, or ask about samagri</p>
+                <div class="portal-booking-detail__help-links">
+                  <a href="support" class="portal-booking-detail__help-link">Contact support</a>
+                  <a href="bookings" class="portal-booking-detail__help-link">All bookings</a>
+                </div>
+              </section>
+            </aside>
+  </div>
+</div>
+      </div>
+    </div>
+  </main>
+  <script src="../booking-actions.js"></script>
+  <script src="../customer/booking-detail.js"></script>
+  <script src="../demo-session.js"></script>
+  <script src="../portal-shell.js"></script>
+  <script src="../portal-polish.js"></script>
+  <script src="../layout.js"></script>
+  <script src="../demo-mode.js"></script>
+</body>
+</html>

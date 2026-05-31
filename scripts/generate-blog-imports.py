@@ -31,7 +31,6 @@ FEATURED = {
     "why-satyanarayana-puja-is-one-of-the-most-powerful-hindu-rituals",
 }
 
-
 def fetch_rsc(slug: str) -> str:
     return subprocess.check_output(
         [
@@ -48,7 +47,6 @@ def fetch_rsc(slug: str) -> str:
         text=True,
     )
 
-
 def build_ref_map(text: str) -> dict:
     strings = []
     for m in re.finditer(r'"((?:\\.|[^"\\]){2,12000})"', text):
@@ -62,7 +60,6 @@ def build_ref_map(text: str) -> dict:
     ):
         refs[f"${m.group(1)}"] = m.group(2).replace("\\u0026", "&")
     return refs
-
 
 def extract_json_array(text: str, key: str) -> list:
     idx = text.find(f'"{key}":')
@@ -84,13 +81,11 @@ def extract_json_array(text: str, key: str) -> list:
                     return []
     return []
 
-
 def strip_html(html: str) -> str:
     if not html or html.startswith("/_next/"):
         return ""
     t = unescape(re.sub(r"<[^>]+>", " ", html))
     return re.sub(r"\s+", " ", t).strip()
-
 
 def parse_list_html(html: str) -> list:
     items = re.findall(r"<li[^>]*>(.*?)</li>", html or "", re.I | re.S)
@@ -103,16 +98,13 @@ def parse_list_html(html: str) -> list:
             out.append(t.lstrip("●• ").strip())
     return out
 
-
 def parse_paras(html: str) -> list:
     return [p for p in (strip_html(x) for x in re.findall(r"<p[^>]*>(.*?)</p>", html or "", re.I | re.S)) if len(p) > 25]
-
 
 def resolve_content(raw, refs: dict) -> str:
     if isinstance(raw, str) and raw.startswith("$"):
         return refs.get(raw, "")
     return raw if isinstance(raw, str) else ""
-
 
 def pick_title(text: str, slug: str) -> str:
     if slug.startswith("why-"):
@@ -143,7 +135,6 @@ def pick_title(text: str, slug: str) -> str:
         return max(pool, key=len)
     return slug.replace("-", " ").title()
 
-
 def pick_excerpt(text: str, title: str) -> str:
     meta = re.search(r'"metaDescription":"((?:\\.|[^"\\])*)"', text)
     if meta:
@@ -157,14 +148,12 @@ def pick_excerpt(text: str, title: str) -> str:
             return ex[:240]
     return title[:160]
 
-
 def pick_image_url(text: str) -> str:
     featured = re.search(r'"featuredImage":"([^"]+)"', text)
     if featured and featured.group(1).startswith("http"):
         return featured.group(1)
     imgs = re.findall(r"(https://image\.divinecenter\.in/[^\"\\]+)", text)
     return imgs[0] if imgs else ""
-
 
 def format_date(iso: str) -> str:
     try:
@@ -173,14 +162,12 @@ def format_date(iso: str) -> str:
     except ValueError:
         return iso[:10]
 
-
 def estimate_read_time(sections: list) -> str:
     words = 0
     for s in sections:
         words += len(s.get("content_text", "").split())
     mins = max(4, round(words / 200))
     return f"{mins} min read"
-
 
 def html_to_sections(heading: str, html: str) -> list:
     """Convert one content block into site-data section objects."""
@@ -232,7 +219,6 @@ def html_to_sections(heading: str, html: str) -> list:
 
     return out
 
-
 def download_image(url: str, slug: str) -> str:
     if not url:
         return f"assets/images/placeholders/blog-{slug[:20]}.svg"
@@ -253,7 +239,6 @@ def download_image(url: str, slug: str) -> str:
         return f"assets/images/blog/{local_name}"
     except subprocess.CalledProcessError:
         return f"assets/images/placeholders/blog-{slug[:24]}.svg"
-
 
 def parse_blog(slug: str) -> dict:
     text = fetch_rsc(slug)
@@ -317,10 +302,8 @@ def parse_blog(slug: str) -> dict:
         "sections": sections,
     }
 
-
 def js_str(s: str) -> str:
     return json.dumps(s, ensure_ascii=False)
-
 
 def emit_blog(b: dict, indent: str = "    ") -> str:
     lines = [
@@ -358,7 +341,6 @@ def emit_blog(b: dict, indent: str = "    ") -> str:
     lines.append(f"{indent}}},")
     return "\n".join(lines)
 
-
 def main():
     blogs = []
     for slug in LIVE_SLUGS:
@@ -379,7 +361,6 @@ def main():
     body = header + "\n".join(emit_blog(b) for b in blogs) + footer
     OUT.write_text(body, encoding="utf-8")
     print(f"Wrote {OUT} ({len(blogs)} blogs)")
-
 
 if __name__ == "__main__":
     main()

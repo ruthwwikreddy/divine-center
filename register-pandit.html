@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html data-demo-site="true" lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,7 +10,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
-  </head>
+  <link rel="stylesheet" href="demo-mode.css"/>
+</head>
   <body class="page-auth page-auth--pandit" data-page="auth" data-auth-page="register" data-auth-role="pandit">
     <a class="skip-link" href="#auth-box">Skip to form</a>
 
@@ -21,6 +22,7 @@
         </div>
         <div class="auth-hero__shade" aria-hidden="true"></div>
         <div class="auth-hero__inner">
+        <div class="auth-hero__panel">
           <a href="index" class="auth-hero__brand">
             <img class="brand__icon" src="assets/logo/image.png" alt="Divine Center logo" width="36" height="36" />
             <span>Divine Center</span>
@@ -30,6 +32,7 @@
           <p id="auth-aside-sub" class="auth-hero__text"></p>
           <ul id="auth-aside-perks" class="auth-hero__perks"></ul>
         </div>
+      </div>
       </aside>
 
       <section class="auth-main" aria-labelledby="auth-page-title">
@@ -99,5 +102,6 @@
     <script src="auth.js"></script>
     <script src="layout.js"></script>
     <script src="desktop-i18n.js"></script>
-  </body>
+  <script src="demo-mode.js"></script>
+</body>
 </html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html data-demo-site="true" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="robots" content="noindex"/>
+  <meta name="theme-color" content="#fdf8f2"/>
+  <title>Identity — Divine Center</title>
+  <script src="../site-config.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../styles.css"/>
+  <link rel="stylesheet" href="../portal.css"/>
+  <link rel="stylesheet" href="../demo-mode.css"/>
+</head>
+<body class="page-portal page-portal--pandit " data-portal-layout="pandit" data-portal-active="settings" data-dash-layout="pandit" data-dash-active="settings">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div id="site-nav"></div>
+  <main id="main">
+    <div class="portal__shell">
+      <aside id="portal-sidebar"></aside>
+      <div class="portal-main">
+        <a href="settings" class="dash-back-link portal-back-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          Back to settings
+        </a>
+
+        <section class="dash-card portal-identity-hub" id="pandit-identity-root" aria-labelledby="identity-hub-title">
+          <header class="portal-identity-hub__banner portal-identity-hub__banner--verified">
+            <div class="portal-identity-hub__banner-icon" aria-hidden="true">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+            </div>
+            <div class="portal-identity-hub__banner-body">
+              <p class="portal-identity-hub__eyebrow">Verification status</p>
+              <h2 class="portal-identity-hub__title" id="identity-hub-title">Verified Acharya</h2>
+              <p class="portal-identity-hub__sub">All checks complete · trust badge active on your profile</p>
+            </div>
+            <div class="portal-identity-hub__score" aria-label="3 of 3 verification steps complete">
+              <span class="portal-identity-hub__score-num">3/3</span>
+              <span class="portal-identity-hub__score-label">Complete</span>
+            </div>
+          </header>
+
+          <div class="portal-identity-hub__progress" aria-hidden="true">
+            <span class="portal-identity-hub__progress-fill"></span>
+          </div>
+
+          <ol class="portal-identity-hub__steps" aria-label="Verification checklist">
+            <li class="portal-identity-hub__step portal-identity-hub__step--done">
+              <span class="portal-identity-hub__step-marker" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
+              </span>
+              <div class="portal-identity-hub__step-body">
+                <strong>Phone verified</strong>
+                <p>+91 98••• ••210</p>
+                <span class="portal-identity-hub__step-chip">SMS OTP</span>
+              </div>
+            </li>
+            <li class="portal-identity-hub__step portal-identity-hub__step--done">
+              <span class="portal-identity-hub__step-marker" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
+              </span>
+              <div class="portal-identity-hub__step-body">
+                <strong>Government ID</strong>
+                <p>Aadhaar on file</p>
+                <span class="portal-identity-hub__step-chip">KYC</span>
+              </div>
+            </li>
+            <li class="portal-identity-hub__step portal-identity-hub__step--done">
+              <span class="portal-identity-hub__step-marker" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
+              </span>
+              <div class="portal-identity-hub__step-body">
+                <strong>Ritual credentials</strong>
+                <p>Vedic certification reviewed</p>
+                <span class="portal-identity-hub__step-chip">Acharya</span>
+              </div>
+            </li>
+          </ol>
+
+          <section class="portal-identity-hub__upload" aria-labelledby="identity-upload-title">
+            <header class="portal-identity-hub__upload-head">
+              <span class="portal-identity-hub__upload-icon" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M12 18v-6M9 15l3-3 3 3"/></svg>
+              </span>
+              <div>
+                <h3 class="portal-identity-hub__upload-title" id="identity-upload-title">Update ID document</h3>
+                <p class="portal-identity-hub__upload-sub">Replace your government ID if details have changed</p>
+              </div>
+            </header>
+            <form id="identity-upload-form" class="portal-identity-hub__form" data-demo-allow="true">
+              <label class="portal-identity-hub__dropzone" id="identity-dropzone" for="identity-file">
+                <input type="file" id="identity-file" name="document" accept=".pdf,.jpg,.jpeg,.png" class="portal-identity-hub__file-input"/>
+                <span class="portal-identity-hub__dropzone-icon" aria-hidden="true">
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+                </span>
+                <span class="portal-identity-hub__dropzone-text"><strong>Choose file</strong> or drag here</span>
+                <span class="portal-identity-hub__dropzone-hint">PDF or JPG · max 5 MB</span>
+                <span class="portal-identity-hub__file-name" id="identity-file-name" hidden></span>
+              </label>
+              <p class="portal-identity-hub__note" id="identity-upload-note" hidden role="status"></p>
+              <footer class="portal-identity-hub__foot">
+                <button type="submit" class="dash-btn dash-btn--accent portal-identity-hub__submit">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+                  Submit for review
+                </button>
+                <span class="portal-identity-hub__foot-note">Secure upload — encrypted in transit</span>
+              </footer>
+            </form>
+          </section>
+      </div>
+    </div>
+  </main>
+  <script src="../user/identity.js"></script>
+  <script src="../demo-session.js"></script>
+  <script src="../portal-shell.js"></script>
+  <script src="../portal-polish.js"></script>
+  <script src="../layout.js"></script>
+  <script src="../demo-mode.js"></script>
+</body>
+</html>

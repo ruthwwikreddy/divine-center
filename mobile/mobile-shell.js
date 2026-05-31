@@ -283,9 +283,21 @@
   }
 
   function desktopViewHref() {
+    if (/\/mobile(\/|$)/.test(window.location.pathname)) {
+      return "../index";
+    }
     var d = (CFG && CFG.domains) || {};
     if (d.desktopHost) return "https://" + d.desktopHost + "/";
     return "https://divine-center.ruthwikreddy.live/";
+  }
+
+  function desktopPortalHref(path) {
+    if (/\/mobile(\/|$)/.test(window.location.pathname)) {
+      return "../" + path;
+    }
+    var d = (CFG && CFG.domains) || {};
+    var host = d.desktopHost ? "https://" + d.desktopHost + "/" : "https://divine-center.ruthwikreddy.live/";
+    return host + path;
   }
 
   var BRAND_SVG =
@@ -341,6 +353,11 @@
       (auth.registerPandit || "register-pandit") +
       '">' + t("registerPandit") + "</a>" +
       "</div>" +
+      (CFG.demoMode !== false
+        ? '<div class="m-drawer__demo"><p class="m-drawer__demo-label">Desktop demos</p>' +
+          '<a href="' + desktopPortalHref("customer/dashboard") + '">Customer portal</a>' +
+          '<a href="' + desktopPortalHref("user/dashboard") + '">Pandit portal</a></div>'
+        : "") +
       '<a href="' +
       desktopViewHref() +
       '">' + t("fullDesktop") + "</a>"
@@ -644,7 +661,25 @@
     }
   }
 
+  function loadMobileDemoAssets() {
+    if (CFG.demoMode === false) return;
+    if (!document.getElementById("m-demo-css")) {
+      var link = document.createElement("link");
+      link.id = "m-demo-css";
+      link.rel = "stylesheet";
+      link.href = "mobile-demo.css";
+      document.head.appendChild(link);
+    }
+    if (!document.getElementById("m-demo-js")) {
+      var s = document.createElement("script");
+      s.id = "m-demo-js";
+      s.src = "mobile-demo.js";
+      document.body.appendChild(s);
+    }
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
+    loadMobileDemoAssets();
     initGoogleTranslate();
     initShell();
     maybeShowFirstRunLanguageModal();

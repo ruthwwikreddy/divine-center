@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html data-demo-site="true" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="robots" content="noindex"/>
+  <meta name="theme-color" content="#fdf8f2"/>
+  <title>Bookings — Divine Center</title>
+  <script src="../site-config.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../styles.css"/>
+  <link rel="stylesheet" href="../portal.css"/>
+  <link rel="stylesheet" href="../demo-mode.css"/>
+</head>
+<body class="page-portal page-portal--pandit " data-portal-layout="pandit" data-portal-active="bookings" data-dash-layout="pandit" data-dash-active="bookings">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div id="site-nav"></div>
+  <main id="main">
+    <div class="portal__shell">
+      <aside id="portal-sidebar"></aside>
+      <div class="portal-main">
+        <div class="dash-stats portal-stats--compact"><article class="dash-stat-card"><span class="dash-stat-card__icon dash-stat-card__icon--red"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span><div class="dash-stat-card__body"><p class="dash-stat-card__value">4</p><span class="dash-stat-card__label">Pending</span></div></article><article class="dash-stat-card"><span class="dash-stat-card__icon dash-stat-card__icon--blue"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span><div class="dash-stat-card__body"><p class="dash-stat-card__value">12</p><span class="dash-stat-card__label">Upcoming</span></div></article><article class="dash-stat-card"><span class="dash-stat-card__icon dash-stat-card__icon--green"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span><div class="dash-stat-card__body"><p class="dash-stat-card__value">48</p><span class="dash-stat-card__label">Done</span></div></article></div>
+
+        <section class="dash-card portal-pandit-bookings-hub" aria-labelledby="pandit-bookings-list-title">
+          <header class="portal-pandit-bookings-hub__head">
+            <div class="portal-pandit-bookings-hub__head-main">
+              <span class="portal-pandit-bookings-hub__head-icon" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+              </span>
+              <div>
+                <h2 class="dash-card__title" id="pandit-bookings-list-title">Devotee requests</h2>
+                <p class="dash-card__sub">Review, accept, and manage upcoming rituals</p>
+              </div>
+            </div>
+            <a href="availability-time" class="dash-btn dash-btn--outline portal-pandit-bookings-hub__schedule">Edit availability</a>
+          </header>
+
+          <ul class="portal-pandit-bookings-hub__stats" id="pandit-bookings-stats" aria-label="Booking overview"></ul>
+
+          <div class="portal-pandit-bookings-hub__toolbar">
+            <div class="portal-pandit-bookings-hub__filters" id="pandit-bookings-filters" role="tablist" aria-label="Filter bookings">
+              <button type="button" class="portal-pandit-bookings-hub__filter is-active" role="tab" aria-selected="true" data-pandit-booking-filter="all">All</button>
+              <button type="button" class="portal-pandit-bookings-hub__filter" role="tab" aria-selected="false" data-pandit-booking-filter="pending">Pending</button>
+              <button type="button" class="portal-pandit-bookings-hub__filter" role="tab" aria-selected="false" data-pandit-booking-filter="confirmed">Confirmed</button>
+            </div>
+            <label class="portal-pandit-bookings-hub__search">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3-3"/></svg>
+              <span class="visually-hidden">Search requests</span>
+              <input type="search" id="pandit-bookings-search" placeholder="Search devotee or ritual…" autocomplete="off"/>
+            </label>
+            <p class="portal-pandit-bookings-hub__count" id="pandit-bookings-count" aria-live="polite"></p>
+          </div>
+
+          <div class="portal-pandit-bookings-list" id="pandit-bookings-list" role="list" aria-label="Booking requests"></div>
+        </section>
+      </div>
+    </div>
+  </main>
+  <script src="../user/bookings.js"></script>
+  <script src="../demo-session.js"></script>
+  <script src="../portal-shell.js"></script>
+  <script src="../portal-polish.js"></script>
+  <script src="../layout.js"></script>
+  <script src="../demo-mode.js"></script>
+</body>
+</html>

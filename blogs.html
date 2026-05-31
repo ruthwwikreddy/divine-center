@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html data-demo-site="true" lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,7 +10,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
-  </head>
+  <link rel="stylesheet" href="demo-mode.css"/>
+</head>
   <body class="page-blogs" data-page="blogs">
     <a class="skip-link" href="#main">Skip to content</a>
 
@@ -38,30 +39,12 @@
               <h2 id="blogs-featured-title" class="section-title blogs-featured__title">Featured stories</h2>
               <p class="blogs-featured__sub">Puja guides, festival wisdom, and Sanatan living — curated for your family.</p>
             </div>
-            <a href="#blogs-latest" class="btn btn--outline blogs-featured__quick">Jump to all articles</a>
           </div>
           <div class="blogs-featured-split" id="blogs-featured-split" hidden>
             <div class="blogs-featured-split__lead" id="blogs-featured-lead"></div>
             <div class="blogs-featured-split__stack" id="blogs-featured-stack"></div>
           </div>
           <div class="blogs-featured__grid" id="blogs-featured-grid"></div>
-        </div>
-      </section>
-
-      <section class="blogs-latest wrap" id="blogs-latest" aria-labelledby="blogs-latest-title">
-        <div class="blogs-latest__head">
-          <h2 id="blogs-latest-title" class="section-title">All articles</h2>
-          <p class="blogs-latest__sub">Every post, filterable by topic — save or share what speaks to you.</p>
-        </div>
-        <div class="blogs-latest__list" id="blogs-latest-list"></div>
-        <div class="blogs-empty" id="blogs-empty" hidden>
-          <span class="blogs-empty__icon" aria-hidden="true"
-            ><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25"
-              ><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/><path d="M8 7h8M8 11h6"/></svg
-          ></span>
-          <p class="blogs-empty__title">Nothing in this topic yet</p>
-          <p class="blogs-empty__text">Choose <strong>All Blogs</strong> or another category to keep reading.</p>
-          <button type="button" class="btn btn--accent" id="blogs-reset-category">Show all articles</button>
         </div>
       </section>
 
@@ -105,5 +88,6 @@
     <script src="layout.js"></script>
     <script src="desktop-i18n.js"></script>
     <script src="blogs.js"></script>
-  </body>
+  <script src="demo-mode.js"></script>
+</body>
 </html>

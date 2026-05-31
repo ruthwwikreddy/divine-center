@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html data-demo-site="true" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="robots" content="noindex"/>
+  <meta name="theme-color" content="#fdf8f2"/>
+  <title>Reviews — Divine Center</title>
+  <script src="../site-config.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../styles.css"/>
+  <link rel="stylesheet" href="../portal.css"/>
+  <link rel="stylesheet" href="../demo-mode.css"/>
+</head>
+<body class="page-portal page-portal--pandit portal-page--reviews" data-portal-layout="pandit" data-portal-active="reviews" data-dash-layout="pandit" data-dash-active="reviews">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div id="site-nav"></div>
+  <main id="main">
+    <div class="portal__shell">
+      <aside id="portal-sidebar"></aside>
+      <div class="portal-main">
+        <section class="dash-card portal-reviews-hub portal-reviews-hub--pandit" aria-labelledby="pandit-reviews-title">
+          <header class="portal-reviews-hub__head">
+            <div class="portal-reviews-hub__intro">
+              <span class="portal-reviews-hub__icon" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7L12 17.8 5.7 21.2 7 14.2 2 9.3l7-1z"/></svg>
+              </span>
+              <div>
+                <h2 class="dash-card__title" id="pandit-reviews-title">Devotee feedback</h2>
+                <p class="dash-card__sub">Ratings and comments from completed bookings</p>
+              </div>
+            </div>
+            <p class="portal-reviews-hub__rating" id="pandit-reviews-rating" aria-live="polite"></p>
+          </header>
+
+          <ul class="portal-reviews-hub__stats" id="pandit-reviews-stats" aria-label="Review overview"></ul>
+
+          <div class="portal-reviews-hub__toolbar">
+            <div class="portal-reviews-hub__filters" id="pandit-reviews-filters" role="tablist" aria-label="Filter reviews">
+              <button type="button" class="portal-reviews-hub__filter is-active" role="tab" aria-selected="true" data-review-filter="all">All</button>
+              <button type="button" class="portal-reviews-hub__filter" role="tab" aria-selected="false" data-review-filter="5">5 stars</button>
+              <button type="button" class="portal-reviews-hub__filter" role="tab" aria-selected="false" data-review-filter="recent">Recent</button>
+            </div>
+            <label class="portal-reviews-hub__search">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3-3"/></svg>
+              <span class="visually-hidden">Search reviews</span>
+              <input type="search" id="pandit-reviews-search" placeholder="Search devotee or ritual…" autocomplete="off"/>
+            </label>
+            <p class="portal-reviews-hub__count" id="pandit-reviews-count" aria-live="polite"></p>
+          </div>
+
+          <div class="portal-reviews-hub__grid" id="pandit-reviews-list" role="list" aria-label="Devotee reviews"></div>
+        </section>
+      </div>
+    </div>
+  </main>
+  <script src="../user/reviews.js"></script>
+  <script src="../demo-session.js"></script>
+  <script src="../portal-shell.js"></script>
+  <script src="../portal-polish.js"></script>
+  <script src="../layout.js"></script>
+  <script src="../demo-mode.js"></script>
+</body>
+</html>

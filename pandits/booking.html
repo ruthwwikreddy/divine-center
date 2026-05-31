@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html data-demo-site="true" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="robots" content="noindex"/>
+  <meta name="theme-color" content="#fdf8f2"/>
+  <title>Book a Puja — Divine Center</title>
+  <script src="../site-config.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../styles.css"/>
+  <link rel="stylesheet" href="../portal.css"/>
+  <link rel="stylesheet" href="../demo-mode.css"/>
+</head>
+<body class="page-marketing page-booking" data-page="booking">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div id="site-nav"></div>
+  <main id="main">
+    <section class="pandits-hero">
+      <div class="pandits-hero__mandala" aria-hidden="true"></div>
+      <div class="pandits-hero__glow" aria-hidden="true"></div>
+      <div class="wrap pandits-hero__grid">
+        <div class="pandits-hero__copy">
+          <p class="pandits-hero__kicker">Reserve</p>
+          <h1 class="pandits-hero__title">Book a Puja</h1>
+          <p class="pandits-hero__lead">Choose date, location, and pandit — then confirm.</p>
+          <div class="pandits-hero__actions"><a class="btn btn--accent" href="../pandits">Find a pandit</a></div>
+        </div>
+        <figure class="pandits-hero__media">
+          <div class="pandits-hero__frame">
+            <img class="pandits-hero__img" src="../assets/images/hero-priest.jpg" alt="" width="720" height="860" loading="eager"/>
+          </div>
+        </figure>
+      </div>
+    </section>
+    <section class="wrap" style="padding-bottom:3rem">
+<div class="portal-booking-wizard" id="booking-wizard-root">
+  <div class="portal-booking-wizard__banner">
+    <div class="portal-booking-wizard__banner-copy">
+      <h2 class="portal-booking-wizard__banner-title">Reserve your ritual</h2>
+      <p class="portal-booking-wizard__banner-lead">Fill in the details below — your summary updates live as you go.</p>
+    </div>
+    <span class="portal-booking-wizard__badge">Secure checkout</span>
+  </div>
+  <ol class="portal-booking-wizard__timeline" id="booking-wizard-timeline" aria-label="Booking progress">
+    <li class="portal-booking-wizard__timeline-step is-active" data-wizard-step="1"><span class="portal-booking-wizard__timeline-num">1</span><span class="portal-booking-wizard__timeline-label">Ritual</span></li>
+    <li class="portal-booking-wizard__timeline-step is-active" data-wizard-step="2"><span class="portal-booking-wizard__timeline-num">2</span><span class="portal-booking-wizard__timeline-label">Schedule</span></li>
+    <li class="portal-booking-wizard__timeline-step is-active" data-wizard-step="3"><span class="portal-booking-wizard__timeline-num">3</span><span class="portal-booking-wizard__timeline-label">Details</span></li>
+    <li class="portal-booking-wizard__timeline-step" data-wizard-step="4"><span class="portal-booking-wizard__timeline-num">4</span><span class="portal-booking-wizard__timeline-label">Confirm</span></li>
+  </ol>
+  <form id="booking-wizard-form" data-demo-allow="true" novalidate>
+    <div class="portal-booking-wizard__grid">
+      <div class="portal-booking-wizard__main">
+        <section class="dash-card portal-booking-panel" data-booking-panel="1" aria-labelledby="booking-ritual-title">
+          <header class="portal-booking-panel__head">
+            <span class="portal-booking-panel__step" aria-hidden="true">1</span>
+            <div class="portal-booking-panel__titles">
+              <h2 class="dash-card__title" id="booking-ritual-title">Choose ritual</h2>
+              <p class="dash-card__sub">Puja, pandit preference, and devotee details</p>
+            </div>
+            <span class="portal-booking-panel__icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span>
+          </header>
+          <div class="portal-booking-panel__body">
+            <div class="dash-field-row">
+              <div class="dash-field"><label for="bw-puja">Puja / ritual</label><div class="portal-booking-field"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><select id="bw-puja" name="puja" required></select></div></div>
+              <div class="dash-field"><label for="bw-pandit">Pandit (optional)</label><div class="portal-booking-field"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg><select id="bw-pandit" name="pandit"></select></div><p class="dash-field__hint">Leave blank to auto-assign the best available Acharya</p></div>
+            </div>
+            <div class="dash-field-row">
+              <div class="dash-field"><label for="bw-language">Preferred language</label><div class="portal-booking-field"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg><select id="bw-language" name="language" required><option value="Telugu">Telugu</option><option value="Hindi">Hindi</option><option value="English" selected>English</option><option value="Sanskrit">Sanskrit</option></select></div></div>
+              <div class="dash-field"><label for="bw-devotee">Devotee name</label><div class="portal-booking-field"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg><input id="bw-devotee" type="text" name="devoteeName" required placeholder="Full name for booking"/></div></div>
+            </div>
+          </div>
+        </section>
+        <section class="dash-card portal-booking-panel" data-booking-panel="2" aria-labelledby="booking-schedule-title">
+          <header class="portal-booking-panel__head">
+            <span class="portal-booking-panel__step" aria-hidden="true">2</span>
+            <div class="portal-booking-panel__titles">
+              <h2 class="dash-card__title" id="booking-schedule-title">Schedule</h2>
+              <p class="dash-card__sub">Date, time window, and how the ritual is conducted</p>
+            </div>
+            <span class="portal-booking-panel__icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span>
+          </header>
+          <div class="portal-booking-panel__body">
+            <div class="dash-field portal-booking-panel__date">
+              <label for="bw-date">Preferred date</label>
+              <div class="portal-booking-field portal-booking-field--date"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><input id="bw-date" type="date" name="date" required/></div>
+            </div>
+            <div class="dash-field">
+              <span class="dash-field__label" id="bw-slot-label">Time window</span>
+              <div class="portal-booking-slot-grid" role="group" aria-labelledby="bw-slot-label">
+                <button type="button" class="portal-booking-slot-card is-active" data-booking-slot="Morning" aria-pressed="true"><span class="portal-booking-slot-card__icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></span><span class="portal-booking-slot-card__label">Morning</span><span class="portal-booking-slot-card__hint">6 AM – 12 PM</span></button>
+                <button type="button" class="portal-booking-slot-card" data-booking-slot="Afternoon" aria-pressed="false"><span class="portal-booking-slot-card__icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v1M12 20v1M4.22 4.22l.7.7M18.36 18.36l.7.7M1 12h1M22 12h1M4.22 19.78l.7-.7M18.36 5.64l.7-.7"/><circle cx="12" cy="12" r="4"/></svg></span><span class="portal-booking-slot-card__label">Afternoon</span><span class="portal-booking-slot-card__hint">12 PM – 5 PM</span></button>
+                <button type="button" class="portal-booking-slot-card" data-booking-slot="Evening" aria-pressed="false"><span class="portal-booking-slot-card__icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg></span><span class="portal-booking-slot-card__label">Evening</span><span class="portal-booking-slot-card__hint">5 PM – 9 PM</span></button>
+              </div>
+              <input type="hidden" name="slot" value="Morning"/>
+            </div>
+            <div class="dash-field">
+              <span class="dash-field__label" id="bw-mode-label">Ritual mode</span>
+              <div class="portal-booking-mode-grid" role="group" aria-labelledby="bw-mode-label">
+                <button type="button" class="portal-booking-mode-card is-active" data-booking-mode="Offline" aria-pressed="true"><span class="portal-booking-mode-card__icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg></span><span class="portal-booking-mode-card__label">At home</span><span class="portal-booking-mode-card__hint">Pandit visits your doorstep</span></button>
+                <button type="button" class="portal-booking-mode-card" data-booking-mode="Online" aria-pressed="false"><span class="portal-booking-mode-card__icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M2 12h20M12 2a15 15 0 010 20M12 2a15 15 0 000 20"/></svg></span><span class="portal-booking-mode-card__label">Online</span><span class="portal-booking-mode-card__hint">Live video guidance</span></button>
+                <button type="button" class="portal-booking-mode-card" data-booking-mode="Temple" aria-pressed="false"><span class="portal-booking-mode-card__icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l7 4v2H5V7l7-4z"/><path d="M5 9h14v11H5z"/><path d="M9 20v-6h6v6"/></svg></span><span class="portal-booking-mode-card__label">At temple</span><span class="portal-booking-mode-card__hint">Meet at a sacred venue</span></button>
+              </div>
+              <input type="hidden" name="mode" value="Offline"/>
+            </div>
+          </div>
+        </section>
+        <section class="dash-card portal-booking-panel" data-booking-panel="3" aria-labelledby="booking-details-title">
+          <header class="portal-booking-panel__head">
+            <span class="portal-booking-panel__step" aria-hidden="true">3</span>
+            <div class="portal-booking-panel__titles">
+              <h2 class="dash-card__title" id="booking-details-title">Contact &amp; location</h2>
+              <p class="dash-card__sub">Where the pandit should arrive and how to reach you</p>
+            </div>
+            <span class="portal-booking-panel__icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-4.5 7-11a7 7 0 10-14 0c0 6.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span>
+          </header>
+          <div class="portal-booking-panel__body">
+            <div class="dash-field"><label for="bw-address">Address / city</label><textarea id="bw-address" class="portal-booking-textarea" name="address" rows="3" required placeholder="House no, street, area, city, pincode"></textarea><p class="dash-field__hint">Required for doorstep rituals — used to assign a nearby pandit</p></div>
+            <div class="dash-field"><label for="bw-phone">Mobile</label><div class="portal-booking-field"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg><input id="bw-phone" type="tel" name="phone" required value="+91 98765 43210"/></div></div>
+            <div class="portal-booking-confirm-hub dash-card" id="booking-confirm-panel" aria-labelledby="booking-confirm-title">
+              <header class="portal-booking-confirm-hub__head">
+                <span class="portal-booking-confirm-hub__icon" aria-hidden="true">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+                </span>
+                <div>
+                  <h3 class="portal-booking-confirm-hub__title" id="booking-confirm-title">Ready to confirm?</h3>
+                  <p class="portal-booking-confirm-hub__sub">Check the items below, then confirm your booking.</p>
+                </div>
+              </header>
+              <ul class="portal-booking-confirm-hub__checks" id="booking-confirm-checks" aria-live="polite"></ul>
+              <div class="portal-booking-confirm-hub__total">
+                <span class="portal-booking-confirm-hub__total-label">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+                  Estimated total
+                </span>
+                <strong class="portal-booking-confirm-hub__total-amount" id="booking-confirm-price">₹4,033</strong>
+              </div>
+              <button type="submit" class="dash-btn dash-btn--accent portal-booking-confirm-hub__btn" id="booking-confirm-submit">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+                Confirm booking
+              </button>
+              <p class="portal-booking-confirm-hub__note">
+                You will receive a confirmation email with booking <strong id="booking-confirm-id">#DC-001</strong>
+              </p>
+            </div>
+          </div>
+        </section>
+      </div>
+      <aside class="portal-booking-summary dash-card" id="booking-wizard-summary" aria-live="polite"><p class="portal-booking-summary__loading">Loading summary…</p></aside>
+    </div>
+  </form>
+</div>
+<ul class="portal-booking-trust marketing-trust" aria-label="Why Divine Center">
+  <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Verified Acharyas vetted for ritual expertise</li>
+  <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v6l3 2"/></svg> On-time service with transparent scheduling</li>
+  <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg> Clear pricing — no hidden charges</li>
+</ul></section>
+  </main>
+  <script src="../layout.js"></script>
+  <script src="../site-data.js"></script>
+  <script src="../demo-session.js"></script>
+  <script src="../booking-wizard.js"></script>
+  <script src="../demo-mode.js"></script>
+</body>
+</html>

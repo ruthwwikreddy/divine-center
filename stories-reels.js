@@ -38,60 +38,21 @@
     );
   }
 
-  function renderTrack(track) {
+  function renderTrack(track, includeClones) {
     var html = VIDEOS.map(function (src, i) {
       return buildCard(src, i, false);
     }).join("");
-    html += VIDEOS.map(function (src, i) {
-      return buildCard(src, i, true);
-    }).join("");
+    if (includeClones !== false) {
+      html += VIDEOS.map(function (src, i) {
+        return buildCard(src, i, true);
+      }).join("");
+    }
     track.innerHTML = html;
   }
 
-  function initReels(root) {
-    var track = root.querySelector(".stories-reels__track");
-    if (!track) return;
-
-    if (!track.children.length) {
-      renderTrack(track);
-    }
-
-    var cards = Array.prototype.slice.call(
-      track.querySelectorAll(".story-card:not([data-clone])")
-    );
-    if (!cards.length) {
-      cards = Array.prototype.slice.call(track.querySelectorAll(".story-card"));
-      cards = cards.filter(function (c, i) {
-        return i < VIDEOS.length;
-      });
-    }
-
-    var viewport = root.querySelector(".stories-reels__viewport");
-    var scrollRaf = null;
-    var scrollSpeed = 0.45;
-
-    /** Index of the reel with sound on; -1 means marquee scroll is active. */
+  function wireCardPlayback(root, cards, options) {
+    options = options || {};
     var unmutedIndex = -1;
-
-    function isMarqueeScrolling() {
-      return unmutedIndex < 0;
-    }
-
-    function marqueeTick() {
-      if (viewport && isMarqueeScrolling()) {
-        viewport.scrollLeft += scrollSpeed;
-        var half = track.scrollWidth / 2;
-        if (half > 0 && viewport.scrollLeft >= half) {
-          viewport.scrollLeft -= half;
-        }
-      }
-      scrollRaf = requestAnimationFrame(marqueeTick);
-    }
-
-    function startMarqueeLoop() {
-      if (scrollRaf) return;
-      scrollRaf = requestAnimationFrame(marqueeTick);
-    }
 
     function cardAt(index) {
       return cards[index] || null;
@@ -121,16 +82,10 @@
       cards.forEach(resetCard);
     }
 
-    function resumeMarquee() {
+    function resumeAll() {
       unmutedIndex = -1;
-      root.classList.remove("stories-reels--paused", "stories-reels--focus");
+      root.classList.remove("stories-reels--paused", "stories-reels--focus", "stories-grid--focus");
       resetAll();
-    }
-
-    function scrollCardIntoView(card) {
-      if (!card || !viewport) return;
-      var left = card.offsetLeft - (viewport.clientWidth - card.offsetWidth) / 2;
-      viewport.scrollTo({ left: Math.max(0, left), behavior: "smooth" });
     }
 
     function updateProgress(card, video) {
@@ -142,12 +97,12 @@
     function playFocused(index) {
       var card = cardAt(index);
       if (!card) {
-        resumeMarquee();
+        resumeAll();
         return;
       }
 
       unmutedIndex = index;
-      root.classList.add("stories-reels--paused", "stories-reels--focus");
+      root.classList.add("stories-reels--paused", "stories-reels--focus", "stories-grid--focus");
 
       cards.forEach(function (c, i) {
         if (i !== index) resetCard(c);
@@ -158,7 +113,10 @@
       if (!video) return;
 
       card.classList.add("story-card--active", "story-card--playing");
-      scrollCardIntoView(card);
+
+      if (options.scrollIntoView) {
+        options.scrollIntoView(card);
+      }
 
       video.muted = false;
       video.loop = false;
@@ -170,7 +128,7 @@
       }
 
       video.play().catch(function () {
-        resumeMarquee();
+        resumeAll();
       });
 
       function onTime() {
@@ -184,7 +142,7 @@
         if (next < cards.length) {
           playFocused(next);
         } else {
-          resumeMarquee();
+          resumeAll();
         }
       }
 
@@ -199,7 +157,7 @@
       btn.addEventListener("click", function (e) {
         e.stopPropagation();
         if (unmutedIndex === index) {
-          resumeMarquee();
+          resumeAll();
           return;
         }
         playFocused(index);
@@ -208,15 +166,78 @@
 
     root.addEventListener("keydown", function (e) {
       if (e.key === "Escape" && unmutedIndex >= 0) {
-        resumeMarquee();
+        resumeAll();
       }
     });
 
-    startMarqueeLoop();
+    return {
+      resumeAll: resumeAll,
+      isPlaying: function () {
+        return unmutedIndex >= 0;
+      },
+    };
+  }
+
+  function initReels(root) {
+    var track = root.querySelector(".stories-reels__track");
+    if (!track) return;
+
+    if (!track.children.length) {
+      renderTrack(track, true);
+    }
+
+    var cards = Array.prototype.slice.call(
+      track.querySelectorAll(".story-card:not([data-clone])")
+    );
+    if (!cards.length) {
+      cards = Array.prototype.slice.call(track.querySelectorAll(".story-card"));
+      cards = cards.filter(function (c, i) {
+        return i < VIDEOS.length;
+      });
+    }
+
+    var viewport = root.querySelector(".stories-reels__viewport");
+    var scrollRaf = null;
+    var scrollSpeed = 0.45;
+    var playback = wireCardPlayback(root, cards, {
+      scrollIntoView: function (card) {
+        if (!card || !viewport) return;
+        var left = card.offsetLeft - (viewport.clientWidth - card.offsetWidth) / 2;
+        viewport.scrollTo({ left: Math.max(0, left), behavior: "smooth" });
+      },
+    });
+
+    function marqueeTick() {
+      if (viewport && !playback.isPlaying()) {
+        viewport.scrollLeft += scrollSpeed;
+        var half = track.scrollWidth / 2;
+        if (half > 0 && viewport.scrollLeft >= half) {
+          viewport.scrollLeft -= half;
+        }
+      }
+      scrollRaf = requestAnimationFrame(marqueeTick);
+    }
+
+    if (!scrollRaf) {
+      scrollRaf = requestAnimationFrame(marqueeTick);
+    }
+  }
+
+  function initGrid(root) {
+    var track = root.querySelector(".stories-grid__track");
+    if (!track) return;
+
+    if (!track.children.length) {
+      renderTrack(track, false);
+    }
+
+    var cards = Array.prototype.slice.call(track.querySelectorAll(".story-card"));
+    wireCardPlayback(root, cards);
   }
 
   function boot() {
     document.querySelectorAll("[data-stories-reels]").forEach(initReels);
+    document.querySelectorAll("[data-stories-grid]").forEach(initGrid);
   }
 
   if (document.readyState === "loading") {

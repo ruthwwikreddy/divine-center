@@ -1,0 +1,110 @@
+/* Mobile preview — toasts only */
+html[data-demo-site="true"] .m-main {
+  scroll-padding-top: 0;
+}
+
+.m-demo-banner,
+.m-demo-showcase {
+  display: none !important;
+}
+
+.m-demo-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.5rem;
+  padding: 0.45rem 0.75rem;
+  background: linear-gradient(90deg, #c45f28, #d36b2b);
+  color: #fff;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  text-align: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 60;
+}
+
+.m-demo-banner strong {
+  font-weight: 700;
+}
+
+.m-demo-showcase {
+  margin: 0.75rem 1rem 0;
+  padding: 0.85rem 1rem;
+  background: linear-gradient(135deg, rgba(74, 28, 20, 0.05), rgba(211, 107, 43, 0.12));
+  border: 1px solid rgba(211, 107, 43, 0.2);
+  border-radius: 14px;
+}
+
+.m-demo-showcase__title {
+  font-family: var(--font-serif, Lora, serif);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--mahogany, #4a1c14);
+  margin-bottom: 0.25rem;
+}
+
+.m-demo-showcase__text {
+  font-size: 0.75rem;
+  color: var(--text-muted, #6f5a54);
+  margin-bottom: 0.65rem;
+  line-height: 1.4;
+}
+
+.m-demo-showcase__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.m-demo-showcase__actions .btn {
+  font-size: 0.6875rem;
+  padding: 0.4rem 0.65rem;
+}
+
+.m-drawer__demo {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(74, 28, 20, 0.1);
+}
+
+.m-drawer__demo-label {
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--orange, #d36b2b);
+  margin-bottom: 0.5rem;
+}
+
+.m-drawer__demo a {
+  display: block;
+  padding: 0.5rem 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--mahogany, #4a1c14);
+}
+
+.m-demo-toast {
+  position: fixed;
+  bottom: calc(4.5rem + env(safe-area-inset-bottom, 0px));
+  left: 50%;
+  transform: translateX(-50%) translateY(120%);
+  max-width: min(340px, calc(100vw - 1.5rem));
+  padding: 0.65rem 0.9rem;
+  background: #1a2d4a;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border-radius: 10px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.22);
+  z-index: 200;
+  transition: transform 0.25s ease;
+  pointer-events: none;
+}
+
+.m-demo-toast.is-visible {
+  transform: translateX(-50%) translateY(0);
+}

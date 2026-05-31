@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#fdf8f2" />
+    <title>Booking — Divine Center</title>
+    <script src="site-config.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="mobile.css" />
+  </head>
+  <body class="m-app" data-page="bookings" data-tabbar="off">
+    <header class="m-subheader">
+      <a href="bookings" class="m-subheader__back" aria-label="Back to bookings">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      </a>
+      <h1 class="m-subheader__title">Booking</h1>
+      <span class="m-subheader__spacer" aria-hidden="true"></span>
+    </header>
+    <main class="m-page m-booking-detail-page" id="booking-detail-main">
+      <p class="m-detail-id" id="detail-id">#BK1024</p>
+      <h2 class="m-detail-title" id="detail-puja">Griha Pravesh Pooja</h2>
+      <p class="m-detail-status"><span class="m-booking-badge is-confirmed" id="detail-badge">Confirmed</span></p>
+
+      <section class="m-detail-card" aria-label="Progress">
+        <h3 class="m-detail-card__label">Status</h3>
+        <div class="m-booking-timeline" id="detail-timeline"></div>
+        <p class="m-detail-scheduled">Scheduled: <strong id="detail-when">Sun, 02 Jun · 7:30 AM</strong></p>
+      </section>
+
+      <section class="m-detail-card">
+        <h3 class="m-detail-card__label">Pandit</h3>
+        <p class="m-detail-row" id="detail-pandit">A. Narasimhacharyulu</p>
+        <p class="m-detail-row m-detail-row--muted" id="detail-location">Madhapur, Hyderabad · Offline</p>
+      </section>
+
+      <section class="m-detail-card">
+        <h3 class="m-detail-card__label">Payment</h3>
+        <dl class="m-detail-pay">
+          <div><dt>Ritual</dt><dd id="detail-pay-ritual">₹5,500</dd></div>
+          <div><dt>Platform fee</dt><dd>₹200</dd></div>
+          <div><dt>GST</dt><dd>₹333</dd></div>
+          <div class="m-detail-pay__total"><dt>Total paid</dt><dd id="detail-pay-total">₹6,033</dd></div>
+        </dl>
+      </section>
+
+      <div class="m-detail-actions">
+        <a class="btn btn--accent btn--block" href="../customer/booking-detail?id=DC-001" id="detail-desktop">Full details (desktop)</a>
+        <a class="btn btn--outline btn--block" href="contact">Contact support</a>
+        <button type="button" class="btn btn--outline btn--block" id="detail-reschedule">Reschedule</button>
+      </div>
+    </main>
+    <script src="mobile-shell.js"></script>
+    <script>
+      (function () {
+        var DATA = {
+          BK1024: {
+            puja: "Griha Pravesh Pooja",
+            pandit: "A. Narasimhacharyulu",
+            when: "Sun, 02 Jun · 7:30 AM",
+            location: "Madhapur, Hyderabad · Offline",
+            status: "Confirmed",
+            badge: "is-confirmed",
+            progress: 2,
+            desktopId: "DC-001",
+            ritual: "₹5,500",
+            total: "₹6,033",
+          },
+          BK1021: {
+            puja: "Satyanarayana Pooja",
+            pandit: "Sri Krishna Charyulu",
+            when: "Wed, 05 Jun · 6:00 PM",
+            location: "Kukatpally, Hyderabad · Offline",
+            status: "Pandit Assigned",
+            badge: "is-assigned",
+            progress: 1,
+            desktopId: "DC-002",
+            ritual: "₹4,200",
+            total: "₹4,956",
+          },
+        };
+
+        var id = new URLSearchParams(location.search).get("id") || "BK1024";
+        var b = DATA[id] || DATA.BK1024;
+
+        document.title = b.puja + " — Divine Center";
+        document.getElementById("detail-id").textContent = "#" + id;
+        document.getElementById("detail-puja").textContent = b.puja;
+        document.getElementById("detail-badge").textContent = b.status;
+        document.getElementById("detail-badge").className = "m-booking-badge " + b.badge;
+        document.getElementById("detail-when").textContent = b.when;
+        document.getElementById("detail-pandit").textContent = b.pandit;
+        document.getElementById("detail-location").textContent = b.location;
+        document.getElementById("detail-pay-ritual").textContent = b.ritual;
+        document.getElementById("detail-pay-total").textContent = b.total;
+        document.getElementById("detail-desktop").href =
+          "../customer/booking-detail?id=" + encodeURIComponent(b.desktopId);
+
+        var labels = ["Booked", "Assigned", "Confirmed", "Done"];
+        document.getElementById("detail-timeline").innerHTML = labels
+          .map(function (label, idx) {
+            return (
+              '<span class="m-booking-timeline__step ' +
+              (idx <= b.progress ? "is-on" : "") +
+              '">' +
+              label +
+              "</span>"
+            );
+          })
+          .join("");
+
+        document.getElementById("detail-reschedule").addEventListener("click", function () {
+          if (window.MobileDemo && window.MobileDemo.showToast) {
+            window.MobileDemo.showToast("Reschedule request submitted.");
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

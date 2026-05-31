@@ -70,21 +70,22 @@
     return tags.map(function (t) { return '<span class="pandit-detail__tag">' + esc(t) + "</span>"; }).join("");
   }
 
-  function getServicePrice(serviceSlug, idx) {
-    var puja = serviceSlug ? DC.getPuja(serviceSlug) : null;
-    if (puja && puja.price) return puja.price;
-    return "₹" + (2100 + idx * 350).toLocaleString("en-IN");
-  }
-
   function renderServices(services) {
     return services
-      .map(function (svc, idx) {
-        var href = svc.pujaSlug ? "puja?p=" + encodeURIComponent(svc.pujaSlug) : "pujas";
+      .map(function (svc) {
+        var href =
+          "../pandits/booking?pandit=" +
+          encodeURIComponent(slug || "") +
+          (svc.pujaSlug ? "&puja=" + encodeURIComponent(svc.pujaSlug) : "");
         return (
-          '<a href="' + href + '" class="pandit-service-row">' +
-          "<span>" + esc(svc.name) + "</span>" +
-          '<strong>' + esc(getServicePrice(svc.pujaSlug, idx)) + "</strong>" +
-          "</a>"
+          '<div class="pandit-service-row">' +
+          "<span>" +
+          esc(svc.name) +
+          "</span>" +
+          '<a href="' +
+          href +
+          '" class="pandit-service-row__quote">Custom quote</a>' +
+          "</div>"
         );
       })
       .join("");
@@ -96,13 +97,122 @@
     for (var i = 0; i < 7; i++) {
       var d = new Date(now);
       d.setDate(now.getDate() + i);
+      var label = "";
+      if (i === 0) label = "Today";
+      else if (i === 1) label = "Tomorrow";
       out.push({
         id: d.toISOString().slice(0, 10),
         day: d.toLocaleDateString("en-IN", { weekday: "short" }),
-        date: d.toLocaleDateString("en-IN", { day: "2-digit", month: "short" }),
+        dateNum: d.toLocaleDateString("en-IN", { day: "2-digit" }),
+        month: d.toLocaleDateString("en-IN", { month: "short" }),
+        label: label,
       });
     }
     return out;
+  }
+
+  function renderAvailabilitySection() {
+    var slots = [
+      { id: "Morning", time: "6 – 11 AM", icon: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>' },
+      { id: "Afternoon", time: "12 – 4 PM", icon: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a6 6 0 100 12 6 6 0 000-12z"/><path d="M12 9v3l2 1"/></svg>' },
+      { id: "Evening", time: "5 – 9 PM", icon: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 14.5A8.5 8.5 0 1112 4v2"/></svg>' },
+    ];
+    return (
+      '<section class="detail-section detail-section--schedule" aria-labelledby="pandit-schedule-title">' +
+      '<div class="pandit-schedule__head">' +
+      '<h2 id="pandit-schedule-title" class="detail-section__title">Calendar availability</h2>' +
+      '<p class="detail-section__lede">Pick a date and preferred time. We confirm your slot quickly.</p>' +
+      "</div>" +
+      '<div class="pandit-schedule__block">' +
+      '<p class="pandit-schedule__label">Select date</p>' +
+      '<div class="pandit-schedule__dates" id="pandit-availability" role="listbox" aria-label="Available dates">' +
+      nextSevenDays()
+        .map(function (d, i) {
+          var chipLabel = d.label || d.day + " " + d.dateNum;
+          return (
+            '<button type="button" class="pandit-date-btn' +
+            (i === 0 ? " is-active" : "") +
+            '" role="option" aria-selected="' +
+            (i === 0 ? "true" : "false") +
+            '" data-day="' +
+            d.id +
+            '" data-label="' +
+            esc(chipLabel) +
+            '">' +
+            (d.label ? '<span class="pandit-date-btn__tag">' + esc(d.label) + "</span>" : "") +
+            '<span class="pandit-date-btn__day">' +
+            esc(d.day) +
+            "</span>" +
+            '<span class="pandit-date-btn__num">' +
+            esc(d.dateNum) +
+            "</span>" +
+            '<span class="pandit-date-btn__mon">' +
+            esc(d.month) +
+            "</span>" +
+            "</button>"
+          );
+        })
+        .join("") +
+      "</div>" +
+      "</div>" +
+      '<div class="pandit-schedule__block">' +
+      '<p class="pandit-schedule__label">Preferred time</p>' +
+      '<div class="pandit-schedule__slots" id="pandit-slot-row" role="listbox" aria-label="Preferred time slot">' +
+      slots
+        .map(function (s, i) {
+          return (
+            '<button type="button" class="pandit-slot-btn' +
+            (i === 0 ? " is-active" : "") +
+            '" role="option" aria-selected="' +
+            (i === 0 ? "true" : "false") +
+            '" data-slot="' +
+            s.id +
+            '">' +
+            '<span class="pandit-slot-btn__icon" aria-hidden="true">' +
+            s.icon +
+            "</span>" +
+            '<span class="pandit-slot-btn__label">' +
+            s.id +
+            "</span>" +
+            '<span class="pandit-slot-btn__time">' +
+            s.time +
+            "</span>" +
+            "</button>"
+          );
+        })
+        .join("") +
+      "</div>" +
+      "</div>" +
+      '<div class="pandit-schedule__status" id="availability-hint">' +
+      '<span class="pandit-schedule__status-dot" aria-hidden="true"></span>' +
+      "<p><strong>Today</strong> · Morning preferred · Confirmed in 15–30 minutes</p>" +
+      "</div>" +
+      '<ul class="pandit-schedule__assurance">' +
+      "<li><span class=\"pandit-schedule__check\" aria-hidden=\"true\"></span>Transparent pricing before confirmation</li>" +
+      "<li><span class=\"pandit-schedule__check\" aria-hidden=\"true\"></span>Ritual checklist shared in advance</li>" +
+      "</ul>" +
+      "</section>"
+    );
+  }
+
+  function updateAvailabilityHint() {
+    var hint = document.getElementById("availability-hint");
+    if (!hint) return;
+    var dateBtn = document.querySelector("#pandit-availability .pandit-date-btn.is-active");
+    var slotBtn = document.querySelector("#pandit-slot-row .pandit-slot-btn.is-active");
+    var dateLabel = dateBtn ? dateBtn.getAttribute("data-label") || "Selected date" : "Selected date";
+    var slotLabel = slotBtn ? slotBtn.getAttribute("data-slot") || "Morning" : "Morning";
+    hint.innerHTML =
+      '<span class="pandit-schedule__status-dot" aria-hidden="true"></span>' +
+      "<p><strong>" +
+      esc(dateLabel) +
+      "</strong> · " +
+      esc(slotLabel) +
+      " preferred · Confirmed in 15–30 minutes</p>";
+    var stickyMeta = document.getElementById("pandit-sticky-meta");
+    if (stickyMeta) {
+      stickyMeta.textContent = dateLabel + " · " + slotLabel + " · Callback in 15–30 min";
+    }
   }
 
   function shareCurrentPage() {
@@ -177,33 +287,31 @@
     var panditImg = { name: detail.name, photo: detail.photo, slug: detail.slug };
     return (
       '<header class="pandit-profile__hero">' +
-      '<div class="pandit-profile__visual">' +
-      '<div class="pandit-profile__cover">' +
-      DC.imgPandit(panditImg, "pandit-profile__cover-img", 720, 420, "eager") +
+      '<div class="pandit-profile__figure">' +
+      '<div class="pandit-profile__photo">' +
+      DC.imgPandit(panditImg, "pandit-profile__photo-img", 720, 900, "eager") +
       "</div>" +
+      '<div class="pandit-profile__figure-shade" aria-hidden="true"></div>' +
       '<div class="pandit-profile__toolbar">' +
       '<a href="pandits.html" class="pandit-profile__nav-btn pandit-profile__back" aria-label="Back">‹</a>' +
-      '<button type="button" class="pandit-profile__nav-btn pandit-profile__share" aria-label="Share">⤴</button>' +
+      '<button type="button" class="pandit-profile__nav-btn pandit-profile__share" aria-label="Share">' +
+      '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 12v7a2 2 0 002 2h12a2 2 0 002-2v-7M16 6l-4-4-4 4M12 2v14"/></svg>' +
+      "</button>" +
       "</div>" +
-      "</div>" +
-      '<div class="pandit-profile__sheet">' +
-      '<div class="pandit-profile__identity">' +
-      '<div class="pandit-profile__avatar">' +
-      DC.imgPandit(panditImg, "pandit-profile__avatar-img", 140, 140, "eager") +
-      "</div>" +
-      '<div class="pandit-profile__intro">' +
+      '<div class="pandit-profile__figure-meta">' +
       '<span class="pandit-profile__verified">Verified Acharya</span>' +
+      '<p class="pandit-profile__mode">' +
+      esc(modeLabel(detail.mode || detail.serviceMode || "Both")) +
+      "</p>" +
+      "</div>" +
+      "</div>" +
+      '<div class="pandit-profile__panel">' +
       '<h1 class="pandit-profile__name">' +
       esc(nameDisplay) +
       "</h1>" +
       '<p class="pandit-profile__role">' +
       esc(detail.role || "Vedic Acharya") +
       "</p>" +
-      '<p class="pandit-profile__mode">' +
-      esc(modeLabel(detail.mode || detail.serviceMode || "Both")) +
-      "</p>" +
-      "</div>" +
-      "</div>" +
       '<div class="pandit-profile__metrics" aria-label="Pandit highlights">' +
       '<div class="pandit-profile__metric"><strong>' +
       stats.rating +
@@ -215,27 +323,47 @@
       expYears +
       '+</strong><span class="pandit-profile__metric-label">Years exp.</span></div>' +
       "</div>" +
-      '<ul class="pandit-profile__trust">' +
-      "<li>Verified by Divine Center</li>" +
-      "<li>On-time rituals</li>" +
-      "<li>Language matched</li>" +
+      '<ul class="pandit-profile__trust" aria-label="Why families trust this pandit">' +
+      '<li class="pandit-profile__trust-item">' +
+      '<span class="pandit-profile__trust-icon" aria-hidden="true">' +
+      '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l7 4v5c0 4.2-3 7.8-7 9-4-1.2-7-4.8-7-9V7l7-4z"/><path d="M9 12l2 2 4-4"/></svg>' +
+      "</span>" +
+      "<strong>Verified</strong><span>Divine Center</span></li>" +
+      '<li class="pandit-profile__trust-item">' +
+      '<span class="pandit-profile__trust-icon" aria-hidden="true">' +
+      '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>' +
+      "</span>" +
+      "<strong>On-time</strong><span>Ritual punctuality</span></li>" +
+      '<li class="pandit-profile__trust-item">' +
+      '<span class="pandit-profile__trust-icon" aria-hidden="true">' +
+      '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5h16v14H4z"/><path d="M8 10h8M8 14h5"/></svg>' +
+      "</span>" +
+      "<strong>Matched</strong><span>Your language</span></li>" +
       "</ul>" +
       "</div>" +
       "</header>"
     );
   }
 
+  var siteCfg = window.DivineCenterConfig || {};
+  var supportPhone = (siteCfg.contact && siteCfg.contact.phone) || "+919154900375";
   var bookBtn = document.getElementById("book-btn");
   var chatBtn = document.getElementById("chat-btn");
   if (bookBtn) {
-    bookBtn.href = "contact?subject=" + encodeURIComponent("Custom quote: " + nameDisplay);
+    bookBtn.href =
+      "../pandits/booking?pandit=" + encodeURIComponent(slug || "");
+    bookBtn.textContent = "Book this pandit";
   }
   if (chatBtn) {
-    chatBtn.href = "tel:+919100563686";
+    chatBtn.href = "tel:" + String(supportPhone).replace(/\s/g, "");
   }
   var stickyMain = document.getElementById("pandit-sticky-main");
   if (stickyMain) {
     stickyMain.textContent = nameDisplay;
+  }
+  var stickyRating = document.getElementById("pandit-sticky-rating");
+  if (stickyRating) {
+    stickyRating.textContent = stats.rating;
   }
 
   root.innerHTML =
@@ -258,22 +386,11 @@
 
     '<section class="detail-section">' +
     '<h2 class="detail-section__title">Rituals Offered</h2>' +
-    '<p class="detail-section__lede">Starting prices shown for quick comparison</p>' +
+    '<p class="detail-section__lede">Request a custom quote for any ritual below</p>' +
     '<div class="pandit-service-list">' + renderServices(detail.services || []) + "</div>" +
     "</section>" +
 
-    '<section class="detail-section">' +
-    '<h2 class="detail-section__title">Calendar Availability</h2>' +
-    '<p class="detail-section__lede">Choose your preferred date. We confirm the exact slot in minutes.</p>' +
-    '<div class="m-chips pandit-availability-grid" id="pandit-availability">' +
-    nextSevenDays().map(function (d, i) {
-      return '<button type="button" class="m-chip' + (i === 0 ? " is-active" : "") + '" data-day="' + d.id + '">' + d.day + " " + d.date + "</button>";
-    }).join("") +
-    "</div>" +
-    '<div class="pandit-slot-row" id="pandit-slot-row"><button type="button" class="m-chip is-active" data-slot="Morning">Morning</button><button type="button" class="m-chip" data-slot="Afternoon">Afternoon</button><button type="button" class="m-chip" data-slot="Evening">Evening</button></div>' +
-    '<p class="form-hint" id="availability-hint">Today selected • Slots usually confirmed within 15-30 minutes.</p>' +
-    '<div class="pandit-commitments"><span>✓ Transparent pricing before confirmation</span><span>✓ Ritual checklist shared in advance</span></div>' +
-    "</section>" +
+    renderAvailabilitySection() +
 
     '<section class="detail-section detail-section--reviews" aria-label="Reviews">' +
     '<div class="pandit-reviews__head">' +
@@ -338,29 +455,35 @@
 
   var availability = document.getElementById("pandit-availability");
   if (availability) {
-    availability.querySelectorAll(".m-chip").forEach(function (chip) {
+    availability.querySelectorAll(".pandit-date-btn").forEach(function (chip) {
       chip.addEventListener("click", function () {
-        availability.querySelectorAll(".m-chip").forEach(function (c) { c.classList.remove("is-active"); });
+        availability.querySelectorAll(".pandit-date-btn").forEach(function (c) {
+          c.classList.remove("is-active");
+          c.setAttribute("aria-selected", "false");
+        });
         chip.classList.add("is-active");
-        var hint = document.getElementById("availability-hint");
-        if (hint) hint.textContent = chip.textContent + " selected • Slots usually confirmed within 15-30 minutes.";
-        var stickyMeta = document.getElementById("pandit-sticky-meta");
-        if (stickyMeta) stickyMeta.textContent = "Requested " + chip.textContent + " • Confirmation on call";
+        chip.setAttribute("aria-selected", "true");
+        updateAvailabilityHint();
       });
     });
   }
 
   var slotRow = document.getElementById("pandit-slot-row");
   if (slotRow) {
-    slotRow.querySelectorAll("[data-slot]").forEach(function (chip) {
+    slotRow.querySelectorAll(".pandit-slot-btn").forEach(function (chip) {
       chip.addEventListener("click", function () {
-        slotRow.querySelectorAll("[data-slot]").forEach(function (c) { c.classList.remove("is-active"); });
+        slotRow.querySelectorAll(".pandit-slot-btn").forEach(function (c) {
+          c.classList.remove("is-active");
+          c.setAttribute("aria-selected", "false");
+        });
         chip.classList.add("is-active");
-        var hint = document.getElementById("availability-hint");
-        if (hint) hint.textContent = chip.getAttribute("data-slot") + " preferred • Slots usually confirmed within 15-30 minutes.";
+        chip.setAttribute("aria-selected", "true");
+        updateAvailabilityHint();
       });
     });
   }
+
+  updateAvailabilityHint();
 
   var reviewFilter = document.getElementById("review-filter");
   if (reviewFilter) {
@@ -380,9 +503,5 @@
   var shareBtn = root.querySelector(".pandit-profile__share");
   if (shareBtn) {
     shareBtn.addEventListener("click", shareCurrentPage);
-  }
-  var staticShare = document.querySelector(".m-subheader .m-subheader__icon");
-  if (staticShare) {
-    staticShare.addEventListener("click", shareCurrentPage);
   }
 })();

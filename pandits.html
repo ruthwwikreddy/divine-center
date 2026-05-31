@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html data-demo-site="true" lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,7 +10,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
-  </head>
+  <link rel="stylesheet" href="demo-mode.css"/>
+</head>
   <body class="page-pandits" data-page="pandits">
     <a class="skip-link" href="#main">Skip to content</a>
 
@@ -27,18 +28,13 @@
             <p class="pandits-hero__lead">
               Connect with India's top 1% of verified Acharyas. Vedic rituals with scriptural purity, punctual timing, and transparent pricing.
             </p>
-            <p class="eyebrow eyebrow--decor pandits-hero__flourish">
-              <span class="eyebrow__flourish" aria-hidden="true"></span>
-              <span>Tradition you can trust</span>
-              <span class="eyebrow__flourish" aria-hidden="true"></span>
-            </p>
             <ul class="pandits-hero__chips" aria-label="Platform promises">
               <li>Verified priests</li>
               <li>On-time service</li>
               <li>Authentic rituals</li>
             </ul>
             <div class="pandits-hero__actions">
-              <a href="#pandits-finder" class="btn btn--accent">Search directory</a>
+              <a href="#pandits-list" class="btn btn--accent">Browse directory</a>
               <a href="pujas" class="btn btn--outline">Browse pujas</a>
             </div>
           </div>
@@ -59,74 +55,49 @@
         </div>
       </section>
 
-      <section class="pandits-finder" id="pandits-finder" aria-labelledby="pandits-finder-title">
-        <div class="wrap pandits-finder__inner">
-          <header class="pandits-finder__head">
-            <div class="pandits-finder__intro">
-              <p class="pandits-finder__eyebrow">Directory</p>
-              <h2 id="pandits-finder-title" class="pandits-finder__title">Find your Acharya</h2>
-              <p class="pandits-finder__sub">Filter by puja specialty, city, and how you'd like the ritual conducted.</p>
-            </div>
-            <p class="pandits-finder__stat" id="pandits-finder-stat" aria-live="polite">— verified acharyas</p>
-          </header>
-          <form class="pandits-filter" id="pandits-filter" role="search" aria-label="Search pandits">
-            <div class="pandits-filter__row">
-              <label class="pandits-filter__cell">
-                <span class="pandits-filter__label">Service</span>
-                <span class="pandits-filter__field">
-                  <span class="pandits-filter__icon" aria-hidden="true">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2.4 7.2H22l-6 4.6 2.3 7.2L12 16.4 5.7 21l2.3-7.2-6-4.6h7.6L12 2z"/></svg>
-                  </span>
-                  <select name="service" id="filter-service" aria-label="Filter by service">
-                    <option value="">All services</option>
-                  </select>
-                </span>
-              </label>
-              <label class="pandits-filter__cell">
-                <span class="pandits-filter__label">City</span>
-                <span class="pandits-filter__field">
-                  <span class="pandits-filter__icon" aria-hidden="true">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-4.5 7-11a7 7 0 10-14 0c0 6.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
-                  </span>
-                  <select name="city" id="filter-city" aria-label="Filter by city">
-                    <option value="">All cities</option>
-                  </select>
-                </span>
-              </label>
-              <label class="pandits-filter__cell">
-                <span class="pandits-filter__label">Format</span>
-                <span class="pandits-filter__field">
-                  <span class="pandits-filter__icon" aria-hidden="true">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-                  </span>
-                  <select name="mode" id="filter-mode" aria-label="Online or at your place">
-                    <option value="">Any format</option>
-                    <option value="Online">Online</option>
-                    <option value="place">At your place</option>
-                    <option value="Both">Both</option>
-                  </select>
-                </span>
-              </label>
-              <div class="pandits-filter__cell pandits-filter__cell--submit">
-                <span class="pandits-filter__label" aria-hidden="true">&nbsp;</span>
-                <button type="submit" class="btn btn--accent pandits-filter__submit">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3-3"/></svg>
-                  Apply filters
-                </button>
-              </div>
-            </div>
-            <p class="pandits-filter__hint"><span aria-hidden="true">↵</span> Results update as you change options</p>
+      <section class="pandits-filter-wrap" aria-label="Search pandits">
+        <div class="wrap">
+          <form class="pandits-filter" id="pandits-filter" role="search">
+            <label class="pandits-filter__search">
+              <span class="pandits-filter__icon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3-3"/></svg>
+              </span>
+              <span class="visually-hidden">Search pandits</span>
+              <input type="search" name="q" id="filter-q" placeholder="e.g. Krishna, Griha Pravesh, Hyderabad" autocomplete="off" />
+            </label>
+            <label class="pandits-filter__select">
+              <span class="visually-hidden">Service</span>
+              <select name="service" id="filter-service">
+                <option value="">Service</option>
+              </select>
+            </label>
+            <label class="pandits-filter__select">
+              <span class="visually-hidden">City</span>
+              <select name="city" id="filter-city">
+                <option value="">City</option>
+              </select>
+            </label>
+            <label class="pandits-filter__select">
+              <span class="visually-hidden">Format</span>
+              <select name="mode" id="filter-mode">
+                <option value="">Format</option>
+                <option value="Online">Online</option>
+                <option value="place">At your place</option>
+                <option value="Both">Both</option>
+              </select>
+            </label>
+            <button type="submit" class="btn btn--accent pandits-filter__submit">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3-3"/></svg>
+              Search
+            </button>
           </form>
         </div>
       </section>
 
       <section class="pandits-directory" aria-labelledby="pandits-directory-title">
-        <div class="wrap pandits-directory__inner">
-          <header class="pandits-directory__head">
-            <h2 id="pandits-directory-title" class="pandits-directory__title">Pandit listings</h2>
-            <p class="pandits-directory__meta"><span id="pandits-count" class="pandits-directory__count">—</span></p>
-          </header>
-          <div class="pandits-directory__grid pandits-directory__grid--cards" id="pandits-list"></div>
+        <div class="wrap">
+          <h2 id="pandits-directory-title" class="visually-hidden">All pandits</h2>
+          <div class="pandits-directory__grid" id="pandits-list"></div>
           <div class="pandits-empty" id="pandits-empty" hidden>
             <span class="pandits-empty__icon" aria-hidden="true"
               ><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25"
@@ -169,5 +140,6 @@
     <script src="layout.js"></script>
     <script src="desktop-i18n.js"></script>
     <script src="pandits.js"></script>
-  </body>
+  <script src="demo-mode.js"></script>
+</body>
 </html>

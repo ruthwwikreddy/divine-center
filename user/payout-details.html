@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html data-demo-site="true" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="robots" content="noindex"/>
+  <meta name="theme-color" content="#fdf8f2"/>
+  <title>Payout Details — Divine Center</title>
+  <script src="../site-config.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../styles.css"/>
+  <link rel="stylesheet" href="../portal.css"/>
+  <link rel="stylesheet" href="../demo-mode.css"/>
+</head>
+<body class="page-portal page-portal--pandit " data-portal-layout="pandit" data-portal-active="payout-details" data-dash-layout="pandit" data-dash-active="payout-details">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div id="site-nav"></div>
+  <main id="main">
+    <div class="portal__shell">
+      <aside id="portal-sidebar"></aside>
+      <div class="portal-main">
+        <section class="dash-card portal-payout-hub" id="pandit-payout-root" aria-labelledby="payout-form-title">
+          <div class="portal-payout-hub__grid">
+            <div class="portal-payout-hub__main">
+              <header class="portal-payout-hub__head">
+                <div class="portal-payout-hub__head-main">
+                  <span class="portal-payout-hub__head-icon" aria-hidden="true">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+                  </span>
+                  <div>
+                    <h2 class="dash-card__title" id="payout-form-title">Bank account</h2>
+                    <p class="dash-card__sub">Details used for wallet withdrawals and monthly settlements</p>
+                  </div>
+                </div>
+              </header>
+              <form id="payout-form" class="portal-payout-hub__form portal-payout-form" data-demo-allow="true" novalidate>
+                <div class="portal-payout-form__progress" aria-label="Form progress">
+                  <div class="portal-payout-form__progress-track">
+                    <span class="portal-payout-form__progress-fill" id="payout-progress-fill" style="width: 33%"></span>
+                  </div>
+                  <ol class="portal-payout-form__progress-steps">
+                    <li class="is-active" data-payout-step="1"><span>1</span> Holder</li>
+                    <li data-payout-step="2"><span>2</span> Account</li>
+                    <li data-payout-step="3"><span>3</span> Bank</li>
+                  </ol>
+                </div>
+
+                <div class="portal-payout-form__steps">
+                  <fieldset class="portal-payout-form__step portal-payout-form__step--active" data-payout-step="1">
+                    <legend class="portal-payout-form__step-legend">Account holder</legend>
+                    <header class="portal-payout-form__step-head">
+                      <span class="portal-payout-form__step-num" aria-hidden="true">1</span>
+                      <div class="portal-payout-form__step-titles">
+                        <h3>Account holder</h3>
+                        <p>Legal name as printed on your passbook</p>
+                      </div>
+                      <span class="portal-payout-form__step-icon" aria-hidden="true">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                      </span>
+                    </header>
+                    <div class="portal-payout-form__step-body">
+                      <div class="dash-field portal-payout-form__field">
+                        <label for="payout-holder">
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                          Full name
+                        </label>
+                        <input type="text" id="payout-holder" name="holder" autocomplete="name" placeholder="Name as on bank account" required/>
+                        <p class="dash-field__hint">Must match your verified pandit identity</p>
+                      </div>
+                    </div>
+                  </fieldset>
+
+                  <fieldset class="portal-payout-form__step" data-payout-step="2">
+                    <legend class="portal-payout-form__step-legend">Account number</legend>
+                    <header class="portal-payout-form__step-head">
+                      <span class="portal-payout-form__step-num" aria-hidden="true">2</span>
+                      <div class="portal-payout-form__step-titles">
+                        <h3>Account number</h3>
+                        <p>Savings or current account in your name</p>
+                      </div>
+                      <span class="portal-payout-form__step-icon" aria-hidden="true">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+                      </span>
+                    </header>
+                    <div class="portal-payout-form__step-body">
+                      <div class="dash-field portal-payout-form__field">
+                        <label for="payout-account">
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+                          Account number
+                        </label>
+                        <div class="portal-payout-field portal-payout-form__account">
+                          <input type="text" id="payout-account" name="account" inputmode="numeric" autocomplete="off" placeholder="Enter account number" required/>
+                          <button type="button" class="portal-payout-field__toggle" data-toggle-account aria-label="Show account number" aria-pressed="false">
+                            <svg class="portal-payout-field__icon-show" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
+                            <svg class="portal-payout-field__icon-hide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><path d="M1 1l22 22"/></svg>
+                          </button>
+                        </div>
+                        <p class="dash-field__hint">Masked until you choose to reveal</p>
+                      </div>
+                    </div>
+                  </fieldset>
+
+                  <fieldset class="portal-payout-form__step" data-payout-step="3">
+                    <legend class="portal-payout-form__step-legend">Bank details</legend>
+                    <header class="portal-payout-form__step-head">
+                      <span class="portal-payout-form__step-num" aria-hidden="true">3</span>
+                      <div class="portal-payout-form__step-titles">
+                        <h3>Bank details</h3>
+                        <p>IFSC and branch for NEFT / IMPS transfers</p>
+                      </div>
+                      <span class="portal-payout-form__step-icon" aria-hidden="true">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg>
+                      </span>
+                    </header>
+                    <div class="portal-payout-form__step-body">
+                      <div class="dash-field-row portal-payout-form__row">
+                        <div class="dash-field portal-payout-form__field">
+                          <label for="payout-ifsc">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
+                            IFSC code
+                          </label>
+                          <div class="portal-payout-form__ifsc-wrap" id="payout-ifsc-wrap">
+                            <input type="text" id="payout-ifsc" name="ifsc" class="portal-payout-hub__ifsc" autocomplete="off" placeholder="e.g. HDFC0001234" pattern="[A-Za-z]{4}0[A-Za-z0-9]{6}" maxlength="11" required aria-describedby="payout-ifsc-hint"/>
+                            <span class="portal-payout-form__ifsc-badge" id="payout-ifsc-badge" aria-hidden="true">
+                              <svg class="portal-payout-form__ifsc-ok" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+                              <svg class="portal-payout-form__ifsc-bad" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                            </span>
+                          </div>
+                          <p class="dash-field__hint" id="payout-ifsc-hint">11 characters · 4 letters, 0, then 6 alphanumeric</p>
+                        </div>
+                        <div class="dash-field portal-payout-form__field">
+                          <label for="payout-bank">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 21h18M5 21V7l7-4 7 4v14"/></svg>
+                            Bank &amp; branch
+                          </label>
+                          <input type="text" id="payout-bank" name="bankName" autocomplete="organization" placeholder="Bank name and branch" required/>
+                        </div>
+                      </div>
+                    </div>
+                  </fieldset>
+                </div>
+
+                <p class="portal-payout-form__note portal-payout-hub__note" id="payout-save-note" hidden role="status"></p>
+
+                <footer class="portal-payout-form__foot portal-payout-hub__foot">
+                  <div class="portal-payout-form__foot-main">
+                    <button type="submit" class="dash-btn dash-btn--accent portal-payout-hub__submit portal-payout-form__submit">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+                      Save bank details
+                    </button>
+                    <a href="wallet" class="dash-btn dash-btn--outline portal-payout-form__back">Back to wallet</a>
+                  </div>
+                  <span class="portal-payout-hub__foot-note portal-payout-form__foot-note">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    Changes apply to future withdrawals
+                  </span>
+                </footer>
+  </form>
+  </div>
+</div>
+        </section>
+      </div>
+    </div>
+  </main>
+  <script src="../user/payout-details.js"></script>
+  <script src="../demo-session.js"></script>
+  <script src="../portal-shell.js"></script>
+  <script src="../portal-polish.js"></script>
+  <script src="../layout.js"></script>
+  <script src="../demo-mode.js"></script>
+</body>
+</html>

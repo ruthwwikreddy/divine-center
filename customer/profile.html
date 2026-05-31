@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html data-demo-site="true" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="robots" content="noindex"/>
+  <meta name="theme-color" content="#fdf8f2"/>
+  <title>Edit Profile — Divine Center</title>
+  <script src="../site-config.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../styles.css"/>
+  <link rel="stylesheet" href="../portal.css"/>
+  <link rel="stylesheet" href="../demo-mode.css"/>
+</head>
+<body class="page-portal page-portal--customer portal-page--profile" data-portal-layout="customer" data-portal-active="profile" data-dash-layout="customer" data-dash-active="profile">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div id="site-nav"></div>
+  <main id="main">
+    <div class="portal__shell">
+      <aside id="portal-sidebar"></aside>
+      <div class="portal-main">
+        
+<section class="portal-profile-page portal-profile-page--customer" aria-labelledby="profile-page-title">
+  <header class="portal-profile-page__banner">
+    <div class="portal-profile-page__avatar-wrap">
+      <img id="profile-avatar" class="portal-profile-page__avatar" src="../assets/images/placeholders/pandit-avatar.svg" alt="" width="88" height="88"/>
+      <button type="button" class="portal-profile-page__photo-btn" data-demo-action aria-label="Change profile photo">Change</button>
+    </div>
+    <div class="portal-profile-page__identity">
+      <h1 class="portal-profile-page__title" id="profile-page-title">Edit profile</h1>
+      <p class="portal-profile-page__name" id="profile-display-name">Rahul Sharma</p>
+      <p class="portal-profile-page__meta" id="profile-display-meta">Member since Jan 2025 · Hyderabad</p>
+    </div>
+  </header>
+  <form id="profile-form" class="portal-profile-form dash-card" data-demo-allow="true" novalidate>
+    <p class="portal-profile-form__lede">Contact details used for booking confirmations and pandit coordination.</p>
+    <div class="portal-profile-form__fields">
+      <div class="dash-field-row">
+        <div class="dash-field"><label for="profile-name">Full name</label><input id="profile-name" name="fullName" value="Rahul Sharma" required autocomplete="name"/></div>
+        <div class="dash-field"><label for="profile-city">City</label><input id="profile-city" name="city" value="Hyderabad" autocomplete="address-level2"/></div>
+      </div>
+      <div class="dash-field-row">
+        <div class="dash-field"><label for="profile-email">Email</label><input id="profile-email" name="email" type="email" value="rahul@example.com" required autocomplete="email"/></div>
+        <div class="dash-field"><label for="profile-phone">Mobile</label><input id="profile-phone" name="phone" type="tel" value="+91 98765 43210" required autocomplete="tel"/></div>
+      </div>
+      <div class="dash-field">
+        <label for="profile-address">Default address</label>
+        <textarea id="profile-address" name="address" rows="3" autocomplete="street-address">12, Temple Road, Banjara Hills, Hyderabad 500034</textarea>
+        <p class="dash-field__hint">Shared with your assigned pandit before the ritual.</p>
+      </div>
+    </div>
+    <p id="profile-save-note" class="portal-profile-form__success" role="status" hidden></p>
+    <div class="portal-profile-form__foot">
+      <button type="submit" class="dash-btn dash-btn--accent portal-profile-form__submit">Save changes</button>
+    </div>
+  </form>
+  <nav class="portal-profile-page__links" aria-label="More account settings">
+    <a class="portal-profile-page__link" href="change-password"><span class="portal-profile-page__link-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></span>Change password</a>
+    <a class="portal-profile-page__link" href="settings"><span class="portal-profile-page__link-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 15a3 3 0 100-6 3 3 0 000 6z"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg></span>Notification settings</a>
+  </nav>
+</section>
+      </div>
+    </div>
+  </main>
+  <script src="../customer/profile.js"></script>
+  <script src="../demo-session.js"></script>
+  <script src="../portal-shell.js"></script>
+  <script src="../portal-polish.js"></script>
+  <script src="../layout.js"></script>
+  <script src="../demo-mode.js"></script>
+</body>
+</html>

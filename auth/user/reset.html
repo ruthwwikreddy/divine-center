@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html data-demo-site="true" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="robots" content="noindex"/>
+  <title>Forgot password — Divine Center</title>
+  <script src="../../site-config.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../../styles.css"/>
+  <link rel="stylesheet" href="../../demo-mode.css"/>
+</head>
+<body class="page-auth page-auth--pandit" data-page="auth" data-auth-page="reset" data-auth-role="pandit">
+  <a class="skip-link" href="#auth-box">Skip to form</a>
+  <main class="auth-layout" id="auth-main">
+    <aside class="auth-hero" aria-label="Divine Center">
+      <div class="auth-hero__media" aria-hidden="true">
+        <img src="../../assets/images/hero-priest.jpg" alt="" width="960" height="1200" loading="eager"/>
+      </div>
+      <div class="auth-hero__shade" aria-hidden="true"></div>
+      <div class="auth-hero__inner">
+        <div class="auth-hero__panel">
+        <a href="../../index" class="auth-hero__brand">
+          <img class="brand__icon" src="../../assets/logo/image.png" alt="" width="36" height="36"/>
+          <span>Divine Center</span>
+        </a>
+        <p class="auth-hero__tagline">Connecting Faith, Delivering Grace</p>
+        <p id="auth-aside-title" class="auth-hero__headline">Pandit account recovery</p>
+        <p id="auth-aside-sub" class="auth-hero__text">Secure access to your pandit dashboard.</p>
+        <ul id="auth-aside-perks" class="auth-hero__perks"></ul>
+        </div>
+      </div>
+    </aside>
+    <section class="auth-main" aria-labelledby="auth-page-title">
+      <div class="auth-main__center">
+        <a href="../../login" class="auth-back">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          Back to sign in
+        </a>
+        <div class="auth-box" id="auth-box">
+          <h1 id="auth-page-title" class="auth-box__title">Forgot password</h1>
+          <p class="auth-box__lead">Reset link will be sent to your registered email.</p>
+          
+<form class="auth-form" data-auth-form novalidate>
+  <label class="auth-field"><span class="auth-field__label">Email</span>
+    <input type="email" name="email" required autocomplete="email" placeholder="you@email.com"/></label>
+  <button type="submit" class="btn btn--accent btn--block auth-form__submit">Send reset link</button>
+  <p class="auth-form__hint form-hint" role="status"></p>
+</form>
+          
+<div id="auth-success" class="auth-success hidden">
+  <div class="auth-success__ring" aria-hidden="true"></div>
+  <p class="auth-success__title">Reset link sent</p>
+  <p class="auth-success__text">Check your email for a reset link to continue.</p>
+  <div class="auth-success__btns">
+    <a href="../../auth/user/reset-password-update" class="btn btn--accent">Set new password</a>
+    <a href="../../auth/user/login" class="btn btn--outline">Back to sign in</a>
+  </div>
+</div>
+          <p class="auth-box__foot"><a href="../../auth/user/login">Back to pandit login</a></p>
+        </div>
+        <ul class="auth-trust" aria-label="Trust indicators">
+          <li>Verified Acharyas</li>
+          <li>Transparent pricing</li>
+          <li>Support 10 AM – 7 PM IST</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+  <script src="../../auth-content.js"></script>
+  <script src="../../auth.js"></script>
+  <script src="../../demo-mode.js"></script>
+</body>
+</html>

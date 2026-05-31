@@ -2,6 +2,10 @@
  * Divine Center — mobile app config (standalone deploy)
  */
 window.DivineCenterConfig = {
+  demoMode: true,
+  demo: {
+    toast: "Done",
+  },
   brand: "Divine Center",
   tagline: "Connecting Faith, Delivering Grace",
   contact: {

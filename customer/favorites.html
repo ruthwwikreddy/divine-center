@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html data-demo-site="true" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="robots" content="noindex"/>
+  <meta name="theme-color" content="#fdf8f2"/>
+  <title>Favorites — Divine Center</title>
+  <script src="../site-config.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../styles.css"/>
+  <link rel="stylesheet" href="../portal.css"/>
+  <link rel="stylesheet" href="../demo-mode.css"/>
+</head>
+<body class="page-portal page-portal--customer " data-portal-layout="customer" data-portal-active="favorites" data-dash-layout="customer" data-dash-active="favorites">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div id="site-nav"></div>
+  <main id="main">
+    <div class="portal__shell">
+      <aside id="portal-sidebar"></aside>
+      <div class="portal-main">
+        <section class="portal-fav-hub portal-fav-hub--simple" aria-labelledby="fav-hub-title">
+          <header class="portal-fav-hub__intro">
+            <h1 class="portal-fav-hub__title" id="fav-hub-title">Favorites</h1>
+            <p class="portal-fav-hub__lede">Rebook saved pandits and pujas</p>
+          </header>
+
+          <div class="portal-fav-hub__sections">
+            <section class="portal-fav-section" aria-labelledby="fav-pandits-heading">
+              <h2 class="portal-fav-section__title" id="fav-pandits-heading">Saved pandits</h2>
+              <ul class="portal-fav-items" id="fav-pandits-list" role="list"></ul>
+              <p class="portal-fav-section__empty is-hidden" id="fav-pandits-empty" role="status">No saved pandits yet.</p>
+            </section>
+
+            <section class="portal-fav-section" aria-labelledby="fav-pujas-heading">
+              <h2 class="portal-fav-section__title" id="fav-pujas-heading">Saved pujas</h2>
+              <ul class="portal-fav-items" id="fav-pujas-list" role="list"></ul>
+              <p class="portal-fav-section__empty is-hidden" id="fav-pujas-empty" role="status">No saved pujas yet.</p>
+            </section>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+  <script src="../site-data.js"></script>
+  <script src="../customer/favorites.js"></script>
+  <script src="../demo-session.js"></script>
+  <script src="../portal-shell.js"></script>
+  <script src="../portal-polish.js"></script>
+  <script src="../layout.js"></script>
+  <script src="../demo-mode.js"></script>
+</body>
+</html>

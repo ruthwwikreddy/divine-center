@@ -798,7 +798,7 @@ window.DivineCenter = (function () {
       ],
       whyChoose: [
         "Trusted & experienced priests",
-        "Transparent pricing — no hidden charges",
+        "Custom quotes — no hidden charges",
         "Doorstep or temple service as per your need",
         "Regional customs respected & followed",
       ],
@@ -1294,7 +1294,7 @@ window.DivineCenter = (function () {
   }
 
   function renderHomePandits() {
-    return PANDITS.map(renderHomePanditCard).join("");
+    return PANDITS.slice(0, 4).map(renderHomePanditCard).join("");
   }
 
   function renderRecommendedPanditsSection(pandits, forMobile) {
@@ -1354,12 +1354,10 @@ window.DivineCenter = (function () {
       "<p>" +
       p.desc +
       "</p>" +
-      '<div class="puja-service-card__meta"><span>' +
-      p.price +
-      "</span><span>" +
+      '<div class="puja-service-card__meta"><span class="puja-service-card__quote">Custom quote</span><span>' +
       p.duration +
       "</span></div>" +
-      '<span class="puja-service-card__cta">View Service →</span>' +
+      '<span class="puja-service-card__cta">Get custom quote →</span>' +
       "</div></a>"
     );
   }
@@ -1387,13 +1385,10 @@ window.DivineCenter = (function () {
       p.desc +
       "</p>" +
       '<div class="puja-card__meta">' +
-      "<span class=\"puja-card__price\">" +
-      p.price +
-      "</span>" +
       "<span>" +
       p.duration +
       "</span></div>" +
-      '<span class="puja-card__more">View details <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></span>' +
+      '<span class="puja-card__more">View &amp; book <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></span>' +
       "</div></a>"
     );
   }

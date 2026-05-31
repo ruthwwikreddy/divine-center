@@ -8,10 +8,10 @@
   if (!CFG) return;
 
   var BRAND_SVG =
-    '<img class="brand__icon" src="assets/logo/image.png" alt="Divine Center" width="56" height="56" />';
+    '<img class="brand__icon" src="assets/logo/image.png" alt="Divine Center" width="44" height="44" />';
 
   var BRAND_SVG_LIGHT =
-    '<img class="brand__icon" src="assets/logo/image.png" alt="Divine Center" width="52" height="52" />';
+    '<img class="brand__icon" src="assets/logo/image.png" alt="Divine Center" width="40" height="40" />';
 
   var SOCIAL_SVGS = {
     facebook:

@@ -29,15 +29,23 @@
             <span class="m-pandits-finder__eyebrow-mark" aria-hidden="true"></span>
             Directory
           </p>
-          <div class="m-pandits-finder__title-row">
-            <h2 id="m-pandits-finder-title" class="m-pandits-finder__title">Find your Acharya</h2>
-            <p class="m-pandits-finder__stat" id="pandits-finder-stat" aria-live="polite">— verified</p>
-          </div>
+          <h2 id="m-pandits-finder-title" class="m-pandits-finder__title">Find your Acharya</h2>
           <p class="m-pandits-finder__lede">Narrow by ritual, city, and ceremony format — every profile is verified.</p>
         </header>
 
         <form class="m-pandits-filter-card" id="pandits-filter" aria-label="Filter pandits">
           <div class="m-pandits-filter-stack">
+            <label class="m-pandits-filter-row m-pandits-filter-row--search">
+              <span class="m-pandits-filter-row__icon" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3-3"/></svg>
+              </span>
+              <span class="m-pandits-filter-row__copy">
+                <span class="m-pandits-filter-row__label">Search</span>
+                <span class="m-pandits-filter-row__field m-pandits-filter-row__field--input">
+                  <input type="search" name="q" id="filter-q" placeholder="Name, ritual, or city" autocomplete="off" aria-label="Search pandits" />
+                </span>
+              </span>
+            </label>
             <label class="m-pandits-filter-row">
               <span class="m-pandits-filter-row__icon" aria-hidden="true">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 2l2.4 7.2H22l-6 4.6 2.3 7.2L12 16.4 5.7 21l2.3-7.2-6-4.6h7.6L12 2z"/></svg>
@@ -101,10 +109,7 @@
       </section>
 
       <section class="m-pandits-list-wrap" aria-labelledby="m-pandits-list-title">
-        <div class="m-pandits-list__head">
-          <h2 id="m-pandits-list-title" class="m-pandits-list__title">Pandit listings</h2>
-          <p class="m-pandits-list__count" id="pandits-count">—</p>
-        </div>
+        <h2 id="m-pandits-list-title" class="m-pandits-list__title">Pandit listings</h2>
         <div class="pandits-directory__grid pandits-directory__grid--cards" id="pandits-list"></div>
         <p class="m-empty" id="pandits-empty" hidden>No pandits match these filters. Try clearing a filter or choose a different city.</p>
       </section>

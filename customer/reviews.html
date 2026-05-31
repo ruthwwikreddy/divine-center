@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html data-demo-site="true" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="robots" content="noindex"/>
+  <meta name="theme-color" content="#fdf8f2"/>
+  <title>My Reviews — Divine Center</title>
+  <script src="../site-config.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../styles.css"/>
+  <link rel="stylesheet" href="../portal.css"/>
+  <link rel="stylesheet" href="../demo-mode.css"/>
+</head>
+<body class="page-portal page-portal--customer " data-portal-layout="customer" data-portal-active="reviews" data-dash-layout="customer" data-dash-active="reviews">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div id="site-nav"></div>
+  <main id="main">
+    <div class="portal__shell">
+      <aside id="portal-sidebar"></aside>
+      <div class="portal-main">
+        <section class="dash-card portal-reviews-hub" aria-labelledby="reviews-past-title">
+          <header class="portal-reviews-hub__head">
+            <div class="portal-reviews-hub__intro">
+              <span class="portal-reviews-hub__icon" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7L12 17.8 5.7 21.2 7 14.2 2 9.3l7-1z"/></svg>
+              </span>
+              <div>
+                <h2 class="dash-card__title" id="reviews-past-title">Your reviews</h2>
+                <p class="dash-card__sub">Feedback you have shared after completed rituals</p>
+              </div>
+            </div>
+            <p class="portal-reviews-hub__stat" id="reviews-past-stat" aria-live="polite"></p>
+          </header>
+          <div class="portal-reviews-hub__grid" id="reviews-past-list" role="list" aria-label="Past reviews"></div>
+        </section>
+<section class="dash-card portal-review-compose"><div class="portal-review-compose__grid"><aside class="portal-review-compose__aside" aria-label="Review tips"><div class="portal-review-compose__aside-icon" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><h3 class="portal-review-compose__aside-title">Tips for a helpful review</h3><ul class="portal-review-compose__tips"><li>Mention punctuality and how clearly the pandit explained each step</li><li>Note samagri guidance and any follow-up support you received</li><li>Keep it respectful — reviews help other devotees choose</li></ul><p class="portal-review-compose__policy">Reviews appear on the pandit profile after moderation.</p><a href="bookings" class="portal-review-compose__link">View completed bookings</a></aside><div class="portal-review-compose__main"><div class="portal-review-compose__head"><h2 class="dash-card__title">Write a review</h2><p class="dash-card__sub">Share feedback from a completed ritual</p></div><form id="review-form" class="portal-review-compose__form" data-demo-allow="true" novalidate><div class="dash-field"><label for="review-booking">Booking</label><div class="portal-review-compose__select-wrap"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><select id="review-booking" name="booking" required></select></div><p class="dash-field__hint">Only completed rituals are eligible for review</p></div><div class="dash-field"><label id="review-rating-label">Rating</label><div class="portal-star-rating" id="review-star-rating" role="radiogroup" aria-labelledby="review-rating-label"><button type="button" class="portal-star-rating__btn" data-value="1" role="radio" aria-label="1 star"></button><button type="button" class="portal-star-rating__btn" data-value="2" role="radio" aria-label="2 stars"></button><button type="button" class="portal-star-rating__btn" data-value="3" role="radio" aria-label="3 stars"></button><button type="button" class="portal-star-rating__btn" data-value="4" role="radio" aria-label="4 stars"></button><button type="button" class="portal-star-rating__btn" data-value="5" role="radio" aria-label="5 stars"></button></div><input type="hidden" name="rating" id="review-rating" value="5" required/><p class="dash-field__hint portal-star-rating__hint" id="review-rating-hint">Tap to rate your experience</p></div><div class="dash-field"><label for="review-text">Your review</label><textarea id="review-text" name="review" rows="4" placeholder="Share your experience — what went well, samagri guidance, pandit communication…" minlength="20" maxlength="500" required></textarea><p class="dash-field__hint"><span id="review-char-count">0</span> / 500 characters (min. 20)</p></div><p id="review-save-note" class="portal-review-compose__note" role="status" hidden></p><div class="portal-review-compose__foot"><button type="submit" class="dash-btn dash-btn--accent">Submit review</button><span class="portal-review-compose__foot-note">Published after moderation</span></div></form></div></div></section>
+      </div>
+    </div>
+  </main>
+  <script src="../customer/reviews.js"></script>
+  <script src="../demo-session.js"></script>
+  <script src="../portal-shell.js"></script>
+  <script src="../portal-polish.js"></script>
+  <script src="../layout.js"></script>
+  <script src="../demo-mode.js"></script>
+</body>
+</html>

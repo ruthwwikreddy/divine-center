@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html data-demo-site="true" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="robots" content="noindex"/>
+  <meta name="theme-color" content="#fdf8f2"/>
+  <title>Edit Profile — Divine Center</title>
+  <script src="../site-config.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../styles.css"/>
+  <link rel="stylesheet" href="../portal.css"/>
+  <link rel="stylesheet" href="../demo-mode.css"/>
+</head>
+<body class="page-portal page-portal--pandit " data-portal-layout="pandit" data-portal-active="edit-profile" data-dash-layout="pandit" data-dash-active="edit-profile">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div id="site-nav"></div>
+  <main id="main">
+    <div class="portal__shell">
+      <aside id="portal-sidebar"></aside>
+      <div class="portal-main">
+        <div class="portal-profile-page portal-pandit-profile" id="pandit-profile-root">
+          <header class="portal-profile-page__hero dash-card portal-pandit-profile__hero">
+            <div class="portal-profile-page__avatar-block">
+              <img id="pandit-profile-avatar" class="portal-profile-page__avatar" src="../assets/images/placeholders/pandit-avatar.svg" alt="" width="96" height="96"/>
+              <button type="button" class="dash-btn dash-btn--muted portal-profile-page__photo-btn" data-demo-action>Change photo</button>
+            </div>
+            <div class="portal-profile-page__identity">
+              <p class="portal-profile-page__eyebrow">Public pandit profile</p>
+              <h2 class="portal-profile-page__name" id="pandit-profile-display-name">Panduranga Charyulu</h2>
+              <div class="portal-pandit-profile__badges">
+                <span class="dash-badge dash-badge--confirmed">Verified</span>
+                <span class="portal-pandit-profile__rating" aria-label="Rating 4.9 out of 5">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                  <span id="pandit-profile-rating">4.9</span>
+                </span>
+                <span class="portal-pandit-profile__languages" id="pandit-profile-languages">Telugu, Hindi, English</span>
+              </div>
+              <p class="portal-profile-page__meta" id="pandit-profile-display-meta">Hyderabad · 18 years experience</p>
+              <ul class="portal-profile-page__stats" aria-label="Profile summary">
+                <li><strong id="pandit-profile-bookings">26</strong><span>Bookings</span></li>
+                <li><strong id="pandit-profile-experience">18</strong><span>Years</span></li>
+                <li><strong>48</strong><span>Reviews</span></li>
+              </ul>
+            </div>
+          </header>
+
+          <div class="portal-profile-page__grid">
+            <aside class="portal-profile-aside dash-card" aria-label="Profile guidance">
+              <h3 class="portal-profile-aside__title">What devotees see</h3>
+              <p class="portal-profile-aside__text">Your public profile appears on search results and booking pages. Keep your bio, languages, and specialties up to date.</p>
+              <ul class="portal-profile-aside__list">
+                <li>Highlight rituals you perform most often</li>
+                <li>List every language you can conduct in</li>
+                <li>Mention cities and areas you serve</li>
+              </ul>
+              <a class="portal-profile-aside__link" href="../pandit?p=panduranga-charyulu">Preview public profile →</a>
+              <a class="portal-profile-aside__link portal-pandit-profile__aside-link" href="identity">Identity verification →</a>
+              <a class="portal-profile-aside__link portal-pandit-profile__aside-link" href="my-services">Manage services →</a>
+            </aside>
+
+            <form id="pandit-profile-form" class="pandit-profile-form" data-demo-allow="true" novalidate>
+              <div class="pandit-profile-form__layout">
+                <div class="pandit-profile-form__main">
+                  <header class="pandit-profile-form__head">
+                    <div>
+                      <h3 class="pandit-profile-form__title">Edit profile details</h3>
+                      <p class="pandit-profile-form__lede">Update what devotees see when they browse and book your rituals.</p>
+                    </div>
+                    <a href="../pandit?p=panduranga-charyulu" class="dash-btn dash-btn--outline pandit-profile-form__preview-link">Preview listing</a>
+                  </header>
+
+                  <div class="pandit-profile-form__sections">
+                    <section class="pandit-profile-form__section" aria-labelledby="pandit-section-identity">
+                      <h4 class="pandit-profile-form__section-title" id="pandit-section-identity">
+                        <span class="pandit-profile-form__section-num">1</span>
+                        Identity
+                      </h4>
+                      <div class="pandit-profile-form__fields pandit-profile-form__fields--2">
+                        <div class="pandit-profile-form__field">
+                          <label for="pandit-display-name">Display name</label>
+                          <input id="pandit-display-name" class="pandit-profile-form__input" name="displayName" value="Panduranga Charyulu" required autocomplete="name"/>
+                        </div>
+                        <div class="pandit-profile-form__field">
+                          <label for="pandit-experience">Experience (years)</label>
+                          <input id="pandit-experience" class="pandit-profile-form__input" name="experience" type="number" min="1" max="60" value="18" required/>
+                        </div>
+                      </div>
+                    </section>
+
+                    <section class="pandit-profile-form__section" aria-labelledby="pandit-section-skills">
+                      <h4 class="pandit-profile-form__section-title" id="pandit-section-skills">
+                        <span class="pandit-profile-form__section-num">2</span>
+                        Service area &amp; skills
+                      </h4>
+                      <div class="pandit-profile-form__fields pandit-profile-form__fields--2">
+                        <div class="pandit-profile-form__field">
+                          <label for="pandit-city">Primary city</label>
+                          <input id="pandit-city" class="pandit-profile-form__input" name="city" value="Hyderabad" required/>
+                        </div>
+                        <div class="pandit-profile-form__field">
+                          <label for="pandit-languages">Languages</label>
+                          <input id="pandit-languages" class="pandit-profile-form__input" name="languages" value="Telugu, Hindi, English" required/>
+                          <p class="pandit-profile-form__hint">Comma-separated</p>
+                        </div>
+                      </div>
+                      <div class="pandit-profile-form__field">
+                        <label for="pandit-specialties">Specialties</label>
+                        <input id="pandit-specialties" class="pandit-profile-form__input" name="specialties" value="Griha Pravesh, Namakaran, Satyanarayan Puja"/>
+                        <p class="pandit-profile-form__hint">Rituals you are best known for — comma-separated</p>
+                      </div>
+                    </section>
+
+                    <section class="pandit-profile-form__section pandit-profile-form__section--wide" aria-labelledby="pandit-section-bio">
+                      <div class="pandit-profile-form__bio-head">
+                        <h4 class="pandit-profile-form__section-title" id="pandit-section-bio">
+                          <span class="pandit-profile-form__section-num">3</span>
+                          About you
+                        </h4>
+                        <span class="pandit-profile-form__bio-count" id="pandit-bio-count" aria-live="polite">0 / 280</span>
+                      </div>
+                      <div class="pandit-profile-form__field">
+                        <label class="visually-hidden" for="pandit-bio">Short bio</label>
+                        <textarea id="pandit-bio" class="pandit-profile-form__textarea" name="bio" rows="4" maxlength="280" required placeholder="A concise introduction for your public listing…">Vedic scholar specializing in Griha Pravesh and Namakaran. Serving Hyderabad &amp; Secunderabad.</textarea>
+                        <p class="pandit-profile-form__hint">Keep it brief — devotees scan this on search results.</p>
+                      </div>
+                    </section>
+                  </div>
+
+                  <p id="pandit-profile-save-note" class="pandit-profile-form__note" role="status" hidden></p>
+
+                  <footer class="pandit-profile-form__foot">
+                    <button type="submit" class="dash-btn dash-btn--accent pandit-profile-form__submit">Save profile</button>
+                    <a href="identity" class="pandit-profile-form__secondary">Verification status</a>
+                    <span class="pandit-profile-form__foot-note">Changes apply to your public listing</span>
+                  </footer>
+                </div>
+
+                <aside class="pandit-profile-form__preview" id="pandit-profile-listing-preview" aria-label="Live listing preview" aria-live="polite">
+                  <p class="pandit-profile-form__preview-label">Live preview</p>
+                  <article class="pandit-profile-form__preview-card">
+                    <div class="pandit-profile-form__preview-avatar" aria-hidden="true">
+                      <img src="../assets/images/placeholders/pandit-avatar.svg" alt="" width="56" height="56"/>
+                    </div>
+                    <h4 class="pandit-profile-form__preview-name" id="pandit-preview-name">Panduranga Charyulu</h4>
+                    <p class="pandit-profile-form__preview-meta" id="pandit-preview-meta">Hyderabad · 18 yrs · 4.9 ★</p>
+                    <p class="pandit-profile-form__preview-bio" id="pandit-preview-bio">Vedic scholar specializing in Griha Pravesh and Namakaran. Serving Hyderabad &amp; Secunderabad.</p>
+                    <div class="pandit-profile-form__preview-tags" id="pandit-preview-languages" aria-label="Languages"></div>
+                    <div class="pandit-profile-form__preview-tags pandit-profile-form__preview-tags--rituals" id="pandit-preview-specialties" aria-label="Specialties"></div>
+                  </article>
+                </aside>
+              </div>
+            </form>
+  </div>
+</div>
+      </div>
+    </div>
+  </main>
+  <script src="../user/edit-profile.js"></script>
+  <script src="../demo-session.js"></script>
+  <script src="../portal-shell.js"></script>
+  <script src="../portal-polish.js"></script>
+  <script src="../layout.js"></script>
+  <script src="../demo-mode.js"></script>
+</body>
+</html>

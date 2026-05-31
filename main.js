@@ -10,11 +10,7 @@
 
   if (galleryGrid) galleryGrid.innerHTML = DC.renderHomeGallery();
   if (testimonialsGrid) testimonialsGrid.innerHTML = DC.renderHomeTestimonials();
-  if (panditsTrack) {
-    panditsTrack.innerHTML = DC.renderHomePandits();
-    var countEl = document.querySelector("[data-pandit-count]");
-    if (countEl && DC.PANDITS) countEl.textContent = DC.PANDITS.length + "+";
-  }
+  if (panditsTrack) panditsTrack.innerHTML = DC.renderHomePandits();
   if (blogGrid) blogGrid.innerHTML = DC.renderBlogs("home");
 
   function initCarousel() {
@@ -22,7 +18,8 @@
     var prev = document.getElementById("pandits-prev");
     var next = document.getElementById("pandits-next");
     if (!track) return;
-    var step = 300;
+    var firstCard = track.querySelector(".home-pandit-card");
+    var step = firstCard ? firstCard.offsetWidth + 20 : 320;
     if (prev)
       prev.addEventListener("click", function () {
         track.scrollBy({ left: -step, behavior: "smooth" });
@@ -48,7 +45,10 @@
   function wireHomeSearchForms() {
     document.querySelectorAll(".home-hero-search").forEach(function (searchForm) {
       var searchInput = searchForm.querySelector(".search-pill__field");
-      var searchHint = searchForm.closest(".hero") && searchForm.closest(".hero").querySelector(".home-hero-hint");
+      var heroRoot = searchForm.closest(".hero");
+      var searchHint =
+        (heroRoot && heroRoot.querySelector(".home-hero-hint")) ||
+        document.querySelector(".home-hero-hint");
       if (!searchInput) return;
       searchForm.addEventListener("submit", function (e) {
         e.preventDefault();
@@ -75,7 +75,6 @@
   });
 
   wireHomeSearchForms();
-
 
   initCarousel();
 })();

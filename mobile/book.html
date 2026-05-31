@@ -25,7 +25,7 @@
 
       <div class="m-book-summary" id="book-summary"></div>
 
-      <form class="m-book-form" id="book-form" novalidate>
+      <form class="m-book-form" id="book-form" data-demo-allow="true" novalidate>
         <section class="m-book-panel is-active" data-step="1">
           <h2 class="m-form-section">Selected Puja</h2>
           <p class="form-hint">Quickly confirm your ritual before proceeding.</p>
@@ -91,19 +91,16 @@
 
           <div class="m-book-addons" id="book-addons">
             <label class="m-book-addon">
-              <input type="checkbox" name="addon_samagri" data-fee="699" />
+              <input type="checkbox" name="addon_samagri" data-fee="0" />
               <span><strong>Samagri Kit</strong><small>All puja essentials delivered</small></span>
-              <em>+₹699</em>
             </label>
             <label class="m-book-addon">
-              <input type="checkbox" name="addon_video" data-fee="299" />
+              <input type="checkbox" name="addon_video" data-fee="0" />
               <span><strong>Video Recording</strong><small>Edited highlights of your ritual</small></span>
-              <em>+₹299</em>
             </label>
             <label class="m-book-addon">
-              <input type="checkbox" name="addon_fast" data-fee="399" />
+              <input type="checkbox" name="addon_fast" data-fee="0" />
               <span><strong>Priority Scheduling</strong><small>Faster confirmation support</small></span>
-              <em>+₹399</em>
             </label>
           </div>
 
@@ -112,13 +109,9 @@
             <textarea name="notes" rows="3" placeholder="Mention gothram, specific tradition, or special requests"></textarea>
           </label>
 
-          <section class="m-book-price" aria-label="Price breakdown">
-            <h3 class="m-form-section">Price Breakdown</h3>
-            <p><span>Service Fee</span><strong id="price-service">₹0</strong></p>
-            <p><span>Travel Fee</span><strong id="price-travel">₹0</strong></p>
-            <p><span>Platform Fee</span><strong id="price-platform">₹149</strong></p>
-            <p><span>Add-ons</span><strong id="price-addons">₹0</strong></p>
-            <p class="m-book-price__total"><span>Total</span><strong id="book-total">₹0</strong></p>
+          <section class="m-book-quote" aria-label="Custom quote">
+            <h3 class="m-form-section">Custom quote</h3>
+            <p class="form-hint">We'll share a personalized quote after you submit this request — no fixed prices online.</p>
           </section>
 
           <div class="m-book-nav">
@@ -128,52 +121,22 @@
       </form>
     </main>
     <footer class="m-sticky-bar">
-      <div><span class="m-sticky-bar__label">Payable now</span><strong class="m-sticky-bar__price" id="book-total-sticky">₹0</strong></div>
-      <button type="submit" form="book-form" class="btn btn--accent" id="book-confirm">Confirm Booking</button>
+      <div><span class="m-sticky-bar__label">Custom quote</span><strong class="m-sticky-bar__price" id="book-total-sticky">We'll confirm pricing</strong></div>
+      <button type="submit" form="book-form" class="btn btn--accent" id="book-confirm">Request Custom Quote</button>
     </footer>
     <script src="site-data.js"></script>
+    <script src="../demo-session.js"></script>
     <script src="mobile-shell.js"></script>
     <script>
       (function () {
         var slug = new URLSearchParams(location.search).get("p") || "griha-pravesh";
         var p = window.DivineCenter.getPuja(slug);
         var sum = document.getElementById("book-summary");
-        var total = document.getElementById("book-total");
         var totalSticky = document.getElementById("book-total-sticky");
-        var serviceEl = document.getElementById("price-service");
-        var travelEl = document.getElementById("price-travel");
-        var platformEl = document.getElementById("price-platform");
-        var addonsEl = document.getElementById("price-addons");
         var form = document.getElementById("book-form");
         var steps = Array.prototype.slice.call(document.querySelectorAll(".m-book-panel"));
         var stepDots = Array.prototype.slice.call(document.querySelectorAll(".m-book-step"));
         var currentStep = 0;
-        var basePrice = 0;
-        var travel = 0;
-
-        function parseRupees(value) {
-          return parseInt(String(value || "").replace(/[^\d]/g, ""), 10) || 0;
-        }
-
-        function rupees(num) {
-          return "₹" + Number(num || 0).toLocaleString("en-IN");
-        }
-
-        function updatePricing() {
-          var addons = 0;
-          document.querySelectorAll("#book-addons input[type='checkbox']:checked").forEach(function (el) {
-            addons += parseInt(el.getAttribute("data-fee") || "0", 10);
-          });
-          var platform = 149;
-          var grand = basePrice + travel + platform + addons;
-          serviceEl.textContent = rupees(basePrice);
-          travelEl.textContent = rupees(travel);
-          platformEl.textContent = rupees(platform);
-          addonsEl.textContent = rupees(addons);
-          total.textContent = rupees(grand);
-          totalSticky.textContent = rupees(grand);
-        }
-
         function showStep(index) {
           currentStep = Math.max(0, Math.min(index, steps.length - 1));
           steps.forEach(function (panel, i) {
@@ -216,10 +179,7 @@
             "<div><h3>" +
             p.title +
             "</h3><p>" +
-            p.price +
-            ' onwards</p><small class="form-hint">Duration: ' + p.duration + " hrs</small></div>";
-          basePrice = parseRupees(p.price);
-          travel = basePrice > 5000 ? 0 : 199;
+            'Custom quote</p><small class="form-hint">Duration: ' + p.duration + " hrs</small></div>";
         }
 
         document.querySelectorAll("#slot-pick .m-chip").forEach(function (btn) {
@@ -230,10 +190,6 @@
             btn.classList.add("is-active");
             document.getElementById("slot").value = btn.getAttribute("data-slot");
           });
-        });
-
-        document.querySelectorAll("#book-addons input[type='checkbox']").forEach(function (box) {
-          box.addEventListener("change", updatePricing);
         });
 
         document.querySelectorAll(".m-book-next").forEach(function (btn) {
@@ -251,16 +207,34 @@
         form.addEventListener("submit", function (e) {
           e.preventDefault();
           if (!validateStep(currentStep)) return;
-          var sticky = document.querySelector(".m-sticky-bar__label");
-          if (sticky) sticky.textContent = "Booking request received";
-          var confirmBtn = document.getElementById("book-confirm");
-          if (confirmBtn) {
-            confirmBtn.textContent = "Confirmed";
-            confirmBtn.disabled = true;
+          if (window.MobileDemo && window.MobileDemo.showToast) {
+            window.MobileDemo.showToast("Booking confirmed — opening summary…");
           }
+          setTimeout(function () {
+            var fd = new FormData(form);
+            var dateVal = fd.get("date") || "";
+            if (window.DivineCenterDemo && window.DivineCenter && window.DivineCenter.getPuja) {
+              var puja = window.DivineCenter.getPuja(slug);
+              window.DivineCenterDemo.saveLastBooking({
+                id: "DC-001",
+                puja: slug,
+                pujaTitle: puja ? puja.title : slug,
+                pandit: "",
+                panditName: "",
+                date: dateVal,
+                mode: "Offline",
+                amount: "₹4,033",
+                placedAt: Date.now(),
+              });
+            }
+            var q = new URLSearchParams();
+            q.set("puja", slug);
+            q.set("mode", "Offline");
+            if (dateVal) q.set("date", dateVal);
+            window.location.href = "../booking-success.html?" + q.toString();
+          }, 600);
         });
 
-        updatePricing();
         showStep(0);
       })();
     </script>

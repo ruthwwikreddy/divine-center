@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html data-demo-site="true" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="robots" content="noindex"/>
+  <meta name="theme-color" content="#fdf8f2"/>
+  <title>Dashboard — Divine Center</title>
+  <script src="../site-config.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../styles.css"/>
+  <link rel="stylesheet" href="../portal.css"/>
+  <link rel="stylesheet" href="../demo-mode.css"/>
+</head>
+<body class="page-portal page-portal--customer portal-page--dashboard" data-portal-layout="customer" data-portal-active="dashboard" data-dash-layout="customer" data-dash-active="dashboard">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div id="site-nav"></div>
+  <main id="main">
+    <div class="portal__shell">
+      <aside id="portal-sidebar"></aside>
+      <div class="portal-main">
+        <section class="dash-card portal-activity-hub" aria-labelledby="dash-activity-title">
+          <header class="portal-activity-hub__head">
+            <div class="portal-activity-hub__intro">
+              <span class="portal-activity-hub__icon" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+              </span>
+              <div>
+                <h2 class="dash-card__title" id="dash-activity-title">Recent activity</h2>
+                <p class="dash-card__sub">Payments, bookings, and reviews</p>
+              </div>
+            </div>
+            <a href="bookings" class="dash-btn dash-btn--outline">All bookings</a>
+          </header>
+          <ul class="portal-activity-hub__list">
+            <li class="portal-activity-hub__item portal-activity-hub__item--payment">
+              <span class="portal-activity-hub__glyph" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></span>
+              <div class="portal-activity-hub__body"><strong>Payment received</strong><p>#DC-001 · ₹4,033 · Jan 30, 2026</p></div>
+              <a href="booking-detail?id=DC-001" class="portal-activity-hub__link">View</a>
+            </li>
+            <li class="portal-activity-hub__item portal-activity-hub__item--pending">
+              <span class="portal-activity-hub__glyph" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span>
+              <div class="portal-activity-hub__body"><strong>Pandit assigning</strong><p>Annaprashanna · Feb 15, 2026</p></div>
+              <a href="booking-detail?id=DC-001" class="portal-activity-hub__link">Track</a>
+            </li>
+            <li class="portal-activity-hub__item portal-activity-hub__item--review">
+              <span class="portal-activity-hub__glyph" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7L12 17.8 5.7 21.2 7 14.2 2 9.3l7-1z"/></svg></span>
+              <div class="portal-activity-hub__body"><strong>Review submitted</strong><p>Griha Pravesh · 5 stars</p></div>
+              <a href="reviews" class="portal-activity-hub__link">Reviews</a>
+            </li>
+          </ul>
+        </section><section class="portal-hub-page portal-hub-page--bookings portal-hub-page--embedded" aria-labelledby="dash-bookings-title">
+          <header class="portal-hub-page__head portal-hub-page__head--compact">
+            <div>
+              <h2 class="portal-hub-page__title" id="dash-bookings-title">Upcoming bookings</h2>
+              <p class="portal-hub-page__lede">Track rituals, pandits, and booking status</p>
+            </div>
+            <div class="portal-hub-page__actions">
+              <a href="../pandits/booking" class="dash-btn dash-btn--outline">Book puja</a>
+              <a href="bookings" class="dash-btn dash-btn--accent">View all</a>
+            </div>
+          </header>
+
+          <div class="dash-card portal-hub-page__panel">
+            <div class="portal-hub-page__toolbar">
+              <div class="portal-hub-page__filters" id="dash-bookings-filters" role="tablist" aria-label="Filter bookings">
+                <button type="button" class="portal-hub-page__filter is-active" role="tab" aria-selected="true" data-booking-filter="all">All</button>
+                <button type="button" class="portal-hub-page__filter" role="tab" aria-selected="false" data-booking-filter="upcoming">Upcoming</button>
+                <button type="button" class="portal-hub-page__filter" role="tab" aria-selected="false" data-booking-filter="pending">Pending</button>
+              </div>
+              <label class="portal-hub-page__search">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3-3"/></svg>
+                <span class="visually-hidden">Search bookings</span>
+                <input type="search" id="dash-bookings-search" placeholder="Search ritual or pandit…" autocomplete="off"/>
+              </label>
+            </div>
+            <p class="portal-hub-page__count" id="dash-bookings-count" aria-live="polite"></p>
+            <div class="portal-record-list" id="dash-bookings-body" role="list" aria-label="Upcoming bookings"></div>
+          </div>
+        </section><section class="portal-dash-section portal-dash-section--services" aria-labelledby="dash-services-title">
+          <header class="portal-dash-section__head">
+            <div class="portal-dash-section__intro">
+              <span class="portal-dash-section__icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l7 4v2H5V7l7-4z"/><path d="M5 9h14v11H5z"/></svg></span>
+              <div>
+                <h2 class="portal-dash-section__title" id="dash-services-title">Popular services</h2>
+                <p class="portal-dash-section__sub">Most booked rituals on Divine Center</p>
+              </div>
+            </div>
+            <a href="../pujas" class="dash-btn dash-btn--outline">Browse all</a>
+          </header>
+          <div class="portal-services-scroll" id="dash-services-track" role="list" aria-label="Popular puja services"></div>
+        </section>
+        <section class="portal-dash-section portal-dash-section--pandits" aria-labelledby="dash-pandits-title">
+          <header class="portal-dash-section__head">
+            <div class="portal-dash-section__intro">
+              <span class="portal-dash-section__icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+              <div>
+                <h2 class="portal-dash-section__title" id="dash-pandits-title">Top rated pandits</h2>
+                <p class="portal-dash-section__sub">Verified Acharyas near you</p>
+              </div>
+            </div>
+            <a href="../pandits" class="dash-btn dash-btn--outline">Browse all</a>
+          </header>
+          <div class="portal-pandits-scroll" id="dash-pandits-track" role="list" aria-label="Top rated pandits"></div>
+        </section>
+      </div>
+    </div>
+  </main>
+  <script src="../site-data.js"></script>
+  <script src="../booking-actions.js"></script>
+  <script src="../customer/portal-customer-bookings.js"></script>
+  <script src="../customer/dashboard.js"></script>
+  <script src="../demo-session.js"></script>
+  <script src="../portal-shell.js"></script>
+  <script src="../portal-polish.js"></script>
+  <script src="../layout.js"></script>
+  <script src="../demo-mode.js"></script>
+</body>
+</html>

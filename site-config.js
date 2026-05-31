@@ -2,6 +2,10 @@
  * Divine Center — routes, contact, navigation (single source of truth)
  */
 window.DivineCenterConfig = {
+  demoMode: true,
+  demo: {
+    toast: "Done",
+  },
   brand: "Divine Center",
   tagline: "Connecting Faith, Delivering Grace",
   contact: {

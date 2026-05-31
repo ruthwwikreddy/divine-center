@@ -25,7 +25,7 @@
       <section class="m-pujas-hero">
         <p class="m-pujas-hero__eyebrow">Verified Ritual Services</p>
         <h2 class="m-pujas-hero__title">Book the right puja with confidence</h2>
-        <p class="m-pujas-hero__text">Verified pandits, clear ritual details, and guided booking in minutes.</p>
+        <p class="m-pujas-hero__text">Verified pandits, clear ritual details, and a personalized custom quote for every service.</p>
       </section>
       <div class="m-search m-search--page m-pujas-v2__search">
         <span class="search-pill__icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3-3"/></svg></span>
@@ -33,17 +33,15 @@
       </div>
       <div class="m-chips m-pujas-filters" id="puja-filters" role="tablist" aria-label="Puja filters">
         <button class="m-chip" data-filter="occasion">Occasion</button>
-        <button class="m-chip" data-filter="price">Price</button>
         <button class="m-chip" data-filter="duration">Duration</button>
         <button class="m-chip" data-filter="home">Home Visit</button>
         <button class="m-chip" data-filter="language">Language</button>
       </div>
       <div class="m-pujas-sort" id="puja-sort">
         <button class="m-pujas-sort__btn is-active" data-sort="popular">Popular</button>
-        <button class="m-pujas-sort__btn" data-sort="price">Price low-high</button>
         <button class="m-pujas-sort__btn" data-sort="soonest">Soonest</button>
       </div>
-      <div class="m-puja-grid-list" id="puja-list" aria-live="polite"></div>
+      <div class="m-puja-grid-list m-puja-grid-list--cards" id="puja-list" aria-live="polite"></div>
       <div class="m-empty m-empty--v2" id="puja-empty" hidden>
         <p>No pujas found</p>
         <span>Try another keyword or adjust filters.</span>
@@ -62,11 +60,6 @@
         if (initialQ) input.value = initialQ;
         var pujas = Array.isArray(DC.PUJAS) ? DC.PUJAS.slice() : [];
 
-        function numericValue(raw) {
-          var n = parseInt(String(raw || "").replace(/\D/g, ""), 10);
-          return isNaN(n) ? Number.MAX_SAFE_INTEGER : n;
-        }
-
         function durationHours(raw) {
           var match = String(raw || "").match(/(\d+(\.\d+)?)/);
           if (!match) return Number.MAX_SAFE_INTEGER;
@@ -80,11 +73,7 @@
 
         function sortByMode(items, mode) {
           var arr = items.slice();
-          if (mode === "price") {
-            arr.sort(function (a, b) {
-              return numericValue(a.price) - numericValue(b.price);
-            });
-          } else if (mode === "soonest") {
+          if (mode === "soonest") {
             arr.sort(function (a, b) {
               return durationHours(a.duration) - durationHours(b.duration);
             });
@@ -106,32 +95,11 @@
           var sorted = sortByMode(filtered, mode);
 
           function renderPujaCard(p) {
+            if (typeof DC.renderPujaListingCard === "function") {
+              return DC.renderPujaListingCard(p, true);
+            }
             if (typeof DC.renderPujaServiceCard === "function") {
               return DC.renderPujaServiceCard(p, true);
-            }
-            if (typeof DC.imgPujaPhoto === "function") {
-              var href = "puja?p=" + encodeURIComponent(p.slug || "");
-              return (
-                '<a href="' +
-                href +
-                '" class="puja-service-card">' +
-                DC.imgPujaPhoto(p, "", 320, 200, "lazy") +
-                '<div class="puja-service-card__body">' +
-                '<span class="puja-service-card__type">' +
-                (p.type || "Puja") +
-                "</span>" +
-                "<h3>" +
-                (p.title || "Puja Service") +
-                "</h3>" +
-                "<p>" +
-                (p.desc || "") +
-                "</p>" +
-                '<div class="puja-service-card__meta"><span>' +
-                (p.duration || "") +
-                "</span></div>" +
-                '<span class="puja-service-card__cta">View details →</span>' +
-                "</div></a>"
-              );
             }
             return "";
           }

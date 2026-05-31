@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html data-demo-site="true" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="robots" content="noindex"/>
+  <meta name="theme-color" content="#fdf8f2"/>
+  <title>Payments — Divine Center</title>
+  <script src="../site-config.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../styles.css"/>
+  <link rel="stylesheet" href="../portal.css"/>
+  <link rel="stylesheet" href="../demo-mode.css"/>
+</head>
+<body class="page-portal page-portal--customer portal-page--payments" data-portal-layout="customer" data-portal-active="payments" data-dash-layout="customer" data-dash-active="payments">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div id="site-nav"></div>
+  <main id="main">
+    <div class="portal__shell">
+      <aside id="portal-sidebar"></aside>
+      <div class="portal-main">
+        <section class="portal-hub-page portal-hub-page--payments" aria-labelledby="payments-page-title">
+          <header class="portal-hub-page__head">
+            <div>
+              <h1 class="portal-hub-page__title" id="payments-page-title">Payments</h1>
+              <p class="portal-hub-page__lede">Invoices and transaction status for your rituals</p>
+            </div>
+            <a href="../pandits/booking" class="dash-btn dash-btn--accent">Book new puja</a>
+          </header>
+
+          <div class="dash-card portal-hub-page__panel">
+            <div class="portal-hub-page__toolbar">
+              <div class="portal-hub-page__filters" id="dash-payments-filters" role="tablist" aria-label="Filter payments">
+                <button type="button" class="portal-hub-page__filter is-active" role="tab" aria-selected="true" data-payment-filter="all">All</button>
+                <button type="button" class="portal-hub-page__filter" role="tab" aria-selected="false" data-payment-filter="paid">Paid</button>
+                <button type="button" class="portal-hub-page__filter" role="tab" aria-selected="false" data-payment-filter="pending">Pending</button>
+              </div>
+            </div>
+            <p class="portal-hub-page__count" id="dash-payments-count" aria-live="polite"></p>
+            <div class="portal-record-list" id="dash-payments-body" role="list" aria-label="Payment history"></div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+  <script src="../customer/payments.js"></script>
+  <script src="../demo-session.js"></script>
+  <script src="../portal-shell.js"></script>
+  <script src="../portal-polish.js"></script>
+  <script src="../layout.js"></script>
+  <script src="../demo-mode.js"></script>
+</body>
+</html>

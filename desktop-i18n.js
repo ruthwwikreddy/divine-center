@@ -22,7 +22,7 @@
       heroEyebrow: "The Future of Faith is Here",
       heroTitle: "The Sanctity of the Temple, Delivered Home.",
       heroText:
-        "Connect with India's top 1% of verified Acharyas. Experience Vedic rituals with scriptural purity, punctual timing, and transparent pricing.",
+        "India's most trusted platform for booking verified Acharyas — scriptural purity, punctual service, and honest pricing for every sacred occasion.",
       heroSearchBtn: "Search",
       heroExplore: "Explore Pujas",
       heroMeet: "Meet Pandits",
@@ -183,10 +183,14 @@
       if (!key) return;
       el.setAttribute("placeholder", t(key));
     });
-    var label = document.getElementById("desktop-lang-label");
-    if (label) label.textContent = t("language");
     var select = document.getElementById("desktop-lang-select");
     if (select) select.value = currentLang;
+    document.querySelectorAll(".nav__lang-option").forEach(function (option) {
+      var lang = option.getAttribute("data-lang");
+      var active = lang === currentLang;
+      option.classList.toggle("is-active", active);
+      option.setAttribute("aria-selected", active ? "true" : "false");
+    });
   }
 
   function setLang(lang) {

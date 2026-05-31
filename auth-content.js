@@ -21,6 +21,26 @@ window.DivineCenterAuthContent = {
         "Secure payments & booking history",
       ],
     },
+    reset: {
+      title: "Reset password",
+      subtitle: "We'll help you regain access to bookings and your saved profile.",
+      perks: ["Secure, one-time reset links", "Works with email or mobile login", "Support team available 10–7 IST"],
+    },
+    "reset-update": {
+      title: "New password",
+      subtitle: "Choose a strong password to protect your account.",
+      perks: ["Minimum 8 characters", "Never shared with pandits", "Encrypted in transit"],
+    },
+    verify: {
+      title: "Verify email",
+      subtitle: "Confirm your address to receive booking updates and receipts.",
+      perks: ["One-click verification", "Required for first booking", "Secure verification"],
+    },
+    oauth: {
+      title: "Google sign-in",
+      subtitle: "Fast access with your Google account.",
+      perks: ["No password to remember", "Secure OAuth flow at launch", "Same booking history"],
+    },
   },
   pandit: {
     login: {
@@ -31,6 +51,21 @@ window.DivineCenterAuthContent = {
         "Set your services & pricing",
         "Verification badge on your profile",
       ],
+    },
+    reset: {
+      title: "Pandit password reset",
+      subtitle: "Recover access to bookings, wallet, and your public profile.",
+      perks: ["Secure reset links", "Protects payout details", "Never shared"],
+    },
+    "reset-update": {
+      title: "Set pandit password",
+      subtitle: "Keep your earnings and profile secure.",
+      perks: ["Strong password required", "Not shown to devotees", "Encrypted storage"],
+    },
+    verify: {
+      title: "Verify pandit email",
+      subtitle: "Required before accepting paid bookings.",
+      perks: ["Builds devotee trust", "Payout notifications", "Instant verification"],
     },
     register: {
       title: "Register as a Pandit",

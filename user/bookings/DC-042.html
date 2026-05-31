@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html data-demo-site="true" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="robots" content="noindex"/>
+  <meta name="theme-color" content="#fdf8f2"/>
+  <title>#DC-042 — Divine Center</title>
+  <script src="../../site-config.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../../styles.css"/>
+  <link rel="stylesheet" href="../../portal.css"/>
+  <link rel="stylesheet" href="../../demo-mode.css"/>
+</head>
+<body class="page-portal page-portal--pandit " data-portal-layout="pandit" data-portal-active="bookings" data-dash-layout="pandit" data-dash-active="bookings">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div id="site-nav"></div>
+  <main id="main">
+    <div class="portal__shell">
+      <aside id="portal-sidebar"></aside>
+      <div class="portal-main">
+        <a href="../bookings" class="dash-back-link portal-back-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          Back to bookings
+        </a>
+
+        <article class="portal-pandit-booking dash-card" aria-labelledby="pandit-booking-title">
+          <header class="portal-pandit-booking__head">
+            <div class="portal-pandit-booking__head-main">
+              <div class="portal-pandit-booking__tags portal-pandit-booking-tags">
+                <div class="portal-pandit-booking-tags__ritual">
+                  <span class="portal-pandit-booking-tags__ritual-icon" aria-hidden="true">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l2.2 6.8H21l-5.5 4 2.1 6.7L12 16.2 6.4 20.5l2.1-6.7L3 9.8h6.8L12 3z"/></svg>
+                  </span>
+                  <div>
+                    <span class="portal-pandit-booking-tags__label">Ritual</span>
+                    <strong class="portal-pandit-booking-tags__ritual-name" id="pandit-booking-ritual">Griha Pravesh</strong>
+                  </div>
+                </div>
+                <div class="portal-pandit-booking-tags__status" id="pandit-booking-status-wrap" data-status="pending">
+                  <span class="portal-pandit-booking-tags__status-icon" aria-hidden="true">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2.5"/></svg>
+                  </span>
+                  <div>
+                    <span class="portal-pandit-booking-tags__label">Booking status</span>
+                    <strong class="portal-pandit-booking-tags__status-badge portal-pandit-booking-tags__status-badge--pending" id="pandit-booking-status">Pending</strong>
+                    <span class="portal-pandit-booking-tags__status-hint" id="pandit-booking-status-hint">Awaiting your response</span>
+                  </div>
+                  <span class="portal-pandit-booking-tags__pulse" aria-hidden="true"></span>
+                </div>
+              </div>
+              <h2 class="portal-pandit-booking__title" id="pandit-booking-title">New booking request</h2>
+              <div class="portal-pandit-booking__id">
+                <code>#DC-042</code>
+                <button type="button" class="dash-copy-btn" data-copy="#DC-042" aria-label="Copy booking ID">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                </button>
+              </div>
+            </div>
+            <div class="portal-pandit-booking__schedule">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+              <div>
+                <time datetime="2026-02-14">14 Feb 2026</time>
+                <span>10:00 AM · Requested</span>
+              </div>
+            </div>
+          </header>
+
+          <div class="portal-pandit-booking__grid">
+            <section class="portal-pandit-booking__panel">
+              <h3 class="portal-pandit-booking__panel-title">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                Devotee
+              </h3>
+              <p class="portal-pandit-booking__value">Rahul Sharma</p>
+              <a href="tel:+919876543210" class="portal-pandit-booking__link">+91 98765 43210</a>
+            </section>
+            <section class="portal-pandit-booking__panel">
+              <h3 class="portal-pandit-booking__panel-title">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s7-4.5 7-11a7 7 0 10-14 0c0 6.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+                Location
+              </h3>
+              <p class="portal-pandit-booking__value">Banjara Hills, Hyderabad</p>
+              <span class="dash-badge dash-badge--confirmed">Offline</span>
+            </section>
+            <section class="portal-pandit-booking__panel portal-pandit-booking__panel--earnings">
+              <h3 class="portal-pandit-booking__panel-title">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+                Your earnings
+              </h3>
+              <p class="portal-pandit-booking__amount">₹4,200</p>
+              <p class="portal-pandit-booking__hint">Credited after ritual completion</p>
+            </section>
+          </div>
+
+          <p id="pandit-booking-note" class="portal-pandit-booking__note" role="status" hidden></p>
+
+          <footer class="portal-pandit-booking__actions">
+            <button type="button" class="dash-btn dash-btn--accent" id="pandit-booking-accept">Accept booking</button>
+            <button type="button" class="dash-btn dash-btn--muted" id="pandit-booking-decline">Decline</button>
+          </footer>
+        </article>
+      </div>
+    </div>
+  </main>
+  <script src="../../user/booking-detail.js"></script>
+  <script src="../../demo-session.js"></script>
+  <script src="../../portal-shell.js"></script>
+  <script src="../../portal-polish.js"></script>
+  <script src="../../layout.js"></script>
+  <script src="../../demo-mode.js"></script>
+</body>
+</html>

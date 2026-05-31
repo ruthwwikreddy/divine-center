@@ -68,6 +68,33 @@
     });
   }
 
+  function customizeSuccessButtons(r) {
+    var btns = document.querySelector("#auth-success .auth-success__btns");
+    if (!btns) return;
+    if (r === "pandit") {
+      btns.innerHTML =
+        '<a href="user/dashboard" class="btn btn--accent">Pandit dashboard</a>' +
+        '<a href="user/bookings" class="btn btn--outline">My bookings</a>';
+      return;
+    }
+    btns.innerHTML =
+      '<a href="customer/dashboard" class="btn btn--accent">My Dashboard</a>' +
+      '<a href="pujas" class="btn btn--outline">Explore Pujas</a>' +
+      '<a href="pandits" class="btn btn--outline">Find Pandits</a>';
+  }
+
+  function ensurePanditRegisterSuccess() {
+    var success = document.getElementById("auth-success");
+    if (!success || role() !== "pandit") return;
+    if (success.querySelector(".auth-success__btns")) return;
+    var div = document.createElement("div");
+    div.className = "auth-success__btns";
+    var anchor = success.querySelector(".auth-external");
+    if (anchor) success.insertBefore(div, anchor);
+    else success.appendChild(div);
+    customizeSuccessButtons("pandit");
+  }
+
   function wireForms() {
     document.querySelectorAll("[data-auth-form]").forEach(function (form) {
       var hint = form.querySelector(".auth-form__hint, .form-hint");
@@ -92,11 +119,15 @@
         saveSession(payload);
         setHint(
           hint,
-          "Profile saved on this demo site. For a live account, continue on Divine Center.",
+          "Profile saved successfully.",
           true
         );
         var success = document.getElementById("auth-success");
-        if (success) success.hidden = false;
+        if (success) {
+          ensurePanditRegisterSuccess();
+          customizeSuccessButtons(payload.role);
+          success.hidden = false;
+        }
         form.hidden = true;
       });
     });
@@ -105,7 +136,10 @@
   function fillAside() {
     var r = role();
     var page = document.body.getAttribute("data-auth-page") || "login";
-    var block = COPY[r] && COPY[r][page === "register" ? "register" : "login"];
+    var key = page;
+    if (page === "register") key = "register";
+    else if (page === "login") key = "login";
+    var block = COPY[r] && COPY[r][key];
     if (!block) return;
     var sub = document.getElementById("auth-aside-sub");
     var perks = document.getElementById("auth-aside-perks");
@@ -141,6 +175,8 @@
     fillAside();
     setActiveTabs();
     wireRoleTabs();
+    customizeSuccessButtons(role());
+    ensurePanditRegisterSuccess();
     wireForms();
     wireLiveLinks();
   });

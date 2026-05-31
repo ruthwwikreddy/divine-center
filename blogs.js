@@ -11,8 +11,6 @@
   var featuredLeadEl = document.getElementById("blogs-featured-lead");
   var featuredStackEl = document.getElementById("blogs-featured-stack");
   var featuredEl = document.getElementById("blogs-featured-grid");
-  var latestEl = document.getElementById("blogs-latest-list");
-  var emptyEl = document.getElementById("blogs-empty");
 
   var featured = DC.BLOGS.filter(function (b) {
     return b.featured;
@@ -83,19 +81,6 @@
     });
   }
 
-  document.getElementById("blogs-reset-category") &&
-    document.getElementById("blogs-reset-category").addEventListener("click", function () {
-      activeCategory = "all";
-      if (categoriesEl) {
-        categoriesEl.querySelectorAll(".blogs-cat-chip").forEach(function (b) {
-          var on = b.getAttribute("data-category") === "all";
-          b.classList.toggle("is-active", on);
-          b.setAttribute("aria-pressed", on ? "true" : "false");
-        });
-      }
-      renderLists();
-    });
-
   function filterBlogs() {
     if (activeCategory === "all") return DC.BLOGS.slice();
     return DC.BLOGS.filter(function (b) {
@@ -105,7 +90,6 @@
 
   function renderLists() {
     var list = filterBlogs();
-    if (emptyEl) emptyEl.hidden = list.length > 0;
 
     var featuredInCategory = list.filter(function (b) {
       return b.featured;
@@ -153,29 +137,11 @@
             .join("") || "";
     }
 
-    var shown = new Set();
-    shown.add(heroBlog.slug);
-    featuredPosts.forEach(function (b) {
-      shown.add(b.slug);
-    });
-
-    if (latestEl) {
-      latestEl.innerHTML =
-        list
-          .filter(function (b) {
-            return !shown.has(b.slug);
-          })
-          .map(function (b) {
-            return DC.renderBlogLatestRow(b, false);
-          })
-          .join("") ||
-        '';
-    }
-
-    if (emptyEl && list.length === 0 && featuredEl && !featuredEl.innerHTML.trim()) {
+    if (!list.length) {
       if (featuredSplitEl) featuredSplitEl.hidden = true;
       if (featuredLeadEl) featuredLeadEl.innerHTML = "";
       if (featuredStackEl) featuredStackEl.innerHTML = "";
+      if (featuredEl) featuredEl.innerHTML = "";
     }
   }
 

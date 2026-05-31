@@ -6,10 +6,9 @@
 
   var listEl = document.getElementById("pandits-list");
   var emptyEl = document.getElementById("pandits-empty");
-  var countEl = document.getElementById("pandits-count");
-  var finderStatEl = document.getElementById("pandits-finder-stat");
   var resetBtn = document.getElementById("pandits-reset-filters");
   var form = document.getElementById("pandits-filter");
+  var qInput = document.getElementById("filter-q");
   var serviceSelect = document.getElementById("filter-service");
   var citySelect = document.getElementById("filter-city");
   var modeSelect = document.getElementById("filter-mode");
@@ -41,6 +40,20 @@
   }
 
   function matches(p, filters) {
+    if (filters.q) {
+      var q = filters.q.toLowerCase();
+      var hay =
+        (p.name || "") +
+        " " +
+        (p.city || "") +
+        " " +
+        (p.role || "") +
+        " " +
+        (p.langs || []).join(" ") +
+        " " +
+        (p.services || []).join(" ");
+      if (hay.toLowerCase().indexOf(q) === -1) return false;
+    }
     if (filters.city && p.city !== filters.city) return false;
     if (!matchesMode(p, filters.mode)) return false;
     if (filters.service) {
@@ -55,6 +68,7 @@
 
   function render() {
     var filters = {
+      q: (qInput && qInput.value.trim()) || "",
       service: (serviceSelect && serviceSelect.value) || "",
       city: (citySelect && citySelect.value) || "",
       mode: (modeSelect && modeSelect.value) || "",
@@ -72,26 +86,12 @@
     if (emptyEl) {
       emptyEl.hidden = results.length > 0;
     }
-    if (countEl) {
-      var n = results.length;
-      var total = DC.PANDITS.length;
-      if (n === 0) {
-        countEl.textContent = "No matches";
-      } else if (n === total) {
-        countEl.textContent = n + " Acharya" + (n === 1 ? "" : "s");
-      } else {
-        countEl.textContent = n + " of " + total + " shown";
-      }
-    }
-    if (finderStatEl) {
-      var totalCount = DC.PANDITS.length;
-      finderStatEl.textContent = totalCount + " verified";
-    }
   }
 
   populateSelects();
 
   function clearFilters() {
+    if (qInput) qInput.value = "";
     if (serviceSelect) serviceSelect.value = "";
     if (citySelect) citySelect.value = "";
     if (modeSelect) modeSelect.value = "";
@@ -107,9 +107,18 @@
       e.preventDefault();
       render();
     });
-    [serviceSelect, citySelect, modeSelect].forEach(function (el) {
-      if (el) el.addEventListener("change", render);
+    [qInput, serviceSelect, citySelect, modeSelect].forEach(function (el) {
+      if (el) {
+        el.addEventListener("change", render);
+        if (el === qInput) el.addEventListener("input", render);
+      }
     });
+  }
+
+  var params = new URLSearchParams(location.search);
+  if (params.get("q") && qInput) {
+    qInput.value = params.get("q");
+    render();
   }
 
   render();

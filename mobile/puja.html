@@ -16,15 +16,16 @@
     <main class="m-page m-page--detail puja-detail" id="puja-detail"></main>
     <footer class="m-sticky-bar m-sticky-bar--puja" id="puja-bar" hidden>
       <div>
-        <span class="m-sticky-bar__label">Starting from</span>
-        <strong class="m-sticky-bar__price" id="puja-price"></strong>
-        <span class="m-sticky-bar__meta" id="puja-sticky-meta">Verified pandit • Instant confirmation</span>
+        <span class="m-sticky-bar__label">Get quote</span>
+        <strong class="m-sticky-bar__price" id="puja-price">Personalized for you</strong>
+        <span class="m-sticky-bar__meta" id="puja-sticky-meta">Verified pandit • Book online</span>
       </div>
-      <a href="#" class="btn btn--accent" id="book-btn">Book Now</a>
+      <a href="#" class="btn btn--accent" id="book-btn">Get quote</a>
     </footer>
     <script src="puja-details-data.js"></script>
     <script src="pandit-details-data.js"></script>
     <script src="site-data.js"></script>
+    <script src="../booking-sidebar.js"></script>
     <script src="puja.js"></script>
     <script src="mobile-shell.js"></script>
     <script>
@@ -35,15 +36,8 @@
         function enhance() {
           var article = root.querySelector(".puja-detail-page");
           if (!article) return;
-          if (article.querySelector(".m-puja-overlay-nav")) return;
-
-          var heroVisual = article.querySelector(".puja-hero__visual");
-          if (heroVisual) {
-            heroVisual.insertAdjacentHTML(
-              "afterbegin",
-              '<div class="m-puja-overlay-nav"><a href="pujas" class="m-subheader__back" aria-label="Back">‹</a><button type="button" class="m-subheader__icon" aria-label="Share">⤴</button></div>'
-            );
-          }
+          if (article.dataset.enhanced) return;
+          article.dataset.enhanced = "1";
 
           function shareCurrentPage() {
             var shareData = { title: document.title, url: location.href };
@@ -64,16 +58,40 @@
           if (heroBody) {
             heroBody.insertAdjacentHTML(
               "beforeend",
-              '<section class="puja-panel m-puja-prep" aria-label="Booking prep"><h2 class="puja-panel__title">Choose schedule</h2><div class="m-chips m-chips--schedule"><button class="m-chip is-active" type="button" data-day="Today">Today</button><button class="m-chip" type="button" data-day="Tomorrow">Tomorrow</button><button class="m-chip" type="button" data-day="Pick date">Pick date</button></div><p class="puja-panel__lede">Address: Home service area confirmed at checkout.</p></section>'
+              '<section class="puja-prep" aria-label="Booking prep">' +
+              '<div class="puja-prep__head">' +
+              '<h2 class="puja-prep__title">Choose schedule</h2>' +
+              '<p class="puja-prep__sub">Pick when you want the ritual performed</p>' +
+              "</div>" +
+              '<div class="puja-prep__days" id="puja-schedule-days" role="listbox" aria-label="Schedule options">' +
+              '<button type="button" class="puja-prep__day is-active" role="option" aria-selected="true" data-day="Today">' +
+              '<span class="puja-prep__day-label">Today</span><span class="puja-prep__day-hint">Fastest slot</span></button>' +
+              '<button type="button" class="puja-prep__day" role="option" aria-selected="false" data-day="Tomorrow">' +
+              '<span class="puja-prep__day-label">Tomorrow</span><span class="puja-prep__day-hint">High availability</span></button>' +
+              '<button type="button" class="puja-prep__day" role="option" aria-selected="false" data-day="Pick date">' +
+              '<span class="puja-prep__day-label">Pick date</span><span class="puja-prep__day-hint">Flexible muhurat</span></button>' +
+              "</div>" +
+              '<div class="puja-prep__status" id="puja-schedule-status">' +
+              '<span class="puja-prep__status-dot" aria-hidden="true"></span>' +
+              '<p id="puja-schedule-status-text"><strong>Today</strong> · Slots available · Confirmed at checkout</p>' +
+              "</div>" +
+              '<div class="puja-prep__address">' +
+              '<span class="puja-prep__address-icon" aria-hidden="true">' +
+              '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-4.5 7-11a7 7 0 10-14 0c0 6.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>' +
+              "</span>" +
+              "<span>Home service area confirmed at checkout</span>" +
+              "</div>" +
+              "</section>"
             );
             heroBody.insertAdjacentHTML(
               "beforeend",
-              '<section class="m-puja-trustbar" aria-label="Trust highlights"><div class="m-puja-trustbar__item"><strong>Verified pandit</strong><span>background checked by Divine Center</span></div><div class="m-puja-trustbar__item"><strong>Transparent pricing</strong><span>no hidden charges at confirmation</span></div></section>'
+              '<section class="m-puja-trustbar" aria-label="Trust highlights"><div class="m-puja-trustbar__item"><strong>Verified pandit</strong><span>background checked by Divine Center</span></div><div class="m-puja-trustbar__item"><strong>Custom quote</strong><span>personalized pricing after we understand your needs</span></div></section>'
             );
           }
 
           article.querySelectorAll(".puja-article, .puja-panel").forEach(function (sec) {
             if (sec.closest(".puja-hero__body")) return;
+            if (sec.classList.contains("puja-samagri") || sec.dataset.skipAccordion === "true") return;
             if (sec.querySelector("details")) return;
             var title = sec.querySelector(".puja-article__title, .puja-panel__title");
             if (!title) return;
@@ -85,56 +103,44 @@
             });
             sec.innerHTML = '<details><summary>' + t + '</summary><div class="m-accordion-body">' + body + "</div></details>";
           });
-          var firstAccordion = article.querySelector(".puja-article details, .puja-panel details");
-          if (firstAccordion) firstAccordion.setAttribute("open", "");
-
-          var faqPatterns = [
-            /^what\s+is/i,
-            /^spiritual\s+significance/i,
-            /^ritual\s+process/i,
-            /^when\s+is/i,
-            /^what\s+is\s+included/i,
-            /^why\s+choose/i
-          ];
-          var faqInserted = false;
-          article.querySelectorAll(".puja-article, .puja-panel").forEach(function (sec) {
-            var summary = sec.querySelector("summary");
-            if (!summary) return;
-            var txt = (summary.textContent || "").trim();
-            var isFaq = faqPatterns.some(function (re) { return re.test(txt); });
-            if (!isFaq) return;
-            sec.classList.add("m-faq-item");
-            if (!faqInserted) {
-              sec.insertAdjacentHTML("beforebegin", '<h2 class="m-faq-head">Frequently Asked Questions</h2>');
-              faqInserted = true;
+          function updatePujaScheduleStatus(selected) {
+            var statusText = document.getElementById("puja-schedule-status-text");
+            if (statusText) {
+              if (selected === "Pick date") {
+                statusText.innerHTML =
+                  "<strong>Pick date</strong> · Select at checkout · Pandit confirms muhurat";
+              } else {
+                statusText.innerHTML =
+                  "<strong>" +
+                  selected +
+                  "</strong> · Slots available · Confirmed at checkout";
+              }
             }
-          });
+            var stickyMeta = document.getElementById("puja-sticky-meta");
+            if (stickyMeta) {
+              stickyMeta.textContent =
+                selected === "Pick date"
+                  ? "Flexible date · Pandit confirms muhurat"
+                  : selected + " slots · Verified pandit on-time";
+            }
+          }
 
-          article.querySelectorAll(".m-chips--schedule .m-chip").forEach(function (chip) {
-            chip.addEventListener("click", function () {
-              article.querySelectorAll(".m-chips--schedule .m-chip").forEach(function (c) {
-                c.classList.remove("is-active");
+          var scheduleDays = article.querySelector("#puja-schedule-days");
+          if (scheduleDays) {
+            scheduleDays.querySelectorAll(".puja-prep__day").forEach(function (chip) {
+              chip.addEventListener("click", function () {
+                scheduleDays.querySelectorAll(".puja-prep__day").forEach(function (c) {
+                  c.classList.remove("is-active");
+                  c.setAttribute("aria-selected", "false");
+                });
+                chip.classList.add("is-active");
+                chip.setAttribute("aria-selected", "true");
+                updatePujaScheduleStatus(chip.getAttribute("data-day") || "Today");
               });
-              chip.classList.add("is-active");
-              var selected = chip.getAttribute("data-day") || "Today";
-              var note = article.querySelector(".m-puja-prep .puja-panel__lede");
-              if (note) {
-                note.textContent =
-                  selected === "Pick date"
-                    ? "Select your preferred date at checkout. We will confirm the exact muhurat."
-                    : selected + " slots available. Address is confirmed during checkout.";
-              }
-              var stickyMeta = document.getElementById("puja-sticky-meta");
-              if (stickyMeta) {
-                stickyMeta.textContent =
-                  selected === "Pick date"
-                    ? "Flexible date • Pandit confirms muhurat"
-                    : selected + " slots • Verified pandit on-time";
-              }
             });
-          });
+          }
 
-          var shareBtn = article.querySelector(".m-puja-overlay-nav .m-subheader__icon");
+          var shareBtn = article.querySelector(".puja-hero__share");
           if (shareBtn && !shareBtn.dataset.bound) {
             shareBtn.dataset.bound = "1";
             shareBtn.addEventListener("click", shareCurrentPage);

@@ -144,48 +144,15 @@
     return DC.renderRecommendedPanditsSection(list, document.body.classList.contains("m-app"));
   }
 
-  function renderBookingCard(compact) {
-    var cls = compact ? "puja-booking-card puja-booking-card--sticky" : "puja-booking-card";
-    var badges = "";
-    if (detail.onlineAvailable) {
-      badges += '<span class="puja-hero__tag">Online</span>';
-    }
-    if (detail.doorstepAvailable) {
-      badges += '<span class="puja-hero__tag">Doorstep</span>';
-    }
-    return (
-      '<aside class="' +
-      cls +
-      '" aria-label="Book this service">' +
-      '<div class="puja-booking-card__thumb">' +
-      DC.imgPujaPhoto(p, "", 120, 90, "lazy") +
-      "</div>" +
-      '<p class="puja-booking-card__label">Book this puja</p>' +
-      "<h2 class=\"puja-booking-card__name\">" +
-      esc(detail.title) +
-      "</h2>" +
-      '<ul class="puja-booking-card__meta">' +
-      "<li><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M12 7v5l3 2.5\"/></svg> " +
-      esc(detail.durationLabel) +
-      "</li>" +
-      "<li><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><path d=\"M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2\"/><circle cx=\"12\" cy=\"7\" r=\"4\"/></svg> " +
-      esc(detail.pandits) +
-      "</li>" +
-      (detail.type
-        ? "<li><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><path d=\"M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z\"/></svg> " +
-          esc(detail.type) +
-          "</li>"
-        : "") +
-      "</ul>" +
-      (badges ? '<div class="puja-booking-card__tags">' + badges + "</div>" : "") +
-      '<div class="puja-booking-card__actions">' +
-      '<a href="contact?subject=' +
-      encodeURIComponent("Custom quote: " + detail.title) +
-      '" class="btn btn--accent btn--block">Get Custom Quotation</a>' +
-      "</div>" +
-      '<p class="puja-booking-card__fine">Verified pandits · Personalized planning</p>' +
-      "</aside>"
-    );
+  function renderBookingSidebar() {
+    var Sidebar = window.DivineCenterBookingSidebar;
+    if (!Sidebar) return "";
+    var eyebrow = detail.category || "Puja service";
+    return Sidebar.render({
+      eyebrow: eyebrow,
+      serviceTitle: detail.title,
+      hideCta: true,
+    });
   }
 
   var heroTags = "";
@@ -235,7 +202,7 @@
     whyHtml += "</section>";
   }
 
-  var quoteSubject = encodeURIComponent("Custom quote: " + detail.title);
+  var quoteSubject = encodeURIComponent("Get quote: " + detail.title);
   var bookingNote = (detail.bookingNote || "").replace(
     "Book directly with fixed pricing, or get a personalized quote for custom needs (e.g. samagri, venue).",
     ""
@@ -278,27 +245,29 @@
     '<div class="puja-hero__actions">' +
     '<a href="contact?subject=' +
     quoteSubject +
-    '" class="btn btn--accent">Get Custom Quotation</a>' +
+    '" class="btn btn--accent">Get quote</a>' +
     '<button class="btn btn--outline btn--icon puja-share-btn" type="button" aria-label="Share puja">' +
     SHARE_ICON +
     "</button>" +
     "</div>" +
     "</div></header>" +
     '<div class="puja-detail-layout">' +
-    '<div class="puja-detail-main">' +
-    samagriHtml +
-    '<div class="puja-articles">' +
-    renderSections(detail.sections) +
-    whyHtml +
-    "</div>" +
+    '<aside class="puja-detail-aside" aria-label="Book this puja">' +
+    renderBookingSidebar() +
     renderRecommendedPandits() +
-    '<aside class="puja-custom-cta">' +
+    '<div class="puja-custom-cta">' +
     "<div class=\"puja-custom-cta__copy\">" +
     "<h2>Need a Custom Puja?</h2>" +
     "<p>Get a personalized ceremony planned by our experts</p>" +
     "</div>" +
     '<a href="contact" class="btn btn--accent">Chat With Experts</a>' +
-    "</aside></div></div></article>";
+    "</div></aside>" +
+    '<div class="puja-detail-main">' +
+    samagriHtml +
+    '<div class="puja-articles">' +
+    renderSections(detail.sections) +
+    whyHtml +
+    "</div></div></div></article>";
 
   bindShareButton(root.querySelector(".puja-share-btn"), {
     title: detail.title + " | Divine Center",
@@ -310,10 +279,10 @@
   if (bar) {
     var priceEl = document.getElementById("puja-price");
     var bookBtn = document.getElementById("book-btn");
-    if (priceEl) priceEl.textContent = "";
+    if (priceEl) priceEl.textContent = "Personalized for you";
     if (bookBtn) {
       bookBtn.href = "contact?subject=" + quoteSubject;
-      bookBtn.textContent = "Custom Quotation";
+      bookBtn.textContent = "Get quote";
     }
     bar.hidden = false;
     var subheaderTitle = document.querySelector(".m-subheader__title");

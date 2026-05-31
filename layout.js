@@ -7,11 +7,36 @@
   var CFG = window.DivineCenterConfig;
   if (!CFG) return;
 
-  var BRAND_SVG =
-    '<img class="brand__icon" src="assets/logo/image.png" alt="Divine Center" width="56" height="56" />';
+  function siteRoot() {
+    var path = window.location.pathname.replace(/\/$/, "");
+    var segments = path.split("/").filter(Boolean);
+    if (segments.length && /\.html?$/i.test(segments[segments.length - 1])) {
+      segments.pop();
+    }
+    if (!segments.length) return "";
+    return segments.map(function () {
+      return "..";
+    }).join("/") + "/";
+  }
 
-  var BRAND_SVG_LIGHT =
-    '<img class="brand__icon" src="assets/logo/image.png" alt="Divine Center" width="52" height="52" />';
+  function siteHref(path) {
+    if (!path) return path;
+    if (/^(https?:|\/\/|#|mailto:|tel:)/i.test(path)) return path;
+    return siteRoot() + String(path).replace(/^\//, "");
+  }
+
+  function brandIconHtml(size) {
+    var px = size || 44;
+    return (
+      '<img class="brand__icon" src="' +
+      siteHref("assets/logo/image.png") +
+      '" alt="Divine Center" width="' +
+      px +
+      '" height="' +
+      px +
+      '" />'
+    );
+  }
 
   var SOCIAL_SVGS = {
     facebook:
@@ -48,7 +73,7 @@
 
   function authHref(key, fallback) {
     var a = CFG.auth || {};
-    return a[key] || fallback;
+    return siteHref(a[key] || fallback);
   }
 
   function storedLang() {
@@ -62,37 +87,99 @@
   function navLangHtml() {
     var current = storedLang();
     return (
-      '<div class="nav__lang" id="desktop-lang-switcher">' +
-      '<label class="visually-hidden" for="desktop-lang-select">Language</label>' +
-      '<span class="nav__lang-icon" aria-hidden="true">' +
-      '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">' +
+      '<div class="nav__lang nav__lang--icon" id="desktop-lang-switcher">' +
+      '<button type="button" class="nav__lang-btn" id="desktop-lang-btn" aria-expanded="false" aria-haspopup="listbox" aria-controls="desktop-lang-menu" aria-label="Choose language">' +
+      '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">' +
       '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 010 18M12 3a15 15 0 000 18"/>' +
-      "</svg></span>" +
-      '<select id="desktop-lang-select" class="nav__lang-select" aria-label="Language">' +
+      "</svg></button>" +
+      '<ul class="nav__lang-menu" id="desktop-lang-menu" role="listbox" aria-label="Language" hidden>' +
       LANG_OPTIONS.map(function (o) {
-        var sel = o[0] === current ? " selected" : "";
-        return '<option value="' + o[0] + '"' + sel + ">" + o[1] + "</option>";
+        var active = o[0] === current;
+        return (
+          '<li role="presentation"><button type="button" role="option" class="nav__lang-option' +
+          (active ? " is-active" : "") +
+          '" data-lang="' +
+          o[0] +
+          '" aria-selected="' +
+          (active ? "true" : "false") +
+          '">' +
+          o[1] +
+          "</button></li>"
+        );
       }).join("") +
-      "</select></div>"
+      "</ul></div>"
     );
   }
 
-  function bindNavLangSelect() {
-    var select = document.getElementById("desktop-lang-select");
-    if (!select || select.dataset.bound) return;
-    select.dataset.bound = "1";
-    select.addEventListener("change", function () {
-      try {
-        localStorage.setItem("dc_lang", select.value);
-      } catch (e) {}
-      if (window.applyGoogleTranslateLang) {
-        window.applyGoogleTranslateLang(select.value);
-      } else if (window.DesktopI18n && typeof window.DesktopI18n.setLang === "function") {
-        window.DesktopI18n.setLang(select.value);
-      } else {
-        location.reload();
+  function applyNavLang(lang) {
+    try {
+      localStorage.setItem("dc_lang", lang);
+    } catch (e) {}
+    if (window.applyGoogleTranslateLang) {
+      window.applyGoogleTranslateLang(lang);
+    } else if (window.DesktopI18n && typeof window.DesktopI18n.setLang === "function") {
+      window.DesktopI18n.setLang(lang);
+    } else {
+      location.reload();
+    }
+  }
+
+  function bindNavLangMenu() {
+    var btn = document.getElementById("desktop-lang-btn");
+    var menu = document.getElementById("desktop-lang-menu");
+    if (!btn || !menu || menu.dataset.bound) return;
+    menu.dataset.bound = "1";
+
+    function closeMenu() {
+      menu.hidden = true;
+      btn.setAttribute("aria-expanded", "false");
+    }
+
+    function openMenu() {
+      menu.hidden = false;
+      btn.setAttribute("aria-expanded", "true");
+    }
+
+    btn.addEventListener("click", function (e) {
+      e.stopPropagation();
+      if (menu.hidden) openMenu();
+      else closeMenu();
+    });
+
+    menu.querySelectorAll(".nav__lang-option").forEach(function (option) {
+      option.addEventListener("click", function () {
+        var lang = option.getAttribute("data-lang");
+        menu.querySelectorAll(".nav__lang-option").forEach(function (el) {
+          el.classList.remove("is-active");
+          el.setAttribute("aria-selected", "false");
+        });
+        option.classList.add("is-active");
+        option.setAttribute("aria-selected", "true");
+        closeMenu();
+        if (lang) applyNavLang(lang);
+      });
+    });
+
+    document.addEventListener("click", function (e) {
+      if (!menu.hidden && !menu.contains(e.target) && e.target !== btn && !btn.contains(e.target)) {
+        closeMenu();
       }
     });
+
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") closeMenu();
+    });
+  }
+
+  function navAuthHtml() {
+    return (
+      '<a href="' +
+      authHref("login", "login") +
+      '" class="btn btn--outline btn--sm nav__auth-btn nav__auth-btn--desktop">Login</a>' +
+      '<a href="' +
+      authHref("registerCustomer", "register") +
+      '" class="btn btn--accent btn--sm nav__auth-btn nav__auth-btn--desktop">Register</a>'
+    );
   }
 
   function navHtml() {
@@ -100,32 +187,36 @@
     var links = CFG.nav
       .map(function (item) {
         var cls = "nav__link" + (item.id === page ? " nav__link--active" : "");
-        return '<a href="' + item.href + '" class="' + cls + '">' + item.label + "</a>";
+        return '<a href="' + siteHref(item.href) + '" class="' + cls + '">' + item.label + "</a>";
       })
       .join("");
     return (
       links +
       '<a href="' +
       authHref("login", "login") +
-      '" class="nav__link nav__link--auth">Login</a>' +
+      '" class="nav__link nav__link--auth nav__link--auth-mobile">Login</a>' +
       '<a href="' +
       authHref("registerCustomer", "register") +
-      '" class="nav__link nav__link--auth">Register</a>'
+      '" class="nav__link nav__link--auth nav__link--auth-mobile">Register</a>'
     );
   }
 
   function renderNav(target) {
     if (!target) return;
-    if (target.getAttribute("data-nav") === "skip" || document.body.classList.contains("page-auth")) {
+    if (
+      target.getAttribute("data-nav") === "skip" ||
+      document.body.classList.contains("page-auth") ||
+      document.body.classList.contains("page-portal")
+    ) {
       target.innerHTML = "";
       return;
     }
     var overlay = target.getAttribute("data-nav") === "overlay";
-    var homeHref = activePage() === "home" ? "#top" : "index";
+    var homeHref = activePage() === "home" ? "#top" : siteHref("index");
     var navClass = overlay ? "nav nav--overlay" : "nav";
     var brandClass = overlay ? "brand brand--overlay brand--mark" : "brand brand--mark";
     var lightToggle = overlay ? " nav__toggle--light" : "";
-    var brandSvg = BRAND_SVG;
+    var brandSvg = brandIconHtml(44);
     target.innerHTML =
       '<header class="' +
       navClass +
@@ -143,6 +234,7 @@
       "</nav>" +
       '<div class="nav__actions">' +
       navLangHtml() +
+      navAuthHtml() +
       '<button type="button" class="nav__toggle' +
       lightToggle +
       '" id="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Open navigation">' +
@@ -184,9 +276,8 @@
     return CFG.nav
       .map(function (item) {
         var cls = item.id === highlight ? ' class="site-footer__link--accent"' : "";
-        var href = item.href;
-        if (item.id === "home") href = "index";
         var label = labels[item.id] || item.label;
+        var href = siteHref(item.id === "home" ? "index" : item.href);
         return "<li><a href=\"" + href + "\"" + cls + ">" + label + "</a></li>";
       })
       .join("");
@@ -215,6 +306,12 @@
 
   function renderFooter(target) {
     if (!target) return;
+    if (
+      document.body.classList.contains("page-portal--customer") ||
+      document.body.classList.contains("page-portal--pandit")
+    ) {
+      return;
+    }
     var rich = target.getAttribute("data-footer") === "rich";
     var highlight = target.getAttribute("data-footer-highlight") || "";
     var c = CFG.contact;
@@ -228,8 +325,10 @@
 
     var brandBlock =
       '<div class="site-footer__col site-footer__col--brand">' +
-      '<a href="index" class="brand brand--light brand--mark site-footer__brand" aria-label="Divine Center home">' +
-      BRAND_SVG_LIGHT +
+      '<a href="' +
+      siteHref("index") +
+      '" class="brand brand--light brand--mark site-footer__brand" aria-label="Divine Center home">' +
+      brandIconHtml(40) +
       "</a>" +
       '<p class="site-footer__mission">' +
       (rich
@@ -285,10 +384,19 @@
       (rich ? "" : '<li><a href="' + mobileViewHref() + '">Mobile view</a></li>') +
       "</ul></div>" +
       '<div class="site-footer__col"><h3 class="site-footer__heading">Company</h3><ul class="site-footer__list">' +
-      '<li><a href="about">About Us</a></li><li><a href="contact">Contact &amp; Support</a></li>' +
-      '<li><a href="index#top">How to Book</a></li><li><a href="index#top">Privacy Policy</a></li>' +
-      (rich ? '<li><a href="index#top">Terms &amp; Conditions</a></li>' : '<li><a href="index#top">Terms of Service</a></li>') +
-      "</ul></div>" +
+      '<li><a href="' + siteHref("about") + '">About Us</a></li><li><a href="' + siteHref("contact") + '">Contact &amp; Support</a></li>' +
+      '<li><a href="' + siteHref("for-customers") + '">For Customers</a></li><li><a href="' + siteHref("for-pandits") + '">For Pandits</a></li>' +
+      '<li><a href="' + siteHref("privacy-policy") + '">Privacy Policy</a></li>' +
+      '<li><a href="' + siteHref("terms-conditions") + '">' +
+      (rich ? "Terms &amp; Conditions" : "Terms of Service") +
+      "</a></li></ul></div>" +
+      (CFG.demoMode !== false
+        ? '<div class="site-footer__col"><h3 class="site-footer__heading">Your account</h3><ul class="site-footer__list">' +
+          '<li><a href="' + siteHref("pandits/booking") + '">Book a puja</a></li>' +
+          '<li><a href="' + siteHref("customer/dashboard") + '">Customer dashboard</a></li>' +
+          '<li><a href="' + siteHref("user/dashboard") + '">Pandit dashboard</a></li>' +
+          '<li><a href="' + siteHref("login") + '">Sign in</a></li></ul></div>'
+        : "") +
       contactBlock +
       "</div>" +
       '<div class="site-footer__legal">' +
@@ -461,15 +569,36 @@
     }
   }
 
+  function initDemoMode() {
+    if (CFG.demoMode === false) return;
+    var base = "";
+    var path = window.location.pathname;
+    if (/\/pandits\//.test(path)) base = "../";
+    if (!document.getElementById("dc-demo-css")) {
+      var link = document.createElement("link");
+      link.id = "dc-demo-css";
+      link.rel = "stylesheet";
+      link.href = base + "demo-mode.css";
+      document.head.appendChild(link);
+    }
+    if (!window.DivineCenterDemo && !document.getElementById("dc-demo-js")) {
+      var script = document.createElement("script");
+      script.id = "dc-demo-js";
+      script.src = base + "demo-mode.js";
+      document.body.appendChild(script);
+    }
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
     renderNav(document.getElementById("site-nav"));
     renderFooter(document.getElementById("site-footer"));
     initNavToggle();
-    bindNavLangSelect();
+    bindNavLangMenu();
     initContactForms();
     applyContactPlaceholders();
     initGoogleTranslate();
     removeLegacyLanguageFab();
+    initDemoMode();
   });
 
   window.DivineLayout = { renderNav: renderNav, renderFooter: renderFooter, initNavToggle: initNavToggle };
